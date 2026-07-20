@@ -1,0 +1,41 @@
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Install pnpm
+RUN npm install -g pnpm@9.0.0
+
+# Copy workspace files
+COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./
+COPY package.json ./
+
+# Copy packages and apps
+COPY backend/ ./backend/
+COPY shared/ ./shared/
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Build the api
+RUN pnpm --filter @project/database db:generate
+RUN pnpm --filter api build
+
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+# Copy built files and dependencies
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/backend/api/dist ./dist
+COPY --from=builder /app/backend/api/package.json ./package.json
+COPY --from=builder /app/backend/database ./backend/database
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=4002
+
+EXPOSE 4002
+
+# Start the server
+CMD ["node", "dist/main.js"]

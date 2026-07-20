@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+}
+
+/* Estilos para solucionar opciones transparentes en Select de Tremor */
+@layer components {
+  [data-tremor-select-listbox] {
+    @apply bg-white border border-gray-200 shadow-md rounded-md !important;
+  }
+  [data-tremor-select-option] {
+    @apply bg-white text-gray-900 hover:bg-gray-100 !important;
+  }
+}

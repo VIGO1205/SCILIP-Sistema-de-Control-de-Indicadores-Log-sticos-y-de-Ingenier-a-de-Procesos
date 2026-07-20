@@ -1,0 +1,266 @@
+<!DOCTYPE html> 
+ <html lang="es"> 
+ <head> 
+     <meta charset="UTF-8"> 
+     <title>Reporte Costo Transporte vs Ventas</title> 
+     <style> 
+         * { 
+             margin: 0; 
+             padding: 0; 
+             box-sizing: border-box; 
+         } 
+         
+         body { 
+             font-family: 'Helvetica', 'Arial', sans-serif; 
+             font-size: 10pt; 
+             line-height: 1.4; 
+             color: #333; 
+             padding: 20px; 
+         } 
+         
+         .header { 
+             text-align: center; 
+             margin-bottom: 30px; 
+             border-bottom: 2px solid #2563eb; 
+             padding-bottom: 15px; 
+         } 
+         
+         .logo { 
+             max-height: 60px; 
+             margin-bottom: 10px; 
+         } 
+         
+         .company-name { 
+             font-size: 18pt; 
+             font-weight: bold; 
+             color: #1e293b; 
+         } 
+         
+         .report-title { 
+             font-size: 14pt; 
+             font-weight: bold; 
+             color: #2563eb; 
+             margin-top: 10px; 
+         } 
+         
+         .report-subtitle { 
+             font-size: 10pt; 
+             color: #64748b; 
+             margin-top: 5px; 
+         } 
+         
+         .metadata { 
+             background-color: #f8fafc; 
+             padding: 10px; 
+             margin: 20px 0; 
+             border-radius: 5px; 
+             font-size: 9pt; 
+             display: flex; 
+             justify-content: space-between; 
+         } 
+         
+         .summary-cards { 
+             display: flex; 
+             gap: 20px; 
+             margin: 20px 0; 
+         } 
+         
+         .card { 
+             flex: 1; 
+             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+             padding: 15px; 
+             border-radius: 10px; 
+             color: white; 
+             text-align: center; 
+         } 
+         
+         .card.blue { 
+             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); 
+         } 
+         
+         .card.green { 
+             background: linear-gradient(135deg, #10b981 0%, #047857 100%); 
+         } 
+         
+         .card.orange { 
+             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
+         } 
+         
+         .card-title { 
+             font-size: 10pt; 
+             opacity: 0.9; 
+             margin-bottom: 8px; 
+         } 
+         
+         .card-value { 
+             font-size: 20pt; 
+             font-weight: bold; 
+         } 
+         
+         .card-subtitle { 
+             font-size: 8pt; 
+             margin-top: 5px; 
+             opacity: 0.8; 
+         } 
+         
+         .chart-container { 
+             margin: 30px 0; 
+             text-align: center; 
+         } 
+         
+         .chart-image { 
+             max-width: 100%; 
+             height: auto; 
+             border: 1px solid #e2e8f0; 
+             border-radius: 8px; 
+         } 
+         
+         .data-table { 
+             width: 100%; 
+             border-collapse: collapse; 
+             margin: 20px 0; 
+             font-size: 9pt; 
+         } 
+         
+         .data-table th { 
+             background-color: #2563eb; 
+             color: white; 
+             padding: 8px; 
+             text-align: center; 
+             border: 1px solid #2563eb; 
+         } 
+         
+         .data-table td { 
+             border: 1px solid #cbd5e1; 
+             padding: 6px; 
+             text-align: center; 
+         } 
+         
+         .data-table tr:nth-child(even) { 
+             background-color: #f8fafc; 
+         } 
+         
+         .trend-up { 
+             color: #ef4444; 
+         } 
+         
+         .trend-down { 
+             color: #10b981; 
+         } 
+         
+         .footer { 
+             margin-top: 40px; 
+             padding-top: 15px; 
+             border-top: 1px solid #cbd5e1; 
+             font-size: 8pt; 
+             color: #64748b; 
+             text-align: center; 
+         } 
+         
+         .insight-box { 
+             background-color: #f0fdf4; 
+             border-left: 4px solid #10b981; 
+             padding: 12px; 
+             margin: 20px 0; 
+             border-radius: 4px; 
+         } 
+         
+         .insight-title { 
+             font-weight: bold; 
+             color: #047857; 
+             margin-bottom: 8px; 
+         } 
+     </style> 
+ </head> 
+ <body> 
+     <div class="header"> 
+         <div class="company-name">{{companyInfo.name}}</div> 
+         <div class="report-title">Reporte de Gestión Logística</div> 
+         <div class="report-subtitle">KPI #18 - Costo de Transporte vs Ventas</div> 
+     </div> 
+     
+     <div class="metadata"> 
+         <span><strong>Año:</strong> {{year}}</span> 
+         <span><strong>Fecha de generación:</strong> {{generatedAt}}</span> 
+         <span><strong>Generado por:</strong> {{generatedBy}}</span> 
+     </div> 
+     
+     <div class="summary-cards"> 
+         <div class="card blue"> 
+             <div class="card-title">Costo Total Transporte</div> 
+             <div class="card-value">{{formatCurrency summary.totalTransportCost}}</div> 
+             <div class="card-subtitle">Acumulado {{year}}</div> 
+         </div> 
+         <div class="card green"> 
+             <div class="card-title">Ventas Totales</div> 
+             <div class="card-value">{{formatCurrency summary.totalSales}}</div> 
+             <div class="card-subtitle">Acumulado {{year}}</div> 
+         </div> 
+         <div class="card orange"> 
+             <div class="card-title">Promedio Anual</div> 
+             <div class="card-value">{{formatPercentage summary.averagePercentage}}</div> 
+             <div class="card-subtitle">Costo Transporte / Ventas</div> 
+         </div> 
+     </div> 
+     
+     <div class="insight-box"> 
+         <div class="insight-title">📊 Análisis del Indicador</div> 
+         <p> 
+             El <strong>Costo de Transporte representa el {{formatPercentage summary.averagePercentage}} de las ventas totales</strong>. 
+             La tendencia es <span class="{{#if (eq summary.trend 'up')}}trend-up{{else}}trend-down{{/if}}"> 
+             {{#if (eq summary.trend 'up')}}▲ al alza{{else if (eq summary.trend 'down')}}▼ a la baja{{else}}➡ estable{{/if}} 
+             </span>. 
+             {{#if (gt summary.averagePercentage 5)}} 
+             ⚠️ El costo de transporte supera el 5% de las ventas, se recomienda revisar rutas y negociar tarifas. 
+             {{else}} 
+             ✅ El costo de transporte está dentro del rango óptimo (<5% de ventas). 
+             {{/if}} 
+         </p> 
+     </div> 
+     
+     <div class="chart-container"> 
+         <h3 style="margin-bottom: 10px;">Evolución Mensual</h3> 
+         <img class="chart-image" src="{{chartImage}}" alt="Gráfico de evolución"> 
+     </div> 
+     
+     <h3 style="margin: 20px 0 10px 0;">📋 Datos Detallados por Mes</h3> 
+     <table class="data-table"> 
+         <thead> 
+             <tr> 
+                 <th>Mes</th> 
+                 <th>Costo Transporte</th> 
+                 <th>Ventas Totales</th> 
+                 <th>% Costo / Venta</th> 
+                 <th>Evaluación</th> 
+             </tr> 
+         </thead> 
+         <tbody> 
+             {{#each monthlyData}} 
+             <tr> 
+                 <td><strong>{{month}}</strong></td> 
+                 <td>{{formatCurrency transportCost}}</td> 
+                 <td>{{formatCurrency totalSales}}</td> 
+                 <td class="{{#if (gt percentage 5)}}trend-up{{else}}trend-down{{/if}}"> 
+                     {{formatPercentage percentage}} 
+                 </td> 
+                 <td> 
+                     {{#if (gt percentage 5)}} 
+                     ⚠️ Sobre meta 
+                     {{else if (gt percentage 4)}} 
+                     ⚠️ Cerca del límite 
+                     {{else}} 
+                     ✅ Óptimo 
+                     {{/if}} 
+                 </td> 
+             </tr> 
+             {{/each}} 
+         </tbody> 
+     </table> 
+     
+     <div class="footer"> 
+         <p>Este reporte es generado automáticamente por el Sistema de Gestión Logística.</p> 
+         <p>Meta del KPI: Costo de Transporte &lt; 5% de las Ventas Totales</p> 
+         <p>© {{year}} {{companyInfo.name}} - Todos los derechos reservados</p> 
+     </div> 
+ </body> 
+ </html> 

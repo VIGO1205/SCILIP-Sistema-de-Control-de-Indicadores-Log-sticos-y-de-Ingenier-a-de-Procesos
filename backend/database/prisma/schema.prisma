@@ -1,0 +1,915 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(50)
+  description String?
+  permissions Json     @default("{\"kpis\": [], \"modules\": [], \"reports\": [], \"settings\": false}")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+  users       User[]
+
+  @@map("roles")
+}
+
+model User {
+  id                     String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email                  String              @unique @db.VarChar(255)
+  passwordHash           String              @map("password_hash") @db.VarChar(255)
+  fullName               String              @map("full_name") @db.VarChar(255)
+  roleId                 Int                 @map("role_id")
+  avatarUrl              String?             @map("avatar_url")
+  department             String?             @db.VarChar(100)
+  phone                  String?             @db.VarChar(20)
+  isActive               Boolean             @default(true) @map("is_active")
+  emailVerified          Boolean             @default(false) @map("email_verified")
+  lastLoginAt            DateTime?           @map("last_login_at")
+  lastLoginIp            String?             @map("last_login_ip") @db.Inet
+  createdAt              DateTime            @default(now()) @map("created_at")
+  updatedAt              DateTime            @default(now()) @updatedAt @map("updated_at")
+  deletedAt              DateTime?           @map("deleted_at")
+  auditLogs              AuditLog[]
+  dispatches             Dispatch[]
+  inventoryMovements     InventoryMovement[]
+  kpiAlertAcknowledged   KpiAlertHistory[]   @relation("AcknowledgedBy")
+  kpiAlertNotified       KpiAlertHistory[]   @relation("NotifiedTo")
+  kpiCalculations        KpiValue[]
+  operationalCosts       OperationalCost[]
+  inventoryCounts        PhysicalInventory[] @relation("CountedBy")
+  inventoryVerifications PhysicalInventory[] @relation("VerifiedBy")
+  approvals              PurchaseOrder[]     @relation("ApprovedBy")
+  purchases              PurchaseOrder[]     @relation("CreatedBy")
+  reportTemplates        ReportTemplate[]
+  sales                  Sale[]
+  scheduledReports       ScheduledReport[]
+  sessions               UserSession[]
+  supplierRatings        SupplierRatingHistory[]
+  role                   Role                @relation(fields: [roleId], references: [id])
+
+  @@map("users")
+}
+
+model UserSession {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  token     String   @db.VarChar(500)
+  expiresAt DateTime @map("expires_at")
+  ipAddress String?  @map("ip_address") @db.Inet
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_sessions")
+}
+
+model AuditLog {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId     String?  @map("user_id") @db.Uuid
+  action     String   @db.VarChar(100)
+  entityType String?  @map("entity_type") @db.VarChar(50)
+  entityId   String?  @map("entity_id") @db.VarChar(100)
+  oldValues  Json?    @map("old_values")
+  newValues  Json?    @map("new_values")
+  ipAddress  String?  @map("ip_address") @db.Inet
+  userAgent  String?  @map("user_agent")
+  createdAt  DateTime @default(now()) @map("created_at")
+  user       User?    @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt(sort: Desc)], map: "idx_audit_logs_user")
+  @@index([entityType, entityId], map: "idx_audit_logs_entity")
+  @@map("audit_logs")
+}
+
+model Company {
+  id                  String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  taxId               String               @unique @map("tax_id") @db.VarChar(50)
+  legalName           String               @map("legal_name") @db.VarChar(255)
+  tradeName           String?              @map("trade_name") @db.VarChar(255)
+  logoUrl             String?              @map("logo_url")
+  logoDarkUrl         String?              @map("logo_dark_url")
+  email               String?              @db.VarChar(255)
+  phone               String?              @db.VarChar(50)
+  address             String?
+  city                String?              @db.VarChar(100)
+  country             String?              @db.VarChar(100)
+  website             String?              @db.VarChar(255)
+  settings            Json?                @default("{}")
+  createdAt           DateTime             @default(now()) @map("created_at")
+  updatedAt           DateTime             @default(now()) @updatedAt @map("updated_at")
+  branches            Branch[]
+  customers           Customer[]
+  dispatches          Dispatch[]
+  employees           Employee[]
+  importExportRecords ImportExportRecord[]
+  inventoryMovements  InventoryMovement[]
+  kpiValues           KpiValue[]
+  machines            Machine[]
+  maintenanceOrders   MaintenanceOrder[]
+  operationalCosts    OperationalCost[]
+  physicalInventories PhysicalInventory[]
+  productionRecords   ProductionRecord[]
+  products            Product[]
+  purchaseOrders      PurchaseOrder[]
+  reportTemplates     ReportTemplate[]
+  sales               Sale[]
+  scheduledReports    ScheduledReport[]
+  suppliers           Supplier[]
+  transportCosts      TransportCost[]
+  vehicles            Vehicle[]
+  warehouses          Warehouse[]
+
+  @@map("companies")
+}
+
+model Customer {
+  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId  String     @map("company_id") @db.Uuid
+  name       String     @db.VarChar(255)
+  taxId      String?    @map("tax_id") @db.VarChar(50)
+  email      String?    @db.VarChar(255)
+  phone      String?    @db.VarChar(50)
+  address    String?
+  isActive   Boolean    @default(true) @map("is_active")
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @default(now()) @updatedAt @map("updated_at")
+  company    Company    @relation(fields: [companyId], references: [id])
+  dispatches Dispatch[]
+
+  @@index([companyId, name], map: "idx_customers_company_name")
+  @@map("customers")
+}
+
+model Branch {
+  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId        String            @map("company_id") @db.Uuid
+  code             String            @db.VarChar(50)
+  name             String            @db.VarChar(255)
+  address          String?
+  city             String?           @db.VarChar(100)
+  phone            String?           @db.VarChar(50)
+  email            String?           @db.VarChar(255)
+  isMain           Boolean           @default(false) @map("is_main")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @default(now()) @updatedAt @map("updated_at")
+  company          Company           @relation(fields: [companyId], references: [id])
+  employees        Employee[]
+  kpiValues        KpiValue[]
+  machines         Machine[]
+  operationalCosts OperationalCost[]
+  sales            Sale[]
+  vehicles         Vehicle[]
+  warehouses       Warehouse[]
+
+  @@unique([companyId, code])
+  @@map("branches")
+}
+
+model Supplier {
+  id                  String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId           String               @map("company_id") @db.Uuid
+  code                String               @db.VarChar(50)
+  name                String               @db.VarChar(255)
+  taxId               String?              @map("tax_id") @db.VarChar(50)
+  email               String?              @db.VarChar(255)
+  phone               String?              @db.VarChar(50)
+  address             String?
+  contactPerson       String?              @map("contact_person") @db.VarChar(255)
+  contactPhone        String?              @map("contact_phone") @db.VarChar(50)
+  paymentTerms        String?              @map("payment_terms") @db.VarChar(100)
+  leadTimeDays        Int?                 @default(0) @map("lead_time_days")
+  isCertified         Boolean              @default(false) @map("is_certified")
+  certificationDate   DateTime?            @map("certification_date") @db.Date
+  certificationExpiry DateTime?            @map("certification_expiry") @db.Date
+  certificationDocUrl String?              @map("certification_document_url")
+  rating              Decimal?             @db.Decimal(3, 2)
+  status              String?              @default("active") @db.VarChar(20)
+  createdAt           DateTime             @default(now()) @map("created_at")
+  updatedAt           DateTime             @default(now()) @updatedAt @map("updated_at")
+  importExportRecords ImportExportRecord[]
+  purchaseOrders      PurchaseOrder[]
+  ratingHistory       SupplierRatingHistory[]
+  company             Company              @relation(fields: [companyId], references: [id])
+
+  @@unique([companyId, code])
+  @@map("suppliers")
+}
+
+model SupplierRatingHistory {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  supplierId  String    @map("supplier_id") @db.Uuid
+  companyId   String    @map("company_id") @db.Uuid
+  autoRating  Decimal   @map("auto_rating") @db.Decimal(3, 2)
+  manualRating Decimal? @map("manual_rating") @db.Decimal(3, 2)
+  finalRating Decimal   @map("final_rating") @db.Decimal(3, 2)
+  comment     String?
+  createdBy   String?   @map("created_by") @db.Uuid
+  createdAt   DateTime  @default(now()) @map("created_at")
+  supplier    Supplier  @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  creator     User?     @relation(fields: [createdBy], references: [id])
+
+  @@index([supplierId, createdAt(sort: Desc)], map: "idx_supplier_rating_history")
+  @@map("supplier_rating_history")
+}
+
+model Product {
+  id                  String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId           String               @map("company_id") @db.Uuid
+  sku                 String               @db.VarChar(100)
+  name                String               @db.VarChar(255)
+  description         String?
+  category            String?              @db.VarChar(100)
+  subcategory         String?              @db.VarChar(100)
+  brand               String?              @db.VarChar(100)
+  unitOfMeasure       String?              @map("unit_of_measure") @db.VarChar(20)
+  weightKg            Decimal?             @map("weight_kg") @db.Decimal(12, 4)
+  volumeM3            Decimal?             @map("volume_m3") @db.Decimal(12, 4)
+  dimensions          Json?
+  abcClassification   String?              @map("abc_classification") @db.Char(1)
+  minStock            Int?                 @default(0) @map("min_stock")
+  maxStock            Int?                 @map("max_stock")
+  reorderPoint        Int?                 @map("reorder_point")
+  unitCost            Decimal?             @map("unit_cost") @db.Decimal(15, 4)
+  sellingPrice        Decimal?             @map("selling_price") @db.Decimal(15, 4)
+  isActive            Boolean              @default(true) @map("is_active")
+  createdAt           DateTime             @default(now()) @map("created_at")
+  updatedAt           DateTime             @default(now()) @updatedAt @map("updated_at")
+  dispatchLines       DispatchLine[]
+  importExportRecords ImportExportRecord[]
+  inventoryMovements  InventoryMovement[]
+  physicalInventories PhysicalInventory[]
+  productionRecords   ProductionRecord[]
+  company             Company              @relation(fields: [companyId], references: [id])
+  purchaseOrderLines  PurchaseOrderLine[]
+  saleLines           SaleLine[]
+
+  @@unique([companyId, sku])
+  @@map("products")
+}
+
+model Warehouse {
+  id                   String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId            String              @map("company_id") @db.Uuid
+  branchId             String?             @map("branch_id") @db.Uuid
+  code                 String              @db.VarChar(50)
+  name                 String              @db.VarChar(255)
+  type                 String?             @db.VarChar(50)
+  address              String?
+  city                 String?             @db.VarChar(100)
+  totalAreaM2          Decimal?            @map("total_area_m2") @db.Decimal(12, 2)
+  usableAreaM2         Decimal?            @map("usable_area_m2") @db.Decimal(12, 2)
+  storageCapacityUnits Int?                @map("storage_capacity_units")
+  dockDoors            Int?                @map("dock_doors")
+  operatingHours       Json?               @map("operating_hours")
+  contactPerson        String?             @map("contact_person") @db.VarChar(255)
+  contactPhone         String?             @map("contact_phone") @db.VarChar(50)
+  isActive             Boolean             @default(true) @map("is_active")
+  createdAt            DateTime            @default(now()) @map("created_at")
+  updatedAt            DateTime            @default(now()) @updatedAt @map("updated_at")
+  dispatches           Dispatch[]
+  inventoryMovements   InventoryMovement[]
+  locations            Location[]
+  operationalCosts     OperationalCost[]
+  physicalInventories  PhysicalInventory[]
+  purchaseOrders       PurchaseOrder[]
+  branch               Branch?             @relation(fields: [branchId], references: [id])
+  company              Company             @relation(fields: [companyId], references: [id])
+
+  @@unique([companyId, code])
+  @@map("warehouses")
+}
+
+model Location {
+  id                  String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  warehouseId         String              @map("warehouse_id") @db.Uuid
+  zone                String?             @db.VarChar(50)
+  aisle               String?             @db.VarChar(50)
+  rack                String?             @db.VarChar(50)
+  level               String?             @db.VarChar(10)
+  position            String?             @db.VarChar(10)
+  locationCode        String              @map("location_code") @db.VarChar(100)
+  locationType        String?             @map("location_type") @db.VarChar(50)
+  maxWeightKg         Decimal?            @map("max_weight_kg") @db.Decimal(12, 2)
+  maxVolumeM3         Decimal?            @map("max_volume_m3") @db.Decimal(12, 2)
+  isOccupied          Boolean             @default(false) @map("is_occupied")
+  createdAt           DateTime            @default(now()) @map("created_at")
+  inventoryMovements  InventoryMovement[]
+  warehouse           Warehouse           @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  physicalInventories PhysicalInventory[]
+
+  @@unique([warehouseId, locationCode])
+  @@map("locations")
+}
+
+model Machine {
+  id                String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId         String             @map("company_id") @db.Uuid
+  branchId          String?            @map("branch_id") @db.Uuid
+  code              String             @db.VarChar(50)
+  name              String             @db.VarChar(255)
+  type              String?            @db.VarChar(100)
+  brand             String?            @db.VarChar(100)
+  model             String?            @db.VarChar(100)
+  serialNumber      String?            @map("serial_number") @db.VarChar(100)
+  maxCapacity       Decimal?           @map("max_capacity") @db.Decimal(12, 2)
+  capacityUnit      String?            @map("capacity_unit") @db.VarChar(50)
+  efficiencyRate    Decimal?           @default(100.00) @map("efficiency_rate") @db.Decimal(5, 2)
+  hourlyRate        Decimal?           @map("hourly_rate") @db.Decimal(15, 2)
+  installationDate  DateTime?          @map("installation_date") @db.Date
+  lastMaintenance   DateTime?          @map("last_maintenance") @db.Date
+  nextMaintenance   DateTime?          @map("next_maintenance") @db.Date
+  status            String?            @default("operational") @db.VarChar(20)
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @default(now()) @updatedAt @map("updated_at")
+  branch              Branch?            @relation(fields: [branchId], references: [id])
+  company             Company            @relation(fields: [companyId], references: [id])
+  productionRecords   ProductionRecord[]
+  maintenanceOrders   MaintenanceOrder[]
+
+  @@unique([companyId, code])
+  @@map("machines")
+}
+
+model MaintenanceOrder {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId     String    @map("company_id") @db.Uuid
+  machineId     String    @map("machine_id") @db.Uuid
+  type          String    @db.VarChar(50)
+  title         String    @db.VarChar(255)
+  description   String?
+  status        String    @default("scheduled") @db.VarChar(20)
+  priority      String    @default("medium") @db.VarChar(20)
+  scheduledDate DateTime  @map("scheduled_date") @db.Date
+  startDate     DateTime? @map("start_date") @db.Date
+  endDate       DateTime? @map("end_date") @db.Date
+  technician    String?   @db.VarChar(255)
+  cost          Decimal?  @db.Decimal(15, 2)
+  partsUsed     Json?     @map("parts_used")
+  notes         String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
+  company       Company   @relation(fields: [companyId], references: [id])
+  machine       Machine   @relation(fields: [machineId], references: [id])
+
+  @@index([machineId, status], map: "idx_maintenance_orders_machine_status")
+  @@map("maintenance_orders")
+}
+
+model Vehicle {
+  id                    String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId             String          @map("company_id") @db.Uuid
+  branchId              String?         @map("branch_id") @db.Uuid
+  plateNumber           String          @map("plate_number") @db.VarChar(20)
+  brand                 String?         @db.VarChar(100)
+  model                 String?         @db.VarChar(100)
+  year                  Int?
+  vehicleType           String?         @map("vehicle_type") @db.VarChar(50)
+  maxWeightKg           Decimal?        @map("max_weight_kg") @db.Decimal(12, 2)
+  maxVolumeM3           Decimal?        @map("max_volume_m3") @db.Decimal(12, 2)
+  fuelType              String?         @map("fuel_type") @db.VarChar(20)
+  fuelEfficiency        Decimal?        @map("fuel_efficiency") @db.Decimal(8, 2)
+  insuranceExpiry       DateTime?       @map("insurance_expiry") @db.Date
+  technicalReviewExpiry DateTime?       @map("technical_review_expiry") @db.Date
+  isOwnVehicle          Boolean         @default(true) @map("is_own_vehicle")
+  leaseCost             Decimal?        @map("lease_cost") @db.Decimal(15, 2)
+  status                String?         @default("active") @db.VarChar(20)
+  createdAt             DateTime        @default(now()) @map("created_at")
+  updatedAt             DateTime        @default(now()) @updatedAt @map("updated_at")
+  dispatches            Dispatch[]
+  drivers               Driver[]
+  transportCosts        TransportCost[]
+  branch                Branch?         @relation(fields: [branchId], references: [id])
+  company               Company         @relation(fields: [companyId], references: [id])
+
+  @@unique([companyId, plateNumber])
+  @@map("vehicles")
+}
+
+model Employee {
+  id                String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId         String             @map("company_id") @db.Uuid
+  branchId          String?            @map("branch_id") @db.Uuid
+  employeeCode      String             @map("employee_code") @db.VarChar(50)
+  fullName          String             @map("full_name") @db.VarChar(255)
+  documentId        String?            @map("document_id") @db.VarChar(50)
+  position          String?            @db.VarChar(100)
+  department        String?            @db.VarChar(100)
+  hireDate          DateTime?          @map("hire_date") @db.Date
+  salary            Decimal?           @db.Decimal(15, 2)
+  hourlyRate        Decimal?           @map("hourly_rate") @db.Decimal(12, 2)
+  shift             String?            @db.VarChar(50)
+  supervisorId      String?            @map("supervisor_id") @db.Uuid
+  isActive          Boolean            @default(true) @map("is_active")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @default(now()) @updatedAt @map("updated_at")
+  driver            Driver?
+  branch            Branch?            @relation(fields: [branchId], references: [id])
+  company           Company            @relation(fields: [companyId], references: [id])
+  supervisor        Employee?          @relation("SupervisorToEmployee", fields: [supervisorId], references: [id])
+  subordinates      Employee[]         @relation("SupervisorToEmployee")
+  productionRecords ProductionRecord[]
+
+  @@unique([companyId, employeeCode])
+  @@map("employees")
+}
+
+model Driver {
+  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  employeeId        String          @unique @map("employee_id") @db.Uuid
+  licenseNumber     String?         @map("license_number") @db.VarChar(50)
+  licenseType       String?         @map("license_type") @db.VarChar(50)
+  licenseExpiry     DateTime?       @map("license_expiry") @db.Date
+  assignedVehicleId String?         @map("assigned_vehicle_id") @db.Uuid
+  routesAssigned    String[]        @map("routes_assigned")
+  isActive          Boolean         @default(true) @map("is_active")
+  createdAt         DateTime        @default(now()) @map("created_at")
+  updatedAt         DateTime        @default(now()) @updatedAt @map("updated_at")
+  dispatches        Dispatch[]
+  vehicle           Vehicle?        @relation(fields: [assignedVehicleId], references: [id])
+  employee          Employee        @relation(fields: [employeeId], references: [id])
+  transportCosts    TransportCost[]
+
+  @@map("drivers")
+}
+
+model PurchaseOrder {
+  id                   String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId            String              @map("company_id") @db.Uuid
+  poNumber             String              @map("po_number") @db.VarChar(100)
+  supplierId           String              @map("supplier_id") @db.Uuid
+  warehouseId          String?             @map("warehouse_id") @db.Uuid
+  orderDate            DateTime            @map("order_date") @db.Date
+  expectedDeliveryDate DateTime?           @map("expected_delivery_date") @db.Date
+  actualDeliveryDate   DateTime?           @map("actual_delivery_date") @db.Date
+  subtotal             Decimal?            @db.Decimal(15, 2)
+  tax                  Decimal?            @db.Decimal(15, 2)
+  totalAmount          Decimal?            @map("total_amount") @db.Decimal(15, 2)
+  currency             String?             @default("COP") @db.VarChar(3)
+  status               String?             @default("pending") @db.VarChar(50)
+  rejectionReason      String?             @map("rejection_reason")
+  createdBy            String?             @map("created_by") @db.Uuid
+  approvedBy           String?             @map("approved_by") @db.Uuid
+  notes                String?
+  createdAt            DateTime            @default(now()) @map("created_at")
+  updatedAt            DateTime            @default(now()) @updatedAt @map("updated_at")
+  lines                PurchaseOrderLine[]
+  approver             User?               @relation("ApprovedBy", fields: [approvedBy], references: [id])
+  company              Company             @relation(fields: [companyId], references: [id])
+  creator              User?               @relation("CreatedBy", fields: [createdBy], references: [id])
+  supplier             Supplier            @relation(fields: [supplierId], references: [id])
+  warehouse            Warehouse?          @relation(fields: [warehouseId], references: [id])
+
+  @@unique([companyId, poNumber])
+  @@index([supplierId, orderDate(sort: Desc)], map: "idx_purchase_orders_supplier")
+  @@index([status, orderDate], map: "idx_purchase_orders_status")
+  @@map("purchase_orders")
+}
+
+model PurchaseOrderLine {
+  id               String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  purchaseOrderId  String        @map("purchase_order_id") @db.Uuid
+  productId        String        @map("product_id") @db.Uuid
+  quantityOrdered  Int           @map("quantity_ordered")
+  quantityReceived Int           @default(0) @map("quantity_received")
+  quantityRejected Int           @default(0) @map("quantity_rejected")
+  unitPrice        Decimal       @map("unit_price") @db.Decimal(15, 2)
+  totalPrice       Decimal       @map("total_price") @db.Decimal(15, 2)
+  rejectionReason  String?       @map("rejection_reason")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  product          Product       @relation(fields: [productId], references: [id])
+  purchaseOrder    PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+
+  @@map("purchase_order_lines")
+}
+
+model Sale {
+  id               String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId        String     @map("company_id") @db.Uuid
+  invoiceNumber    String     @map("invoice_number") @db.VarChar(100)
+  branchId         String?    @map("branch_id") @db.Uuid
+  customerName     String?    @map("customer_name") @db.VarChar(255)
+  customerDocument String?    @map("customer_document") @db.VarChar(50)
+  saleDate         DateTime   @map("sale_date") @db.Date
+  subtotal         Decimal?   @db.Decimal(15, 2)
+  tax              Decimal?   @db.Decimal(15, 2)
+  totalAmount      Decimal    @map("total_amount") @db.Decimal(15, 2)
+  totalCost        Decimal?   @map("total_cost") @db.Decimal(15, 2)
+  grossProfit      Decimal    @map("gross_profit") @db.Decimal(15, 2)
+  currency         String?    @default("COP") @db.VarChar(3)
+  paymentMethod    String?    @map("payment_method") @db.VarChar(50)
+  status           String?    @default("completed") @db.VarChar(50)
+  createdBy        String?    @map("created_by") @db.Uuid
+  createdAt        DateTime   @default(now()) @map("created_at")
+  dispatches       Dispatch[]
+  lines            SaleLine[]
+  branch           Branch?    @relation(fields: [branchId], references: [id])
+  company          Company    @relation(fields: [companyId], references: [id])
+  creator          User?      @relation(fields: [createdBy], references: [id])
+
+  @@unique([companyId, invoiceNumber])
+  @@index([saleDate(sort: Desc)], map: "idx_sales_date")
+  @@index([customerName], map: "idx_sales_customer")
+  @@map("sales")
+}
+
+model SaleLine {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  saleId     String   @map("sale_id") @db.Uuid
+  productId  String   @map("product_id") @db.Uuid
+  quantity   Int
+  unitPrice  Decimal  @map("unit_price") @db.Decimal(15, 2)
+  unitCost   Decimal? @map("unit_cost") @db.Decimal(15, 2)
+  discount   Decimal? @default(0) @db.Decimal(15, 2)
+  totalPrice Decimal  @map("total_price") @db.Decimal(15, 2)
+  createdAt  DateTime @default(now()) @map("created_at")
+  product    Product  @relation(fields: [productId], references: [id])
+  sale       Sale     @relation(fields: [saleId], references: [id], onDelete: Cascade)
+
+  @@map("sale_lines")
+}
+
+model InventoryMovement {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId     String    @map("company_id") @db.Uuid
+  productId     String    @map("product_id") @db.Uuid
+  warehouseId   String    @map("warehouse_id") @db.Uuid
+  locationId    String?   @map("location_id") @db.Uuid
+  movementType  String    @map("movement_type") @db.VarChar(30)
+  quantity      Int
+  unitCost      Decimal?  @map("unit_cost") @db.Decimal(15, 2)
+  referenceType String?   @map("reference_type") @db.VarChar(50)
+  referenceId   String?   @map("reference_id") @db.Uuid
+  movementDate  DateTime  @map("movement_date") @db.Date
+  createdBy     String?   @map("created_by") @db.Uuid
+  notes         String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  company       Company   @relation(fields: [companyId], references: [id])
+  creator       User?     @relation(fields: [createdBy], references: [id])
+  location      Location? @relation(fields: [locationId], references: [id])
+  product       Product   @relation(fields: [productId], references: [id])
+  warehouse     Warehouse @relation(fields: [warehouseId], references: [id])
+
+  @@index([productId, movementDate(sort: Desc)], map: "idx_inventory_movements_product")
+  @@index([warehouseId, movementType], map: "idx_inventory_movements_warehouse")
+  @@map("inventory_movements")
+}
+
+model PhysicalInventory {
+  id                  String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId           String    @map("company_id") @db.Uuid
+  warehouseId         String    @map("warehouse_id") @db.Uuid
+  inventoryDate       DateTime  @map("inventory_date") @db.Date
+  productId           String    @map("product_id") @db.Uuid
+  locationId          String?   @map("location_id") @db.Uuid
+  theoreticalQuantity Int       @map("theoretical_quantity")
+  physicalQuantity    Int       @map("physical_quantity")
+  difference          Int
+  differenceValue     Decimal?  @map("difference_value") @db.Decimal(15, 2)
+  reasonCode          String?   @map("reason_code") @db.VarChar(50)
+  countedBy           String?   @map("counted_by") @db.Uuid
+  verifiedBy          String?   @map("verified_by") @db.Uuid
+  notes               String?
+  createdAt           DateTime  @default(now()) @map("created_at")
+  company             Company   @relation(fields: [companyId], references: [id])
+  counter             User?     @relation("CountedBy", fields: [countedBy], references: [id])
+  location            Location? @relation(fields: [locationId], references: [id])
+  product             Product   @relation(fields: [productId], references: [id])
+  verifier            User?     @relation("VerifiedBy", fields: [verifiedBy], references: [id])
+  warehouse           Warehouse @relation(fields: [warehouseId], references: [id])
+
+  @@index([inventoryDate(sort: Desc), warehouseId], map: "idx_physical_inventory_date")
+  @@map("physical_inventory")
+}
+
+model Dispatch {
+  id                   String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId            String         @map("company_id") @db.Uuid
+  dispatchNumber       String         @map("dispatch_number") @db.VarChar(100)
+  saleId               String?        @map("sale_id") @db.Uuid
+  warehouseId          String         @map("warehouse_id") @db.Uuid
+  vehicleId            String?        @map("vehicle_id") @db.Uuid
+  driverId             String?        @map("driver_id") @db.Uuid
+  dispatchDate         DateTime       @map("dispatch_date") @db.Date
+  scheduledTime        DateTime?      @map("scheduled_time") @db.Time(6)
+  actualDepartureTime  DateTime?      @map("actual_departure_time") @db.Time(6)
+  actualDeliveryTime   DateTime?      @map("actual_delivery_time") @db.Time(6)
+  dispatchStatus       String?        @default("pending") @map("dispatch_status") @db.VarChar(50)
+  deliveredOnTime      Boolean?       @map("delivered_on_time")
+  deliveredComplete    Boolean?       @map("delivered_complete")
+  documentationOk      Boolean?       @map("documentation_ok")
+  perfectDelivery      Boolean?       @map("perfect_delivery")
+  deliveryAddress      String?        @map("delivery_address")
+  receiverName         String?        @map("receiver_name") @db.VarChar(255)
+  receiverSignatureUrl String?        @map("receiver_signature_url")
+  deliveryNotes        String?        @map("delivery_notes")
+  createdBy            String?        @map("created_by") @db.Uuid
+  createdAt            DateTime       @default(now()) @map("created_at")
+  updatedAt            DateTime       @default(now()) @updatedAt @map("updated_at")
+  customerId           String?        @map("customer_id") @db.Uuid
+  promisedDate         DateTime?      @map("promised_date") @db.Date
+  lines                DispatchLine[]
+  company              Company        @relation(fields: [companyId], references: [id])
+  creator              User?          @relation(fields: [createdBy], references: [id])
+  customer             Customer?      @relation(fields: [customerId], references: [id])
+  driver               Driver?        @relation(fields: [driverId], references: [id])
+  sale                 Sale?          @relation(fields: [saleId], references: [id])
+  vehicle              Vehicle?       @relation(fields: [vehicleId], references: [id])
+  warehouse            Warehouse      @relation(fields: [warehouseId], references: [id])
+
+  @@unique([companyId, dispatchNumber])
+  @@index([dispatchDate(sort: Desc)], map: "idx_dispatches_date")
+  @@index([dispatchStatus], map: "idx_dispatches_status")
+  @@map("dispatches")
+}
+
+model DispatchLine {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  dispatchId         String   @map("dispatch_id") @db.Uuid
+  productId          String   @map("product_id") @db.Uuid
+  quantityRequested  Int      @map("quantity_requested")
+  quantityDispatched Int      @map("quantity_dispatched")
+  quantityDamaged    Int?     @default(0) @map("quantity_damaged")
+  createdAt          DateTime @default(now()) @map("created_at")
+  dispatch           Dispatch @relation(fields: [dispatchId], references: [id], onDelete: Cascade)
+  product            Product  @relation(fields: [productId], references: [id])
+
+  @@map("dispatch_lines")
+}
+
+model ProductionRecord {
+  id                String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId         String    @map("company_id") @db.Uuid
+  productionDate    DateTime  @map("production_date") @db.Date
+  machineId         String    @map("machine_id") @db.Uuid
+  productId         String    @map("product_id") @db.Uuid
+  batchNumber       String?   @map("batch_number") @db.VarChar(100)
+  quantityProduced  Int       @map("quantity_produced")
+  quantityDefective Int       @default(0) @map("quantity_defective")
+  hoursOperated     Decimal   @map("hours_operated") @db.Decimal(8, 2)
+  downtimeHours     Decimal?  @default(0) @map("downtime_hours") @db.Decimal(8, 2)
+  setupTime         Decimal?  @default(0) @map("setup_time") @db.Decimal(8, 2)
+  rawMaterialUsed   Json?     @map("raw_material_used")
+  operatorId        String?   @map("operator_id") @db.Uuid
+  notes             String?
+  createdAt         DateTime  @default(now()) @map("created_at")
+  company           Company   @relation(fields: [companyId], references: [id])
+  machine           Machine   @relation(fields: [machineId], references: [id])
+  operator          Employee? @relation(fields: [operatorId], references: [id])
+  product           Product   @relation(fields: [productId], references: [id])
+
+  @@index([machineId, productionDate(sort: Desc)], map: "idx_production_records_machine")
+  @@map("production_records")
+}
+
+model OperationalCost {
+  id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId         String     @map("company_id") @db.Uuid
+  branchId          String?    @map("branch_id") @db.Uuid
+  warehouseId       String?    @map("warehouse_id") @db.Uuid
+  costDate          DateTime   @map("cost_date") @db.Date
+  costCenter        String?    @map("cost_center") @db.VarChar(100)
+  costType          String?    @map("cost_type") @db.VarChar(100)
+  amount            Decimal    @db.Decimal(15, 2)
+  currency          String?    @default("COP") @db.VarChar(3)
+  description       String?
+  referenceDocument String?    @map("reference_document") @db.VarChar(100)
+  createdBy         String?    @map("created_by") @db.Uuid
+  createdAt         DateTime   @default(now()) @map("created_at")
+  branch            Branch?    @relation(fields: [branchId], references: [id])
+  company           Company    @relation(fields: [companyId], references: [id])
+  creator           User?      @relation(fields: [createdBy], references: [id])
+  warehouse         Warehouse? @relation(fields: [warehouseId], references: [id])
+
+  @@index([costCenter, costDate(sort: Desc)], map: "idx_operational_costs_center")
+  @@map("operational_costs")
+}
+
+model TransportCost {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId      String   @map("company_id") @db.Uuid
+  vehicleId      String   @map("vehicle_id") @db.Uuid
+  driverId       String?  @map("driver_id") @db.Uuid
+  costDate       DateTime @map("cost_date") @db.Date
+  costType       String   @map("cost_type") @db.VarChar(50)
+  amount         Decimal  @db.Decimal(15, 2)
+  quantityLiters Decimal? @map("quantity_liters") @db.Decimal(10, 2)
+  pricePerLiter  Decimal? @map("price_per_liter") @db.Decimal(10, 2)
+  distanceKm     Decimal? @map("distance_km") @db.Decimal(10, 2)
+  hoursDriven    Decimal? @map("hours_driven") @db.Decimal(8, 2)
+  invoiceNumber  String?  @map("invoice_number") @db.VarChar(100)
+  notes          String?
+  createdAt      DateTime @default(now()) @map("created_at")
+  company        Company  @relation(fields: [companyId], references: [id])
+  driver         Driver?  @relation(fields: [driverId], references: [id])
+  vehicle        Vehicle  @relation(fields: [vehicleId], references: [id])
+
+  @@index([vehicleId, costDate(sort: Desc)], map: "idx_transport_costs_vehicle")
+  @@map("transport_costs")
+}
+
+model ImportExportRecord {
+  id                String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId         String    @map("company_id") @db.Uuid
+  operationType     String    @map("operation_type") @db.VarChar(20)
+  productId         String    @map("product_id") @db.Uuid
+  supplierId        String?   @map("supplier_id") @db.Uuid
+  customerName      String?   @map("customer_name") @db.VarChar(255)
+  operationDate     DateTime  @map("operation_date") @db.Date
+  quantity          Int
+  unitCostUsd       Decimal   @map("unit_cost_usd") @db.Decimal(15, 2)
+  totalCostUsd      Decimal   @map("total_cost_usd") @db.Decimal(15, 2)
+  freightCostUsd    Decimal?  @map("freight_cost_usd") @db.Decimal(15, 2)
+  insuranceCostUsd  Decimal?  @map("insurance_cost_usd") @db.Decimal(15, 2)
+  customsDutiesUsd  Decimal?  @map("customs_duties_usd") @db.Decimal(15, 2)
+  portOfOrigin      String?   @map("port_of_origin") @db.VarChar(255)
+  portOfDestination String?   @map("port_of_destination") @db.VarChar(255)
+  containerNumber   String?   @map("container_number") @db.VarChar(50)
+  blNumber          String?   @map("bl_number") @db.VarChar(100)
+  status            String?   @db.VarChar(50)
+  createdAt         DateTime  @default(now()) @map("created_at")
+  company           Company   @relation(fields: [companyId], references: [id])
+  product           Product   @relation(fields: [productId], references: [id])
+  supplier          Supplier? @relation(fields: [supplierId], references: [id])
+
+  @@map("import_export_records")
+}
+
+model KpiCategory {
+  id           Int             @id @default(autoincrement())
+  code         String          @unique @db.VarChar(50)
+  name         String          @db.VarChar(255)
+  description  String?
+  icon         String?         @db.VarChar(100)
+  color        String?         @db.VarChar(50)
+  displayOrder Int?            @default(0) @map("display_order")
+  isActive     Boolean?        @default(true) @map("is_active")
+  definitions  KpiDefinition[]
+
+  @@map("kpi_categories")
+}
+
+model KpiDefinition {
+  id               Int            @id @default(autoincrement())
+  code             String         @unique @db.VarChar(50)
+  categoryId       Int            @map("category_id")
+  indicatorClass   IndicatorClass @default(PERFORMANCE) @map("indicator_class")
+  name             String         @db.VarChar(255)
+  description      String?
+  objective        String?
+  formula          String
+  unit             String?        @db.VarChar(50)
+  unitType         String?        @map("unit_type") @db.VarChar(20)
+  direction        String?        @default("down") @db.VarChar(10)
+  targetValue      Decimal?       @map("target_value") @db.Decimal(12, 4)
+  minValue         Decimal?       @map("min_value") @db.Decimal(12, 4)
+  maxValue         Decimal?       @map("max_value") @db.Decimal(12, 4)
+  periodicity      String?        @default("monthly") @db.VarChar(20)
+  responsibleRole  String?        @map("responsible_role") @db.VarChar(50)
+  dataSource       String?        @map("data_source") @db.VarChar(255)
+  calculationQuery String?        @map("calculation_query")
+  isCustom         Boolean?       @default(false) @map("is_custom")
+  isActive         Boolean?       @default(true) @map("is_active")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @default(now()) @updatedAt @map("updated_at")
+  alerts           KpiAlert[]
+  category         KpiCategory    @relation(fields: [categoryId], references: [id])
+  values           KpiValue[]
+
+  @@map("kpi_definitions")
+}
+
+model KpiValue {
+  id                 String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  kpiId              Int               @map("kpi_id")
+  companyId          String            @map("company_id") @db.Uuid
+  branchId           String?           @map("branch_id") @db.Uuid
+  periodDate         DateTime          @map("period_date") @db.Date
+  actualValue        Decimal?          @map("actual_value") @db.Decimal(12, 4)
+  targetValue        Decimal?          @map("target_value") @db.Decimal(12, 4)
+  previousValue      Decimal?          @map("previous_value") @db.Decimal(12, 4)
+  varianceAbsolute   Decimal           @map("variance_absolute") @db.Decimal(12, 4)
+  variancePercentage Decimal?          @map("variance_percentage") @db.Decimal(12, 4)
+  status             String?           @db.VarChar(20)
+  dataSourceMetadata Json?             @map("data_source_metadata")
+  calculatedBy       String?           @map("calculated_by") @db.Uuid
+  calculatedAt       DateTime          @default(now()) @map("calculated_at")
+  notes              String?
+  alertHistory       KpiAlertHistory[]
+  branch             Branch?           @relation(fields: [branchId], references: [id])
+  calculator         User?             @relation(fields: [calculatedBy], references: [id])
+  company            Company           @relation(fields: [companyId], references: [id])
+  definition         KpiDefinition     @relation(fields: [kpiId], references: [id])
+
+  @@unique([kpiId, companyId, periodDate, branchId])
+  @@index([kpiId, companyId, periodDate, branchId], map: "idx_kpi_values_lookup")
+  @@index([periodDate(sort: Desc)], map: "idx_kpi_values_period")
+  @@map("kpi_values")
+}
+
+model KpiAlert {
+  id                 String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  kpiId              Int               @map("kpi_id")
+  thresholdType      String?           @map("threshold_type") @db.VarChar(20)
+  thresholdValue     Decimal           @map("threshold_value") @db.Decimal(12, 4)
+  comparisonOperator String?           @map("comparison_operator") @db.VarChar(5)
+  severity           String?           @db.VarChar(20)
+  isActive           Boolean?          @default(true) @map("is_active")
+  createdAt          DateTime          @default(now()) @map("created_at")
+  alertHistory       KpiAlertHistory[]
+  definition         KpiDefinition     @relation(fields: [kpiId], references: [id])
+
+  @@map("kpi_alerts")
+}
+
+model KpiAlertHistory {
+  id                String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  kpiValueId        String?   @map("kpi_value_id") @db.Uuid
+  kpiAlertId        String?   @map("kpi_alert_id") @db.Uuid
+  triggeredValue    Decimal?  @map("triggered_value") @db.Decimal(12, 4)
+  notifiedTo        String?   @map("notified_to") @db.Uuid
+  notifiedAt        DateTime  @default(now()) @map("notified_at")
+  acknowledgedAt    DateTime? @map("acknowledged_at")
+  acknowledgedBy    String?   @map("acknowledged_by") @db.Uuid
+  acknowledgingUser User?     @relation("AcknowledgedBy", fields: [acknowledgedBy], references: [id])
+  alert             KpiAlert? @relation(fields: [kpiAlertId], references: [id])
+  kpiValue          KpiValue? @relation(fields: [kpiValueId], references: [id])
+  notifiedUser      User?     @relation("NotifiedTo", fields: [notifiedTo], references: [id])
+
+  @@map("kpi_alert_history")
+}
+
+model ReportTemplate {
+  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId        String            @map("company_id") @db.Uuid
+  name             String            @db.VarChar(255)
+  description      String?
+  templateHtml     String?           @map("template_html")
+  templateStyles   String?           @map("template_styles")
+  logoPosition     String?           @default("top-left") @map("logo_position") @db.VarChar(50)
+  includeHeader    Boolean?          @default(true) @map("include_header")
+  includeFooter    Boolean?          @default(true) @map("include_footer")
+  pageSize         String?           @default("A4") @map("page_size") @db.VarChar(20)
+  orientation      String?           @default("portrait") @db.VarChar(10)
+  createdBy        String?           @map("created_by") @db.Uuid
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @default(now()) @updatedAt @map("updated_at")
+  company          Company           @relation(fields: [companyId], references: [id])
+  creator          User?             @relation(fields: [createdBy], references: [id])
+  scheduledReports ScheduledReport[]
+
+  @@map("report_templates")
+}
+
+model ScheduledReport {
+  id               String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyId        String          @map("company_id") @db.Uuid
+  reportTemplateId String?         @map("report_template_id") @db.Uuid
+  name             String          @db.VarChar(255)
+  description      String?
+  kpiIds           Int[]           @map("kpi_ids")
+  filters          Json?           @default("{}")
+  recipientEmails  String[]        @map("recipient_emails")
+  scheduleCron     String          @map("schedule_cron") @db.VarChar(100)
+  timezone         String?         @default("America/Bogota") @db.VarChar(50)
+  format           String?         @default("pdf") @db.VarChar(20)
+  includeCharts    Boolean?        @default(true) @map("include_charts")
+  includeTables    Boolean?        @default(true) @map("include_tables")
+  isActive         Boolean?        @default(true) @map("is_active")
+  lastGeneratedAt  DateTime?       @map("last_generated_at")
+  lastError        String?         @map("last_error")
+  createdBy        String?         @map("created_by") @db.Uuid
+  createdAt        DateTime        @default(now()) @map("created_at")
+  updatedAt        DateTime        @default(now()) @updatedAt @map("updated_at")
+  history          ReportHistory[]
+  company          Company         @relation(fields: [companyId], references: [id])
+  creator          User?           @relation(fields: [createdBy], references: [id])
+  template         ReportTemplate? @relation(fields: [reportTemplateId], references: [id])
+
+  @@map("scheduled_reports")
+}
+
+model ReportHistory {
+  id                String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  scheduledReportId String?          @map("scheduled_report_id") @db.Uuid
+  generatedAt       DateTime         @default(now()) @map("generated_at")
+  fileUrl           String?          @map("file_url")
+  fileSizeBytes     Int?             @map("file_size_bytes")
+  recipientCount    Int?             @map("recipient_count")
+  status            String?          @db.VarChar(20)
+  errorMessage      String?          @map("error_message")
+  report            ScheduledReport? @relation(fields: [scheduledReportId], references: [id])
+
+  @@map("report_history")
+}
+
+enum IndicatorClass {
+  UTILIZATION
+  PERFORMANCE
+  PRODUCTIVITY
+}

@@ -212,27 +212,29 @@ export default function CompanySettings() {
           <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Email</label>
           <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 bg-gray-50/50" placeholder="empresa@email.com" />
         </div>
-        <div>
-          <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Telefono</label>
-          <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 bg-gray-50/50" placeholder="+57 601 000 0000" />
-        </div>
-        <div>
-          <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Pais</label>
-          <Combobox
-            value={form.country}
-            options={ALL_COUNTRIES}
-            placeholder="Seleccionar pais..."
-            onChange={(country) => setForm({ ...form, country, city: '' })}
-          />
-        </div>
-        <div>
-          <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Ciudad</label>
-          <Combobox
-            value={form.city}
-            options={availableCities}
-            placeholder={form.country ? 'Seleccionar ciudad...' : 'Primero selecciona un pais'}
-            onChange={(city) => setForm({ ...form, city })}
-          />
+        <div className="md:col-span-2 grid grid-cols-3 gap-4">
+          <div>
+            <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Telefono</label>
+            <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 bg-gray-50/50" placeholder="+57 601 000 0000" />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Pais</label>
+            <Combobox
+              value={form.country}
+              options={ALL_COUNTRIES}
+              placeholder="Seleccionar pais..."
+              onChange={(country) => setForm({ ...form, country, city: '' })}
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Ciudad</label>
+            <Combobox
+              value={form.city}
+              options={availableCities}
+              placeholder={form.country ? 'Seleccionar ciudad...' : 'Primero selecciona un pais'}
+              onChange={(city) => setForm({ ...form, city })}
+            />
+          </div>
         </div>
         <div className="md:col-span-2">
           <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Direccion</label>

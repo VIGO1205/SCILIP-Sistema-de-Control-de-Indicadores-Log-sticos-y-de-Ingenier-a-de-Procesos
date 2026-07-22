@@ -1,41 +1,47 @@
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Install pnpm
-RUN npm install -g pnpm@9.0.0
+# Install pnpm (matching version in package.json)
+RUN npm install -g pnpm@11.15.1
 
-# Copy workspace files
+# Copy workspace configuration
 COPY pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml ./
 COPY package.json ./
+COPY turbo.json ./
 
-# Copy packages and apps
+# Copy packages needed for the web build
+# (frontend + backend + shared for Prisma types and tRPC router types)
 COPY frontend/ ./frontend/
+COPY backend/ ./backend/
 COPY shared/ ./shared/
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
-# Build the web app
+# Generate Prisma client (needed for type imports in the web app)
+RUN pnpm --filter @project/database db:generate
+
+# Build the Next.js app
+# NEXT_PUBLIC_API_URL uses relative path so Nginx proxy handles routing
+ENV NEXT_PUBLIC_API_URL=/api
 RUN pnpm --filter web build
 
-FROM node:20-alpine AS runner
+# ─── Production runner ─────────────────────────────────────────────────
+FROM node:22-alpine AS runner
 
 WORKDIR /app
 
-# Copy built files
-COPY --from=builder /app/frontend/web/.next ./.next
-COPY --from=builder /app/frontend/web/public ./public
-COPY --from=builder /app/frontend/web/package.json ./package.json
-COPY --from=builder /app/frontend/web/next.config.js ./next.config.js
-COPY --from=builder /app/node_modules ./node_modules
-
-# Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Copy standalone Next.js output (requires output:'standalone' in next.config.js)
+COPY --from=builder /app/frontend/web/.next/standalone ./
+COPY --from=builder /app/frontend/web/.next/static     ./frontend/web/.next/static
+COPY --from=builder /app/frontend/web/public           ./frontend/web/public
 
 EXPOSE 3000
 
-# Start the server
-CMD ["pnpm", "--filter", "web", "start"]
+CMD ["node", "frontend/web/server.js"]

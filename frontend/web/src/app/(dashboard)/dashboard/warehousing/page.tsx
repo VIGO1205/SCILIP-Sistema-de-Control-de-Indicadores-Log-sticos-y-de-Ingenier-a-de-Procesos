@@ -212,7 +212,7 @@ export default function WarehousingPage() {
                             {new Date(cost.costDate).toLocaleDateString()}
                           </td>
                           <td className="px-4 py-3">
-                            <Badge color="blue" variant="light">{cost.costType}</Badge>
+                            <Badge color="blue">{cost.costType}</Badge>
                           </td>
                           <td className="px-4 py-3 font-medium">
                             {cost.warehouse?.name || 'N/A'}

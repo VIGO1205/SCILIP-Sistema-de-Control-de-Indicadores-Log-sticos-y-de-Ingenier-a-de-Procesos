@@ -1,0 +1,39 @@
+# Docker Compose — DESARROLLO con Hot-Reload
+# Uso: cd docker && docker-compose -f docker-compose.dev.yml up
+#
+# Este modo levanta Postgres y Redis en Docker, pero corre el código
+# de la app localmente con hot-reload para mayor velocidad de desarrollo.
+# Requiere tener Node.js y pnpm instalados localmente.
+
+services:
+  # ─── Infraestructura (idéntica a producción) ─────────────────────────
+  postgres:
+    image: postgres:15
+    container_name: scilip_postgres_dev
+    environment:
+      POSTGRES_USER: ${DB_USER:-usuario}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-proyectocd}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-usuario} -d ${DB_NAME:-proyectocd}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    container_name: scilip_redis_dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_dev_data:/data
+    restart: unless-stopped
+
+volumes:
+  postgres_dev_data:
+  redis_dev_data:

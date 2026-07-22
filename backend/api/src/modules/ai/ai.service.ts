@@ -35,7 +35,7 @@ export class AiService {
   private readonly MODEL = 'llama-3.3-70b-versatile';
 
   private getApiKey(): string | null {
-    return process.env.GROQ_API_KEY || null;
+    return process.env.GROQ_API_KEY?.trim() || null;
   }
 
   private getCacheKey(type: string, code: string, month?: string): string {

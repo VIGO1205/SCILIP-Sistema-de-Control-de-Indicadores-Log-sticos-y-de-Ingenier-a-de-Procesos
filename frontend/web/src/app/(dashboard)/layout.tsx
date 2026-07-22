@@ -45,7 +45,7 @@ export default function DashboardLayout({
         <Header collapsed={sidebarCollapsed} />
         <main className="flex-1 overflow-x-hidden overflow-y-auto relative">
           {(isLoading || isPending) && (
-            <div className="absolute inset-0 bg-gray-50/80 flex items-center justify-center z-50">
+            <div className="sticky top-0 left-0 w-full h-full bg-white/70 backdrop-blur-sm flex items-center justify-center z-50">
               <Spinner size="lg" />
             </div>
           )}

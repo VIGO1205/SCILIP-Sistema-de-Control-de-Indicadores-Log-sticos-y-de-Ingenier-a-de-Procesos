@@ -37,14 +37,14 @@ export class InternationalTradeService {
 
   async updateOperation(id: string, companyId: string, data: any) {
     return this.prisma.importExportRecord.update({
-      where: { id },
+      where: { id, companyId },
       data,
     });
   }
 
   async deleteOperation(id: string, companyId: string) {
     return this.prisma.importExportRecord.delete({
-      where: { id },
+      where: { id, companyId },
     });
   }
 

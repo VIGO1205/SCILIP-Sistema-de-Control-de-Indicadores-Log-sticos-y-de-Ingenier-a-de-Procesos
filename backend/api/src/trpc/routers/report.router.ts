@@ -50,7 +50,9 @@ export const reportRouter = router({
   getHistory: protectedProcedure
     .input(z.object({ limit: z.number().int().min(1).max(100).default(20) }))
     .query(async ({ ctx, input }) => {
+      const where = ctx.user.companyId ? { companyId: ctx.user.companyId } : {};
       const history = await ctx.prisma.reportHistory.findMany({
+        where,
         orderBy: { generatedAt: 'desc' },
         take: input.limit,
         include: {
@@ -80,9 +82,11 @@ export const reportRouter = router({
   deleteHistory: protectedProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.prisma.reportHistory.delete({
-        where: { id: input.id },
-      });
+      const where: any = { id: input.id };
+      if (ctx.user.companyId) where.companyId = ctx.user.companyId;
+      const record = await ctx.prisma.reportHistory.findFirst({ where });
+      if (!record) throw new Error('Registro no encontrado');
+      await ctx.prisma.reportHistory.delete({ where: { id: input.id } });
       return { success: true };
     }),
 
@@ -133,6 +137,7 @@ export const reportRouter = router({
       // Guardar en historial de reportes
       await ctx.prisma.reportHistory.create({
         data: {
+          companyId: ctx.user.companyId || null,
           status: 'completed',
           fileSizeBytes: buffer.length,
           generatedAt: new Date(),

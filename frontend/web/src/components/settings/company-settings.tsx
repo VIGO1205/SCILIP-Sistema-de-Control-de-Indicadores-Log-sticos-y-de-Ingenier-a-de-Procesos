@@ -167,7 +167,7 @@ export default function CompanySettings() {
     }
     setSaving(true);
     try {
-      await updateMutation.mutateAsync({ id: company?.id, ...form });
+      await updateMutation.mutateAsync({ ...form });
     } finally {
       setSaving(false);
     }

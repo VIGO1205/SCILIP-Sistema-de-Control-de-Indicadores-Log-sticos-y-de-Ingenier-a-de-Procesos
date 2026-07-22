@@ -20,6 +20,30 @@ import {
   ShieldCheck,
   Zap,
 } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+function MailboxAnimation() {
+  return (
+    <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
+      {/* Mailbox base */}
+      <svg className="w-4 h-4 text-indigo-300 absolute bottom-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9z" />
+        <path d="M2 13h20" />
+      </svg>
+      {/* Animated Envelope */}
+      <motion.svg
+        className="w-3 h-3 text-white absolute"
+        viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"
+        initial={{ y: -10, opacity: 0, scale: 0.8 }}
+        animate={{ y: [ -10, -2, 2 ], opacity: [0, 1, 0], scale: [0.8, 1, 0.7] }}
+        transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" fill="white" />
+        <polyline points="22,6 12,13 2,6" stroke="currentColor" fill="none" strokeWidth="2" />
+      </motion.svg>
+    </div>
+  );
+}
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido').min(1, 'El email es obligatorio'),
@@ -33,6 +57,7 @@ function LoginForm() {
   const { login } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
 
   const {
     register,
@@ -64,7 +89,10 @@ function LoginForm() {
       if (result.requiresOtp) {
         sessionStorage.setItem('otp_temp_token', result.tempToken);
         sessionStorage.setItem('otp_email', result.email);
-        window.location.assign('/verify-otp');
+        setSendingOtp(true);
+        setTimeout(() => {
+          window.location.assign('/verify-otp');
+        }, 1500);
         return;
       }
 
@@ -228,10 +256,15 @@ function LoginForm() {
               {/* Botón */}
               <button
                 type="submit"
-                disabled={submitting}
-                className="group relative w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                disabled={submitting || sendingOtp}
+                className="group relative w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed overflow-hidden"
               >
-                {submitting ? (
+                {sendingOtp ? (
+                  <>
+                    <MailboxAnimation />
+                    Enviando código...
+                  </>
+                ) : submitting ? (
                   <>
                     <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     Entrando…

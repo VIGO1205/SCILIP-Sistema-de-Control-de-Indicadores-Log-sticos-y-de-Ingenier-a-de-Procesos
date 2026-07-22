@@ -59,9 +59,9 @@ export class CustomerServiceService {
     });
   }
 
-  async updateDispatchStatus(id: string, status: string, details?: any) {
+  async updateDispatchStatus(id: string, companyId: string, status: string, details?: any) {
     return this.prisma.dispatch.update({
-      where: { id },
+      where: { id, companyId },
       data: {
         dispatchStatus: status,
         ...details,
@@ -71,7 +71,7 @@ export class CustomerServiceService {
 
   async deleteDispatch(id: string, companyId: string) {
     return this.prisma.dispatch.update({
-      where: { id },
+      where: { id, companyId },
       data: { dispatchStatus: 'cancelled' },
     });
   }

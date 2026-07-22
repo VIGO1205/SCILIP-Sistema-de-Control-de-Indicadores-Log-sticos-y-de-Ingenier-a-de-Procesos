@@ -30,8 +30,10 @@ import { useAuth } from '../../../components/providers/auth-provider';
 import { trpc } from '../../../lib/trpc/react';
 import Swal from 'sweetalert2';
 import TwoFactorSetup from '../../../components/auth/two-factor-setup';
-import CompanySettings from '../../../components/settings/company-settings';
-import BranchManager from '../../../components/settings/branch-manager';
+import dynamic from 'next/dynamic';
+
+const CompanySettings = dynamic(() => import('../../../components/settings/company-settings'), { ssr: false });
+const BranchManager = dynamic(() => import('../../../components/settings/branch-manager'), { ssr: false });
 
 export default function SettingsPage() {
   const { user, refresh } = useAuth();
@@ -40,6 +42,7 @@ export default function SettingsPage() {
 
   const [fullName, setFullName] = useState(user?.fullName ?? '');
   const [phone, setPhone] = useState('');
+  const [notificationEmail, setNotificationEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -83,6 +86,11 @@ export default function SettingsPage() {
     }
   }, [profileData]);
 
+  useEffect(() => {
+    if (profileData?.phone) setPhone(profileData.phone);
+    if (profileData?.notificationEmail) setNotificationEmail(profileData.notificationEmail);
+  }, [profileData?.phone, profileData?.notificationEmail]);
+
   const handleSaveProfile = async () => {
     if (!fullName.trim()) {
       Swal.fire({ title: 'Error', text: 'El nombre es obligatorio', icon: 'error', confirmButtonColor: '#dc2626' });
@@ -90,7 +98,11 @@ export default function SettingsPage() {
     }
     setSavingProfile(true);
     try {
-      await updateProfileMutation.mutateAsync({ fullName: fullName.trim(), phone: phone.trim() || null });
+      await updateProfileMutation.mutateAsync({ 
+        fullName: fullName.trim(), 
+        phone: phone.trim() || null,
+        notificationEmail: notificationEmail.trim() || null,
+      });
       await refresh();
       Swal.fire({ title: 'Perfil actualizado', text: 'Tus datos fueron guardados exitosamente.', icon: 'success', timer: 1500, showConfirmButton: false });
     } catch (err: any) {
@@ -171,8 +183,12 @@ export default function SettingsPage() {
                   <input value={fullName} onChange={(e) => setFullName(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50" placeholder="Tu nombre" />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Correo Electrónico</label>
+                  <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Correo Electrónico (Login)</label>
                   <input value={user?.email ?? ''} disabled className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-500 bg-gray-100 cursor-not-allowed" />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Correo para Notificaciones</label>
+                  <input type="email" value={notificationEmail} onChange={(e) => setNotificationEmail(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50" placeholder="tu-correo@gmail.com" />
                 </div>
                 <div>
                   <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Cargo / Rol</label>

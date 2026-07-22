@@ -12,14 +12,14 @@ export class PurchasingController {
 
   @Get('pending-approvals')
   @Roles('admin', 'purchasing_manager')
-  async getPendingApprovals() {
-    return this.purchasingService.getPendingApprovals();
+  async getPendingApprovals(@CurrentUser() user: any) {
+    return this.purchasingService.getPendingApprovals(user.companyId);
   }
 
   @Post(':id/approve')
   @Roles('admin', 'purchasing_manager')
   async approveOrder(@Param('id') id: string, @CurrentUser() user: any) {
-    return this.purchasingService.approveOrder(id, user.id);
+    return this.purchasingService.approveOrder(id, user.id, user.companyId);
   }
 
   @Post(':id/reject')
@@ -29,7 +29,7 @@ export class PurchasingController {
     @Body('reason') reason: string,
     @CurrentUser() user: any,
   ) {
-    return this.purchasingService.rejectOrder(id, user.id, reason);
+    return this.purchasingService.rejectOrder(id, user.id, reason, user.companyId);
   }
 
   @Get('supplier-certification')
@@ -80,8 +80,8 @@ export class PurchasingController {
 
   @Post('suppliers/:id')
   @Roles('admin', 'purchasing_manager')
-  async updateSupplier(@Param('id') id: string, @Body() data: any) {
-    return this.purchasingService.updateSupplier(id, data);
+  async updateSupplier(@Param('id') id: string, @CurrentUser() user: any, @Body() data: any) {
+    return this.purchasingService.updateSupplier(id, data, user.companyId);
   }
 
   // --- Purchase Orders CRUD ---

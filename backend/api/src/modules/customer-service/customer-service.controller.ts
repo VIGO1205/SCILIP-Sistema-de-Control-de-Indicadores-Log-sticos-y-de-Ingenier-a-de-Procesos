@@ -124,9 +124,10 @@ export class CustomerServiceController {
   @Roles('admin', 'customer_service_manager')
   async updateDispatchStatus(
     @Param('id') id: string,
+    @CurrentUser() user: any,
     @Body('status') status: string,
     @Body('details') details: any,
   ) {
-    return this.customerService.updateDispatchStatus(id, status, details);
+    return this.customerService.updateDispatchStatus(id, user.companyId, status, details);
   }
 }

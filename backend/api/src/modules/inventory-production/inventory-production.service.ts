@@ -43,14 +43,14 @@ export class InventoryProductionService {
 
   async updateProduct(id: string, companyId: string, data: any) {
     return this.prisma.product.update({
-      where: { id },
+      where: { id, companyId },
       data,
     });
   }
 
   async deleteProduct(id: string, companyId: string) {
     return this.prisma.product.update({
-      where: { id },
+      where: { id, companyId },
       data: { isActive: false },
     });
   }
@@ -71,14 +71,14 @@ export class InventoryProductionService {
 
   async updateMachine(id: string, companyId: string, data: any) {
     return this.prisma.machine.update({
-      where: { id },
+      where: { id, companyId },
       data,
     });
   }
 
   async deleteMachine(id: string, companyId: string) {
     return this.prisma.machine.update({
-      where: { id },
+      where: { id, companyId },
       data: { status: 'inactive' },
     });
   }
@@ -100,14 +100,14 @@ export class InventoryProductionService {
 
   async updateProductionRecord(id: string, companyId: string, data: any) {
     return this.prisma.productionRecord.update({
-      where: { id },
+      where: { id, companyId },
       data,
     });
   }
 
   async deleteProductionRecord(id: string, companyId: string) {
     return this.prisma.productionRecord.delete({
-      where: { id },
+      where: { id, companyId },
     });
   }
 
@@ -219,7 +219,7 @@ export class InventoryProductionService {
     if (!existing) throw new Error('Orden de mantenimiento no encontrada');
 
     const order = await this.prisma.maintenanceOrder.update({
-      where: { id },
+      where: { id, companyId },
       data,
     });
 
@@ -257,7 +257,7 @@ export class InventoryProductionService {
     if (!existing) throw new Error('Orden de mantenimiento no encontrada');
 
     const deleted = await this.prisma.maintenanceOrder.delete({
-      where: { id },
+      where: { id, companyId },
     });
 
     // Si la orden estaba en progreso, liberar la máquina

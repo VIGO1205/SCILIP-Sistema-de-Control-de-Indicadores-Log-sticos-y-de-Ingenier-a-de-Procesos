@@ -31,14 +31,17 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       role: user.role.name,
+      companyId: user.companyId || null,
     };
     return {
       access_token: this.jwtService.sign(payload),
       user: {
         id: user.id,
         email: user.email,
+        notificationEmail: user.notificationEmail,
         fullName: user.fullName,
         role: user.role.name,
+        companyId: user.companyId || null,
       },
     };
   }
@@ -60,7 +63,18 @@ export class AuthService {
     }
   }
 
-  async register(email: string, password: string, fullName: string) {
+  async register(
+    email: string,
+    password: string,
+    fullName: string,
+    companyName?: string,
+    country?: string,
+    taxId?: string,
+    city?: string,
+    address?: string,
+    companyPhone?: string,
+    companyEmail?: string,
+  ) {
     const existing = await this.prisma.user.findUnique({
       where: { email: email.toLowerCase().trim() },
     });
@@ -78,6 +92,49 @@ export class AuthService {
       },
     });
 
+    let companyId: string | null = null;
+    let assignedRoleName = 'USER';
+
+    if (companyName && companyName.trim()) {
+      const company = await this.prisma.company.create({
+        data: {
+          legalName: companyName.trim(),
+          taxId: (taxId && taxId.trim()) || `TEMP-${Date.now()}`,
+          country: country || null,
+          city: city || null,
+          address: address || null,
+          phone: companyPhone || null,
+          email: companyEmail || null,
+        },
+      });
+      companyId = company.id;
+
+      const adminRole = await this.prisma.role.upsert({
+        where: { name: 'ADMIN' },
+        update: {},
+        create: {
+          name: 'ADMIN',
+          description: 'Administrador de empresa',
+          permissions: { modules: ['all'], kpis: ['all'], reports: ['all'], settings: true },
+        },
+      });
+      assignedRoleName = 'ADMIN';
+
+      const passwordHash = await bcrypt.hash(password, 10);
+      const user = await this.prisma.user.create({
+        data: {
+          email: email.toLowerCase().trim(),
+          passwordHash,
+          fullName: fullName.trim(),
+          roleId: adminRole.id,
+          companyId: company.id,
+          isActive: true,
+        },
+        include: { role: true },
+      });
+      return this.login(user);
+    }
+
     const passwordHash = await bcrypt.hash(password, 10);
     const user = await this.prisma.user.create({
       data: {
@@ -93,19 +150,21 @@ export class AuthService {
     return this.login(user);
   }
 
-  async updateProfile(userId: string, data: { fullName?: string; phone?: string; avatarUrl?: string }) {
+  async updateProfile(userId: string, data: { fullName?: string; phone?: string; avatarUrl?: string; notificationEmail?: string | null }) {
     const user = await this.prisma.user.update({
       where: { id: userId },
       data: {
         ...(data.fullName !== undefined && { fullName: data.fullName.trim() }),
-        ...(data.phone !== undefined && { phone: data.phone.trim() || null }),
-        ...(data.avatarUrl !== undefined && { avatarUrl: data.avatarUrl.trim() || null }),
+        ...(data.phone !== undefined && { phone: data.phone?.trim() || null }),
+        ...(data.avatarUrl !== undefined && { avatarUrl: data.avatarUrl?.trim() || null }),
+        ...(data.notificationEmail !== undefined && { notificationEmail: data.notificationEmail?.trim() || null }),
       },
       include: { role: true },
     });
     return {
       id: user.id,
       email: user.email,
+      notificationEmail: user.notificationEmail,
       fullName: user.fullName,
       role: user.role.name,
       phone: user.phone,
@@ -135,7 +194,7 @@ export class AuthService {
   async validateJwtPayload(payload: { sub: string }) {
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
-      include: { role: true },
+      include: { role: true, company: true },
     });
     if (!user?.isActive) {
       throw new UnauthorizedException();

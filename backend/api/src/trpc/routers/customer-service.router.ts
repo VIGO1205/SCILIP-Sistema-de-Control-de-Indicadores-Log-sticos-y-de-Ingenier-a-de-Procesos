@@ -59,7 +59,7 @@ export const customerServiceRouter = router({
         });
       }
       const { id, status, ...details } = input;
-      return ctx.customerService.updateDispatchStatus(id, status, details);
+      return ctx.customerService.updateDispatchStatus(id, ctx.user.companyId, status, details);
     }),
 
   // Eliminar despacho (soft delete)

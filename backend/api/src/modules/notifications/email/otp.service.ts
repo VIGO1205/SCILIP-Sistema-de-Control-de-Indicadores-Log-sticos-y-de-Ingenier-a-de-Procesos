@@ -54,13 +54,16 @@ export class OtpService {
       },
     });
 
+    const recipientEmail = user.notificationEmail || user.email;
+    this.logger.log(`Enviando OTP a ${recipientEmail}`);
+
     const result = await this.emailService.sendOtpCode(
-      user.email,
+      recipientEmail,
       code,
       user.fullName,
     );
 
-    this.logger.log(`OTP generado para ${user.email}`);
+    this.logger.log(`OTP generado para ${user.email} (enviado a ${recipientEmail})`);
     return { success: true };
   }
 

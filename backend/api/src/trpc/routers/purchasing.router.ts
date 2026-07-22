@@ -63,7 +63,7 @@ export const purchasingRouter = router({
         });
       }
 
-      return ctx.purchasingService.getPendingApprovals();
+      return ctx.purchasingService.getPendingApprovals(ctx.user.companyId);
     }),
 
   // Aprobar una orden
@@ -79,7 +79,7 @@ export const purchasingRouter = router({
         });
       }
 
-      return ctx.purchasingService.approveOrder(input.orderId, ctx.user.id);
+      return ctx.purchasingService.approveOrder(input.orderId, ctx.user.id, ctx.user.companyId);
     }),
 
   // Rechazar una orden
@@ -98,7 +98,7 @@ export const purchasingRouter = router({
         });
       }
 
-      return ctx.purchasingService.rejectOrder(input.orderId, ctx.user.id, input.reason);
+      return ctx.purchasingService.rejectOrder(input.orderId, ctx.user.id, input.reason, ctx.user.companyId);
     }),
 
   // Crear proveedor
@@ -148,7 +148,7 @@ export const purchasingRouter = router({
       if (!ability.can(Action.Update, 'Supplier')) {
         throw new TRPCError({ code: 'FORBIDDEN', message: 'No tienes permisos para actualizar proveedores' });
       }
-      return ctx.purchasingService.updateSupplier(input.id, input.data);
+      return ctx.purchasingService.updateSupplier(input.id, ctx.user.companyId, input.data);
     }),
 
   // Eliminar proveedor (soft delete via status)
@@ -159,7 +159,7 @@ export const purchasingRouter = router({
       if (!ability.can(Action.Delete, 'Supplier')) {
         throw new TRPCError({ code: 'FORBIDDEN', message: 'No tienes permisos para eliminar proveedores' });
       }
-      return ctx.purchasingService.updateSupplier(input.id, { status: 'inactive' });
+      return ctx.purchasingService.updateSupplier(input.id, ctx.user.companyId, { status: 'inactive' });
     }),
 
   // Obtener rating de un proveedor (auto + manual)
@@ -196,4 +196,53 @@ export const purchasingRouter = router({
         { manualRating: input.manualRating, comment: input.comment },
       );
     }),
+
+  // Marcar orden como recibida (APPROVED → RECEIVED)
+  receiveOrder: protectedProcedure
+    .input(z.object({
+      orderId: z.string().uuid(),
+      actualDeliveryDate: z.coerce.date().optional(),
+      notes: z.string().optional(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const ability = ctx.caslAbilityFactory.createForUser(ctx.user);
+
+      if (!ability.can(Action.Update, 'PurchaseOrder')) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'No tienes permisos para actualizar órdenes',
+        });
+      }
+
+      return ctx.purchasingService.receiveOrder(
+        input.orderId,
+        ctx.user.id,
+        ctx.user.companyId,
+        {
+          actualDeliveryDate: input.actualDeliveryDate,
+          notes: input.notes,
+        },
+      );
+    }),
+
+  // Completar/Cerrar orden (RECEIVED → COMPLETED)
+  completeOrder: protectedProcedure
+    .input(z.object({ orderId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const ability = ctx.caslAbilityFactory.createForUser(ctx.user);
+
+      if (!ability.can(Action.Update, 'PurchaseOrder')) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'No tienes permisos para completar órdenes',
+        });
+      }
+
+      return ctx.purchasingService.completeOrder(
+        input.orderId,
+        ctx.user.id,
+        ctx.user.companyId,
+      );
+    }),
 });
+

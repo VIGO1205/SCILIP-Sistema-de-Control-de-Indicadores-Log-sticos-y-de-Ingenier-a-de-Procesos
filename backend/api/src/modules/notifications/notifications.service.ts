@@ -118,7 +118,11 @@ export class NotificationsService {
   async notifyApproval(orderId: string, status: 'approved' | 'rejected', reason?: string) {
     const order = await this.prisma.purchaseOrder.findUnique({
       where: { id: orderId },
-      include: { creator: true, supplier: true },
+      include: {
+        creator: true,
+        supplier: true,
+        lines: { include: { product: true } },
+      },
     });
 
     if (!order?.creator) return;
@@ -127,11 +131,47 @@ export class NotificationsService {
       ? `Tu orden de compra ${order.poNumber} para ${order.supplier.name} ha sido APROBADA.`
       : `Tu orden de compra ${order.poNumber} para ${order.supplier.name} ha sido RECHAZADA. ${reason ? `Motivo: ${reason}` : ''}`;
 
-    await this.create(order.creator.id, NotificationType.PURCHASE_ORDER, `Orden ${status === 'approved' ? 'Aprobada' : 'Rechazada'}`, message, { orderId, status });
+    await this.create(
+      order.creator.id,
+      NotificationType.PURCHASE_ORDER,
+      `Orden ${status === 'approved' ? 'Aprobada' : 'Rechazada'}: ${order.poNumber}`,
+      message,
+      { orderId, status },
+    );
 
     const prefs = await this.getPrefs(order.creator.id);
     if (prefs.emailEnabled && prefs.purchaseOrders) {
-      await this.emailService.sendNotification(order.creator.email, `Orden de Compra: ${order.poNumber}`, message);
+      const recipientEmail = order.creator.notificationEmail || order.creator.email;
+      await this.emailService.sendPurchaseOrderEmail({
+        to: recipientEmail,
+        recipientName: order.creator.fullName || order.creator.email,
+        order: {
+          poNumber: order.poNumber,
+          status,
+          orderDate: order.orderDate,
+          expectedDeliveryDate: order.expectedDeliveryDate,
+          actualDeliveryDate: order.actualDeliveryDate,
+          totalAmount: Number(order.totalAmount),
+          notes: order.notes,
+          rejectionReason: reason || order.rejectionReason,
+        },
+        supplier: {
+          name: order.supplier.name,
+          taxId: (order.supplier as any).taxId,
+          email: (order.supplier as any).email,
+          phone: (order.supplier as any).phone,
+          address: (order.supplier as any).address,
+          contactPerson: (order.supplier as any).contactPerson,
+        },
+        lines: order.lines.map((l) => ({
+          product: l.product ? { name: (l.product as any).name, sku: (l.product as any).sku } : null,
+          quantityOrdered: l.quantityOrdered,
+          quantityReceived: l.quantityReceived,
+          quantityRejected: l.quantityRejected,
+          unitPrice: Number(l.unitPrice),
+          totalPrice: Number(l.totalPrice),
+        })),
+      });
     }
   }
 
@@ -145,7 +185,7 @@ export class NotificationsService {
       if (prefs.emailEnabled && prefs.kpiAlerts) {
         const user = await this.prisma.user.findUnique({ where: { id: userId } });
         if (user) {
-          await this.emailService.sendNotification(user.email, `Alerta KPI: ${kpiCode}`, message);
+          await this.emailService.sendNotification(user.notificationEmail || user.email, `Alerta KPI: ${kpiCode}`, message);
         }
       }
     }

@@ -32,14 +32,14 @@ export class TransportService {
 
   async updateVehicle(id: string, companyId: string, data: any) {
     return this.prisma.vehicle.update({
-      where: { id },
+      where: { id, companyId },
       data,
     });
   }
 
   async deleteVehicle(id: string, companyId: string) {
     return this.prisma.vehicle.update({
-      where: { id },
+      where: { id, companyId },
       data: { status: 'inactive' },
     });
   }
@@ -80,6 +80,13 @@ export class TransportService {
   }
 
   async updateDriver(id: string, companyId: string, data: any) {
+    const driver = await this.prisma.driver.findUnique({
+      where: { id },
+      include: { employee: { select: { companyId: true } } },
+    });
+    if (!driver || driver.employee?.companyId !== companyId) {
+      throw new Error('Conductor no encontrado');
+    }
     return this.prisma.driver.update({
       where: { id },
       data: {
@@ -95,6 +102,13 @@ export class TransportService {
   }
 
   async deleteDriver(id: string, companyId: string) {
+    const driver = await this.prisma.driver.findUnique({
+      where: { id },
+      include: { employee: { select: { companyId: true } } },
+    });
+    if (!driver || driver.employee?.companyId !== companyId) {
+      throw new Error('Conductor no encontrado');
+    }
     return this.prisma.driver.update({
       where: { id },
       data: { isActive: false },
@@ -124,14 +138,14 @@ export class TransportService {
 
   async updateTransportCost(id: string, companyId: string, data: any) {
     return this.prisma.transportCost.update({
-      where: { id },
+      where: { id, companyId },
       data,
     });
   }
 
   async deleteTransportCost(id: string, companyId: string) {
     return this.prisma.transportCost.delete({
-      where: { id },
+      where: { id, companyId },
     });
   }
 

@@ -36,12 +36,6 @@ export class TrpcService {
 
   createContext(opts: any): Context {
     const user = opts.req?.user;
-    if (user?.role?.permissions) {
-      const permissions = user.role.permissions as { companyId?: string };
-      if (!user.companyId && permissions.companyId) {
-        user.companyId = permissions.companyId;
-      }
-    }
     return {
       user,
       kpiService: this.kpiService,

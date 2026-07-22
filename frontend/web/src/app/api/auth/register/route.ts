@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getApiBaseUrl } from '../../../../lib/auth/config';
+import { AUTH_COOKIE_NAME, getApiBaseUrl } from '../../../../lib/auth/config';
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         message:
-          'No se pudo conectar con la API. Asegúrate de tener el backend activo.',
+          'No se pudo conectar con la API. Asegurate de tener el backend activo.',
       },
       { status: 503 },
     );
@@ -30,5 +30,19 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json(data);
+  const response = NextResponse.json({
+    user: data.user,
+  });
+
+  if (data.access_token) {
+    response.cookies.set(AUTH_COOKIE_NAME, data.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24,
+    });
+  }
+
+  return response;
 }

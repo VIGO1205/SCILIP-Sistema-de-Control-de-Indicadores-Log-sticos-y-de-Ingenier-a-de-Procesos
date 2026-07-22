@@ -31,6 +31,7 @@ import SummaryDonut from '@/components/dashboard/summary-donut';
 import CategoryBarChart from '@/components/dashboard/category-bar-chart';
 import GlobalTrendChart from '@/components/dashboard/global-trend-chart';
 import KpiCategoryGrid from '@/components/dashboard/kpi-category-grid';
+import EmptyDashboard from '@/components/dashboard/empty-dashboard';
 
 const MONTHS_ES = [
   'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
@@ -173,6 +174,8 @@ export default function DashboardPage() {
       }));
   }, [definitions]);
 
+  const isEmpty = !defsLoading && (!definitions || definitions.length === 0);
+
   return (
     <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
       <DashboardHeader
@@ -184,11 +187,15 @@ export default function DashboardPage() {
         userName={user?.fullName}
       />
 
-      <KpiDataFetcher
-        kpis={kpiQueries}
-        period={currentPeriod}
-        selectedClass={selectedClass}
-      />
+      {isEmpty ? (
+        <EmptyDashboard userName={user?.fullName} />
+      ) : (
+        <KpiDataFetcher
+          kpis={kpiQueries}
+          period={currentPeriod}
+          selectedClass={selectedClass}
+        />
+      )}
     </main>
   );
 }

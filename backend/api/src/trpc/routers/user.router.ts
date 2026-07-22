@@ -11,6 +11,7 @@ export const userRouter = router({
     return {
       id: user.id,
       email: user.email,
+      notificationEmail: user.notificationEmail,
       fullName: user.fullName,
       role: user.role.name,
       phone: user.phone,
@@ -26,6 +27,7 @@ export const userRouter = router({
       fullName: z.string().min(2).max(255).optional(),
       phone: z.string().max(20).optional().nullable(),
       avatarUrl: z.string().max(500).optional().nullable(),
+      notificationEmail: z.string().email().max(255).optional().nullable(),
     }))
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.user.update({
@@ -34,6 +36,9 @@ export const userRouter = router({
           ...(input.fullName !== undefined && { fullName: input.fullName.trim() }),
           ...(input.phone !== undefined && { phone: input.phone?.trim() || null }),
           ...(input.avatarUrl !== undefined && { avatarUrl: input.avatarUrl?.trim() || null }),
+          ...(input.notificationEmail !== undefined && {
+            notificationEmail: input.notificationEmail?.trim() || null,
+          }),
         },
         include: { role: true },
       });

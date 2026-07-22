@@ -25,6 +25,14 @@ class RegisterDto {
   @IsString()
   @MinLength(6)
   password: string;
+
+  companyName?: string;
+  taxId?: string;
+  country?: string;
+  city?: string;
+  address?: string;
+  companyPhone?: string;
+  companyEmail?: string;
 }
 
 class VerifyOtpDto {
@@ -33,6 +41,11 @@ class VerifyOtpDto {
 
   @IsString()
   code: string;
+}
+
+class ResendOtpDto {
+  @IsString()
+  tempToken: string;
 }
 
 @Controller('auth')
@@ -51,10 +64,11 @@ export class AuthController {
 
     if (user.twoFactorEnabled) {
       const tempToken = this.authService.generateTempToken(user.id);
+      await this.otpService.generateOtp(user.id);
       return {
         requiresOtp: true,
         tempToken,
-        email: user.email,
+        email: user.notificationEmail || user.email,
       };
     }
 
@@ -63,7 +77,18 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() body: RegisterDto) {
-    return this.authService.register(body.email, body.password, body.fullName);
+    return this.authService.register(
+      body.email,
+      body.password,
+      body.fullName,
+      body.companyName,
+      body.country,
+      body.taxId,
+      body.city,
+      body.address,
+      body.companyPhone,
+      body.companyEmail,
+    );
   }
 
   @Post('2fa/verify-login')
@@ -88,16 +113,30 @@ export class AuthController {
     return this.otpService.generateOtp(req.user.id);
   }
 
+  @Post('2fa/resend')
+  async resendOtp(@Body() body: ResendOtpDto) {
+    const payload = this.authService.verifyTempToken(body.tempToken);
+    if (!payload) {
+      throw new UnauthorizedException('Token inválido o expirado');
+    }
+    return this.otpService.generateOtp(payload.sub);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get('me')
   async me(@Request() req: { user: any }) {
     const user = req.user;
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    
     return {
       id: user.id,
       email: user.email,
+      notificationEmail: user.notificationEmail,
       fullName: user.fullName,
       role: user.role?.name || user.role,
-      companyId: (user.role?.permissions as any)?.companyId,
+      companyId: user.companyId || null,
       twoFactorEnabled: user.twoFactorEnabled || false,
     };
   }

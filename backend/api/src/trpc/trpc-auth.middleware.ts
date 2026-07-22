@@ -16,14 +16,12 @@ export class TrpcAuthMiddleware implements NestMiddleware {
       try {
         const payload = this.jwtService.verify<{ sub: string }>(auth.slice(7));
         const user = await this.authService.validateJwtPayload(payload);
-        const permissions = user.role?.permissions as { companyId?: string } | undefined;
         (req as Request & { user: typeof user & { companyId?: string } }).user = {
           ...user,
-          companyId: permissions?.companyId,
+          companyId: user.companyId || undefined,
         };
       } catch (error) {
-        console.error('Error verifying JWT in tRPC Middleware:', error instanceof Error ? error.message : error);
-        // Sin usuario: protectedProcedure responderá UNAUTHORIZED
+        console.error('Error verifying JWT in tRPC Middleware:', error);
       }
     }
     next();

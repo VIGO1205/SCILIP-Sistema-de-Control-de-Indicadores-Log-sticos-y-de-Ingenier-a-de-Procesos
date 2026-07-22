@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { MapPin, Plus, Pencil, Trash2, Star, Loader2, X } from 'lucide-react';
 import { trpc } from '../../lib/trpc/react';
+import { AddressPickerModal } from '../ui/address-picker-modal';
 import Swal from 'sweetalert2';
 
 interface BranchForm {
@@ -27,6 +28,7 @@ export default function BranchManager() {
   const [editing, setEditing] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [isAddressPickerOpen, setIsAddressPickerOpen] = useState(false);
 
   const handleSave = async () => {
     if (!form.code.trim() || !form.name.trim()) {
@@ -82,6 +84,15 @@ export default function BranchManager() {
 
       {showForm && (
         <div className="border border-gray-200 rounded-xl p-4 bg-gray-50/50 space-y-3">
+          <AddressPickerModal
+            isOpen={isAddressPickerOpen}
+            onClose={() => setIsAddressPickerOpen(false)}
+            initialAddress={form.address}
+            onSelect={(address) => {
+              setForm({ ...form, address });
+              setIsAddressPickerOpen(false);
+            }}
+          />
           <div className="flex items-center justify-between">
             <p className="text-xs font-bold text-gray-900">{editing ? 'Editar Sucursal' : 'Nueva Sucursal'}</p>
             <button onClick={() => { setShowForm(false); setEditing(null); setForm(emptyForm); }} className="text-gray-400 hover:text-gray-600"><X className="h-4 w-4" /></button>
@@ -105,7 +116,22 @@ export default function BranchManager() {
             </div>
             <div className="col-span-2">
               <label className="block text-[11px] font-semibold text-gray-600 uppercase mb-1">Dirección</label>
-              <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-green-400" placeholder="Calle 123 #45-67" />
+              <div className="flex">
+                <input
+                  value={form.address}
+                  onChange={(e) => setForm({ ...form, address: e.target.value })}
+                  className="flex-1 px-3 py-2 border border-gray-200 rounded-l-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-green-400"
+                  placeholder="Calle 123 #45-67"
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsAddressPickerOpen(true)}
+                  className="px-3 rounded-r-lg border border-l-0 border-gray-200 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-green-600 transition-colors shrink-0 flex items-center justify-center"
+                  title="Buscar en mapa"
+                >
+                  <MapPin className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
           <label className="flex items-center gap-2 cursor-pointer">

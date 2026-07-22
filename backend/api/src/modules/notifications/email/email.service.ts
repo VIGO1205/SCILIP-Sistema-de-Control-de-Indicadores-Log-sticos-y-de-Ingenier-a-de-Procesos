@@ -1,5 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
+import * as dns from 'dns';
+
+// Render tiene problemas con IPv6 saliente en su capa gratuita/starter,
+// lo que causa el error ENETUNREACH con Gmail. Esto fuerza a Node a usar IPv4.
+dns.setDefaultResultOrder('ipv4first');
 
 @Injectable()
 export class EmailService {

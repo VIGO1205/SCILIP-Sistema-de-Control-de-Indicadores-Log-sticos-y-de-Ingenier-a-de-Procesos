@@ -304,6 +304,11 @@ export class PurchasingService {
         const notifEmail = (order.creator as any).notificationEmail || order.creator.email;
         // Fire-and-forget: el estado ya está guardado, el email va en segundo plano
         void this.notificationsService['emailService'].sendPurchaseOrderEmail({
+          to: notifEmail,
+          recipientName: (order.creator as any).fullName || order.creator.email,
+          order: {
+            poNumber: order.poNumber,
+            status: 'received',
             orderDate: order.orderDate,
             expectedDeliveryDate: order.expectedDeliveryDate,
             actualDeliveryDate: order.actualDeliveryDate,
@@ -358,6 +363,11 @@ export class PurchasingService {
         const notifEmail = (order.creator as any).notificationEmail || order.creator.email;
         // Fire-and-forget: el estado ya está guardado, el email va en segundo plano
         void this.notificationsService['emailService'].sendPurchaseOrderEmail({
+          to: notifEmail,
+          recipientName: (order.creator as any).fullName || order.creator.email,
+          order: {
+            poNumber: order.poNumber,
+            status: 'completed',
             orderDate: order.orderDate,
             expectedDeliveryDate: order.expectedDeliveryDate,
             actualDeliveryDate: order.actualDeliveryDate,

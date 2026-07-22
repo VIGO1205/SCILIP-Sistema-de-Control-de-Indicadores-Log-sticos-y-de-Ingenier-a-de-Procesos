@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Bell,
   CheckCheck,
@@ -56,12 +56,29 @@ function timeAgo(date: Date): string {
 
 export default function NotificationsPage() {
   const [page, setPage] = useState(1);
-  const { markAsRead, markAllAsRead, deleteNotification } = useNotifications();
+  const { markAsRead, markAllAsRead, deleteNotification, registerListRefetch } = useNotifications();
   const { data, refetch } = trpc.notification.list.useQuery({ page, limit: 20 });
+
+  // Registrar el refetch de la lista en el hook global para que se llame tras mark/delete
+  useEffect(() => {
+    registerListRefetch(refetch);
+  }, [registerListRefetch, refetch]);
 
   const notifications = data?.notifications || [];
   const totalPages = data?.totalPages || 1;
   const total = data?.total || 0;
+
+  const handleMarkAsRead = (id: string) => {
+    markAsRead(id);
+  };
+
+  const handleDelete = (id: string) => {
+    deleteNotification(id);
+  };
+
+  const handleMarkAllAsRead = () => {
+    markAllAsRead();
+  };
 
   return (
     <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
@@ -74,7 +91,7 @@ export default function NotificationsPage() {
             </p>
           </div>
           <button
-            onClick={() => markAllAsRead()}
+            onClick={handleMarkAllAsRead}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 transition-colors"
           >
             <CheckCheck className="h-3.5 w-3.5" />
@@ -126,7 +143,7 @@ export default function NotificationsPage() {
                     <div className="flex items-center gap-1 shrink-0">
                       {!n.isRead && (
                         <button
-                          onClick={() => markAsRead(n.id)}
+                          onClick={() => handleMarkAsRead(n.id)}
                           className="p-1.5 rounded-md text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
                           title="Marcar como leída"
                         >
@@ -134,7 +151,7 @@ export default function NotificationsPage() {
                         </button>
                       )}
                       <button
-                        onClick={() => deleteNotification(n.id)}
+                        onClick={() => handleDelete(n.id)}
                         className="p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
                         title="Eliminar"
                       >

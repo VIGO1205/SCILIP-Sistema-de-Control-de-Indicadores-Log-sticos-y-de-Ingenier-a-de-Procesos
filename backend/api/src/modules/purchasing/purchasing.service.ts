@@ -302,12 +302,8 @@ export class PurchasingService {
       const prefs = await this.notificationsService.getPrefs(order.creator.id);
       if (prefs.emailEnabled && prefs.purchaseOrders) {
         const notifEmail = (order.creator as any).notificationEmail || order.creator.email;
-        await this.notificationsService['emailService'].sendPurchaseOrderEmail({
-          to: notifEmail,
-          recipientName: (order.creator as any).fullName || order.creator.email,
-          order: {
-            poNumber: order.poNumber,
-            status: 'received',
+        // Fire-and-forget: el estado ya está guardado, el email va en segundo plano
+        void this.notificationsService['emailService'].sendPurchaseOrderEmail({
             orderDate: order.orderDate,
             expectedDeliveryDate: order.expectedDeliveryDate,
             actualDeliveryDate: order.actualDeliveryDate,
@@ -360,12 +356,8 @@ export class PurchasingService {
       const prefs = await this.notificationsService.getPrefs(order.creator.id);
       if (prefs.emailEnabled && prefs.purchaseOrders) {
         const notifEmail = (order.creator as any).notificationEmail || order.creator.email;
-        await this.notificationsService['emailService'].sendPurchaseOrderEmail({
-          to: notifEmail,
-          recipientName: (order.creator as any).fullName || order.creator.email,
-          order: {
-            poNumber: order.poNumber,
-            status: 'completed',
+        // Fire-and-forget: el estado ya está guardado, el email va en segundo plano
+        void this.notificationsService['emailService'].sendPurchaseOrderEmail({
             orderDate: order.orderDate,
             expectedDeliveryDate: order.expectedDeliveryDate,
             actualDeliveryDate: order.actualDeliveryDate,

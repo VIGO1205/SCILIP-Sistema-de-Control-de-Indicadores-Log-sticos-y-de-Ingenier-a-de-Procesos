@@ -30,19 +30,35 @@ export class EmailService {
       return { success: true, simulated: true };
     }
 
-    try {
-      const info = await this.transporter.sendMail({
+    // Timeout de 30 segundos para el envío
+    const sendWithTimeout = Promise.race([
+      this.transporter.sendMail({
         from: process.env.SMTP_FROM || `"SCILIP" <${process.env.SMTP_USER}>`,
         to: to.join(', '),
         subject,
         html,
-      });
+      }),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Connection timeout (30s)')), 30000),
+      ),
+    ]);
+
+    try {
+      const info = await sendWithTimeout as any;
       this.logger.log(`Email enviado: ${info.messageId}`);
       return { success: true, messageId: info.messageId };
     } catch (error) {
       this.logger.error(`Error enviando email: ${error.message}`);
       return { success: false, error: error.message };
     }
+  }
+
+  /**
+   * Lanza el envío en segundo plano (fire-and-forget).
+   * La BD ya fue actualizada antes de llamar a este método.
+   */
+  sendInBackground(to: string[], subject: string, html: string): void {
+    this.send(to, subject, html).catch(() => {/* ya logueado en send() */});
   }
 
   async sendOtpCode(email: string, code: string, userName: string) {

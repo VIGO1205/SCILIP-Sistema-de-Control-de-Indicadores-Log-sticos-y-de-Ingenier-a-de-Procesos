@@ -142,7 +142,8 @@ export class NotificationsService {
     const prefs = await this.getPrefs(order.creator.id);
     if (prefs.emailEnabled && prefs.purchaseOrders) {
       const recipientEmail = order.creator.notificationEmail || order.creator.email;
-      await this.emailService.sendPurchaseOrderEmail({
+      // Fire-and-forget: no bloqueamos la respuesta esperando el email
+      void this.emailService.sendPurchaseOrderEmail({
         to: recipientEmail,
         recipientName: order.creator.fullName || order.creator.email,
         order: {

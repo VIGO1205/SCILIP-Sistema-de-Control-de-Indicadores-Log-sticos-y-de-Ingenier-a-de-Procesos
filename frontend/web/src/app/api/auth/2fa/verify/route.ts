@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { AUTH_COOKIE_NAME } from '../../../../../lib/auth/config';
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,7 +21,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: data.message || 'Código inválido' }, { status: apiRes.status });
     }
 
-    return NextResponse.json(data);
+    const response = NextResponse.json({ user: data.user });
+
+    if (data.access_token) {
+      response.cookies.set(AUTH_COOKIE_NAME, data.access_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 24,
+      });
+    }
+
+    return response;
   } catch (error) {
     return NextResponse.json({ message: 'Error del servidor' }, { status: 500 });
   }

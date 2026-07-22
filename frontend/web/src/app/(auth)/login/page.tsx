@@ -68,7 +68,6 @@ function LoginForm() {
         return;
       }
 
-      document.cookie = `access_token=${result.access_token}; path=/; max-age=${24 * 60 * 60}; SameSite=Lax${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`;
       const from = searchParams.get('from') || '/dashboard';
       window.location.assign(from);
     } catch (err) {

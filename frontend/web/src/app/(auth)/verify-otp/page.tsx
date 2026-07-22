@@ -33,8 +33,7 @@ export default function VerifyOtpPage() {
         body: JSON.stringify({ tempToken, code: otpCode }),
       });
       const data = await res.json();
-      if (res.ok && data.access_token) {
-        document.cookie = `access_token=${data.access_token}; path=/; max-age=${24 * 60 * 60}; SameSite=Lax${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`;
+      if (res.ok && data.user) {
         sessionStorage.removeItem('otp_temp_token');
         sessionStorage.removeItem('otp_email');
         window.location.assign('/dashboard');

@@ -11,35 +11,35 @@ import {
   Divider,
 } from '@tremor/react';
 import {
-  Settings,
   User,
+  Building2,
   Bell,
   Shield,
   Database,
   Save,
-  Users,
-  AlertTriangle,
   Code2,
   Clock,
-  CheckCircle2,
   Loader2,
   Lock,
   Eye,
+  AlertTriangle,
+  CheckCircle2,
+  Users,
 } from 'lucide-react';
 import { useAuth } from '../../../components/providers/auth-provider';
 import { trpc } from '../../../lib/trpc/react';
 import Swal from 'sweetalert2';
+import TwoFactorSetup from '../../../components/auth/two-factor-setup';
+import CompanySettings from '../../../components/settings/company-settings';
+import BranchManager from '../../../components/settings/branch-manager';
 
 export default function SettingsPage() {
   const { user, refresh } = useAuth();
   const [savingProfile, setSavingProfile] = useState(false);
   const [savingPassword, setSavingPassword] = useState(false);
 
-  // Estados del Perfil
   const [fullName, setFullName] = useState(user?.fullName ?? '');
   const [phone, setPhone] = useState('');
-
-  // Estados de Seguridad
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,6 +50,38 @@ export default function SettingsPage() {
 
   const updateProfileMutation = trpc.user.updateProfile.useMutation();
   const changePasswordMutation = trpc.user.changePassword.useMutation();
+  const { data: profileData } = trpc.user.getProfile.useQuery();
+  const notifPrefsQuery = trpc.notification.getPrefs.useQuery();
+  const updateNotifPrefsMutation = trpc.notification.updatePrefs.useMutation({
+    onSuccess: () => Swal.fire({ title: 'Preferencias guardadas', icon: 'success', timer: 1200, showConfirmButton: false }),
+  });
+
+  const [notifPrefs, setNotifPrefs] = useState({
+    kpiAlerts: true,
+    weeklyReports: true,
+    purchaseOrders: true,
+    inventoryChanges: true,
+    emailEnabled: true,
+  });
+
+  useEffect(() => {
+    if (notifPrefsQuery.data) {
+      setNotifPrefs({
+        kpiAlerts: notifPrefsQuery.data.kpiAlerts,
+        weeklyReports: notifPrefsQuery.data.weeklyReports,
+        purchaseOrders: notifPrefsQuery.data.purchaseOrders,
+        inventoryChanges: notifPrefsQuery.data.inventoryChanges,
+        emailEnabled: notifPrefsQuery.data.emailEnabled,
+      });
+    }
+  }, [notifPrefsQuery.data]);
+
+  const [twoFAEnabled, setTwoFAEnabled] = useState(false);
+  useEffect(() => {
+    if (profileData?.twoFactorEnabled !== undefined) {
+      setTwoFAEnabled(profileData.twoFactorEnabled);
+    }
+  }, [profileData]);
 
   const handleSaveProfile = async () => {
     if (!fullName.trim()) {
@@ -58,25 +90,11 @@ export default function SettingsPage() {
     }
     setSavingProfile(true);
     try {
-      await updateProfileMutation.mutateAsync({
-        fullName: fullName.trim(),
-        phone: phone.trim() || null,
-      });
+      await updateProfileMutation.mutateAsync({ fullName: fullName.trim(), phone: phone.trim() || null });
       await refresh();
-      Swal.fire({
-        title: 'Perfil actualizado',
-        text: 'Tus datos fueron guardados exitosamente.',
-        icon: 'success',
-        timer: 1500,
-        showConfirmButton: false,
-      });
+      Swal.fire({ title: 'Perfil actualizado', text: 'Tus datos fueron guardados exitosamente.', icon: 'success', timer: 1500, showConfirmButton: false });
     } catch (err: any) {
-      Swal.fire({
-        title: 'Error',
-        text: err.message || 'No se pudo actualizar el perfil',
-        icon: 'error',
-        confirmButtonColor: '#dc2626',
-      });
+      Swal.fire({ title: 'Error', text: err.message || 'No se pudo actualizar el perfil', icon: 'error', confirmButtonColor: '#dc2626' });
     } finally {
       setSavingProfile(false);
     }
@@ -97,54 +115,41 @@ export default function SettingsPage() {
     }
     setSavingPassword(true);
     try {
-      await changePasswordMutation.mutateAsync({
-        currentPassword,
-        newPassword,
-      });
+      await changePasswordMutation.mutateAsync({ currentPassword, newPassword });
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-      Swal.fire({
-        title: 'Contraseña actualizada',
-        text: 'Tu contraseña fue cambiada exitosamente.',
-        icon: 'success',
-        timer: 1500,
-        showConfirmButton: false,
-      });
+      Swal.fire({ title: 'Contraseña actualizada', text: 'Tu contraseña fue cambiada exitosamente.', icon: 'success', timer: 1500, showConfirmButton: false });
     } catch (err: any) {
-      Swal.fire({
-        title: 'Error',
-        text: err.message || 'No se pudo cambiar la contraseña',
-        icon: 'error',
-        confirmButtonColor: '#dc2626',
-      });
+      Swal.fire({ title: 'Error', text: err.message || 'No se pudo cambiar la contraseña', icon: 'error', confirmButtonColor: '#dc2626' });
     } finally {
       setSavingPassword(false);
     }
   };
 
+  const handleSaveNotifPrefs = () => {
+    updateNotifPrefsMutation.mutate(notifPrefs);
+  };
+
   return (
     <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
-      {/* Header */}
       <div className="mb-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <h1 className="text-xl font-bold text-gray-900">Configuración del Sistema</h1>
-            <p className="text-gray-500 mt-0.5 text-xs">
-              Gestiona tu perfil, alertas, seguridad y parámetros del sistema
-            </p>
+            <p className="text-gray-500 mt-0.5 text-xs">Gestiona tu perfil, empresa, alertas, seguridad y parámetros</p>
           </div>
         </div>
         <Divider className="mt-4" />
       </div>
 
-      {/* Tabs */}
       <TabGroup className="mt-6">
-        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5">
-          <Tab icon={User} className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-indigo-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]">Perfil</Tab>
-          <Tab icon={Bell} className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]">Notificaciones</Tab>
-          <Tab icon={Shield} className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-emerald-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]">Seguridad</Tab>
-          <Tab icon={Database} className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-amber-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]">Sistema</Tab>
+        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5 flex-wrap">
+          <Tab icon={User} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-indigo-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500">Perfil</Tab>
+          <Tab icon={Building2} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-blue-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-blue-100 data-[selected]:border-b-[3px] data-[selected]:border-blue-500">Empresa</Tab>
+          <Tab icon={Bell} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-purple-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500">Notificaciones</Tab>
+          <Tab icon={Shield} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-emerald-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500">Seguridad</Tab>
+          <Tab icon={Database} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-amber-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500">Sistema</Tab>
         </TabList>
 
         <TabPanels className="bg-white border border-gray-200 rounded-b-xl shadow-sm">
@@ -160,16 +165,10 @@ export default function SettingsPage() {
                   <p className="text-xs text-gray-500">Editá los datos de tu cuenta</p>
                 </div>
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Nombre Completo</label>
-                  <input
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50"
-                    placeholder="Tu nombre"
-                  />
+                  <input value={fullName} onChange={(e) => setFullName(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50" placeholder="Tu nombre" />
                 </div>
                 <div>
                   <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Correo Electrónico</label>
@@ -181,25 +180,24 @@ export default function SettingsPage() {
                 </div>
                 <div>
                   <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Teléfono</label>
-                  <input
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50"
-                    placeholder="+57 300 000 0000"
-                  />
+                  <input value={phone} onChange={(e) => setPhone(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50" placeholder="+57 300 000 0000" />
                 </div>
               </div>
-
               <div className="flex justify-end pt-2">
-                <button
-                  onClick={handleSaveProfile}
-                  disabled={savingProfile}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors disabled:opacity-60"
-                >
+                <button onClick={handleSaveProfile} disabled={savingProfile} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors disabled:opacity-60">
                   {savingProfile ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
                   {savingProfile ? 'Guardando…' : 'Guardar Cambios'}
                 </button>
               </div>
+            </div>
+          </TabPanel>
+
+          {/* Empresa */}
+          <TabPanel>
+            <div className="p-5 space-y-6">
+              <CompanySettings />
+              <Divider />
+              <BranchManager />
             </div>
           </TabPanel>
 
@@ -217,14 +215,21 @@ export default function SettingsPage() {
               </div>
 
               <div className="space-y-3">
-                <NotificationRow id="kpi-critical" icon={AlertTriangle} color="bg-red-50 text-red-600 border-red-200" title="Alertas de KPIs Críticos" desc="Recibir avisos cuando un KPI esté en zona roja." defaultChecked />
-                <NotificationRow id="weekly-reports" icon={Clock} color="bg-purple-50 text-purple-600 border-purple-200" title="Reportes Semanales" desc="Envío automático del resumen ejecutivo los lunes." defaultChecked />
-                <NotificationRow id="approvals" icon={CheckCircle2} color="bg-emerald-50 text-emerald-600 border-emerald-200" title="Aprobaciones Pendientes" desc="Notificar nuevas órdenes de compra por autorizar." />
-                <NotificationRow id="inventory" icon={Users} color="bg-blue-50 text-blue-600 border-blue-200" title="Cambios de Inventario" desc="Notificar movimientos de stock importantes." />
+                <NotificationToggle icon={AlertTriangle} color="bg-red-50 text-red-600 border-red-200" title="Alertas de KPIs Críticos" desc="Recibir avisos cuando un KPI esté en zona roja." checked={notifPrefs.kpiAlerts} onChange={(v) => setNotifPrefs({ ...notifPrefs, kpiAlerts: v })} />
+                <NotificationToggle icon={Clock} color="bg-purple-50 text-purple-600 border-purple-200" title="Reportes Semanales" desc="Envío automático del resumen ejecutivo los lunes." checked={notifPrefs.weeklyReports} onChange={(v) => setNotifPrefs({ ...notifPrefs, weeklyReports: v })} />
+                <NotificationToggle icon={CheckCircle2} color="bg-emerald-50 text-emerald-600 border-emerald-200" title="Aprobaciones Pendientes" desc="Notificar nuevas órdenes de compra por autorizar." checked={notifPrefs.purchaseOrders} onChange={(v) => setNotifPrefs({ ...notifPrefs, purchaseOrders: v })} />
+                <NotificationToggle icon={Users} color="bg-blue-50 text-blue-600 border-blue-200" title="Cambios de Inventario" desc="Notificar movimientos de stock importantes." checked={notifPrefs.inventoryChanges} onChange={(v) => setNotifPrefs({ ...notifPrefs, inventoryChanges: v })} />
               </div>
 
-              <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mt-4">
-                <p className="text-[11px] text-amber-800 font-medium">💡 Nota: Las notificaciones se envían por email. Próximamente se agregarán notificaciones push en la app.</p>
+              <div className="border-t border-gray-100 pt-4">
+                <NotificationToggle icon={Bell} color="bg-amber-50 text-amber-600 border-amber-200" title="Notificaciones por Email" desc="Recibir copia de las notificaciones por correo electrónico." checked={notifPrefs.emailEnabled} onChange={(v) => setNotifPrefs({ ...notifPrefs, emailEnabled: v })} />
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <button onClick={handleSaveNotifPrefs} disabled={updateNotifPrefsMutation.isPending} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 transition-colors disabled:opacity-60">
+                  {updateNotifPrefsMutation.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
+                  Guardar Preferencias
+                </button>
               </div>
             </div>
           </TabPanel>
@@ -253,61 +258,31 @@ export default function SettingsPage() {
                     <p className="text-[11px] text-gray-500">Actualizá tu contraseña de acceso</p>
                   </div>
                 </div>
-
                 <div className="grid grid-cols-1 gap-3 max-w-md">
                   <div>
                     <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1">Contraseña actual</label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Eye className="h-4 w-4 text-gray-400" />
-                      </span>
-                      <input
-                        type="password"
-                        value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
-                        className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50"
-                        placeholder="••••••"
-                      />
+                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Eye className="h-4 w-4 text-gray-400" /></span>
+                      <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50" placeholder="••••••" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1">Nueva contraseña</label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Lock className="h-4 w-4 text-gray-400" />
-                      </span>
-                      <input
-                        type="password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50"
-                        placeholder="Mínimo 6 caracteres"
-                      />
+                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Lock className="h-4 w-4 text-gray-400" /></span>
+                      <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50" placeholder="Mínimo 6 caracteres" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1">Confirmar nueva contraseña</label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Lock className="h-4 w-4 text-gray-400" />
-                      </span>
-                      <input
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50"
-                        placeholder="Repetí la nueva contraseña"
-                      />
+                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Lock className="h-4 w-4 text-gray-400" /></span>
+                      <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50" placeholder="Repetí la nueva contraseña" />
                     </div>
                   </div>
                 </div>
-
                 <div className="flex justify-end mt-4">
-                  <button
-                    onClick={handleChangePassword}
-                    disabled={savingPassword}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors disabled:opacity-60"
-                  >
+                  <button onClick={handleChangePassword} disabled={savingPassword} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors disabled:opacity-60">
                     {savingPassword ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
                     {savingPassword ? 'Actualizando…' : 'Cambiar Contraseña'}
                   </button>
@@ -316,21 +291,7 @@ export default function SettingsPage() {
 
               {/* 2FA */}
               <Card className="border border-gray-200 shadow-sm rounded-xl p-5">
-                <div className="flex items-start gap-3">
-                  <div className="h-8 w-8 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-                    <Shield className="h-4 w-4 text-gray-500" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs font-bold text-gray-900">Autenticación 2FA</p>
-                    <p className="text-[11px] text-gray-500 mt-0.5">Añadí una capa extra de seguridad a tu cuenta con autenticación de dos factores.</p>
-                    <button
-                      onClick={() => Swal.fire({ title: '2FA', text: 'Función disponible próximamente', icon: 'info', timer: 1500, showConfirmButton: false })}
-                      className="mt-2 px-3 py-1.5 rounded-md text-[11px] font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors"
-                    >
-                      Configurar
-                    </button>
-                  </div>
-                </div>
+                <TwoFactorSetup isEnabled={twoFAEnabled} onToggle={setTwoFAEnabled} />
               </Card>
             </div>
           </TabPanel>
@@ -347,23 +308,17 @@ export default function SettingsPage() {
                   <p className="text-xs text-gray-500">Información técnica y mantenimiento</p>
                 </div>
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <SystemCard icon={Code2} label="Versión del BI" value="1.2.0-stable" color="text-indigo-600 bg-indigo-50 border-indigo-200" />
                 <SystemCard icon={Database} label="Base de Datos" value="PostgreSQL 15" color="text-emerald-600 bg-emerald-50 border-emerald-200" />
-                <SystemCard icon={Clock} label="Último Reinicio" value="Hace 2 horas" color="text-amber-600 bg-amber-50 border-amber-200" />
+                <SystemCard icon={Clock} label="Último Reinicio" value="Activo" color="text-amber-600 bg-amber-50 border-amber-200" />
               </div>
-
               <div className="rounded-xl border border-gray-200 p-4 bg-gray-50/50">
                 <p className="text-xs font-bold text-gray-900 mb-3">Mantenimiento</p>
                 <div className="flex flex-wrap gap-2">
                   <button onClick={() => Swal.fire({ title: 'Caché Limpiada', text: 'El caché del sistema fue limpiado exitosamente.', icon: 'success', timer: 1500, showConfirmButton: false })} className="px-3 py-1.5 rounded-lg text-[11px] font-medium text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 transition-colors">Limpiar Caché</button>
                   <button onClick={() => Swal.fire({ title: 'Sistema', text: 'Todos los servicios están operativos.', icon: 'info', timer: 1500, showConfirmButton: false })} className="px-3 py-1.5 rounded-lg text-[11px] font-medium text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 transition-colors">Verificar Estado</button>
                 </div>
-              </div>
-
-              <div className="rounded-lg bg-blue-50 border border-blue-200 p-3">
-                <p className="text-[11px] text-blue-800 font-medium">💡 Nota: La sección de Sistema muestra información de infraestructura y permite ejecutar tareas de mantenimiento básicas. No requiere configuración por parte del usuario.</p>
               </div>
             </div>
           </TabPanel>
@@ -373,25 +328,7 @@ export default function SettingsPage() {
   );
 }
 
-function NotificationRow({ id, icon: Icon, color, title, desc, defaultChecked }: { id: string; icon: any; color: string; title: string; desc: string; defaultChecked?: boolean }) {
-  const [checked, setChecked] = useState(() => {
-    if (typeof window === 'undefined') return defaultChecked ?? false;
-    try {
-      const saved = localStorage.getItem(`scilip_notif_${id}`);
-      return saved !== null ? saved === 'true' : (defaultChecked ?? false);
-    } catch {
-      return defaultChecked ?? false;
-    }
-  });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(`scilip_notif_${id}`, String(checked));
-    } catch {
-      // ignore
-    }
-  }, [checked, id]);
-
+function NotificationToggle({ icon: Icon, color, title, desc, checked, onChange }: { icon: any; color: string; title: string; desc: string; checked: boolean; onChange: (v: boolean) => void }) {
   return (
     <div className="flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-gray-200 transition-colors bg-white">
       <div className="flex items-center gap-3">
@@ -404,7 +341,7 @@ function NotificationRow({ id, icon: Icon, color, title, desc, defaultChecked }:
         </div>
       </div>
       <label className="relative inline-flex items-center cursor-pointer">
-        <input type="checkbox" className="sr-only peer" checked={checked} onChange={() => setChecked(!checked)} />
+        <input type="checkbox" className="sr-only peer" checked={checked} onChange={() => onChange(!checked)} />
         <div className="w-10 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600" />
       </label>
     </div>

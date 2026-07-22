@@ -11,6 +11,7 @@ import {
   Factory,
   Settings,
   FileText,
+  Bell,
   PanelLeftClose,
   PanelLeftOpen,
 } from 'lucide-react';
@@ -26,6 +27,7 @@ const navigation = [
   { name: 'Servicio al Cliente', href: '/dashboard/customer-service', icon: Users },
   { name: 'Comercio Exterior', href: '/dashboard/international', icon: Globe },
   { name: 'Reportes', href: '/reports', icon: FileText },
+  { name: 'Notificaciones', href: '/notifications', icon: Bell },
   { name: 'Configuración', href: '/settings', icon: Settings },
 ];
 

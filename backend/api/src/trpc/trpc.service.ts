@@ -11,6 +11,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CaslAbilityFactory } from '../modules/auth/casl-ability.factory';
 import { AiService } from '../modules/ai/ai.service';
 import { ReportsService } from '../modules/reports/reports.service';
+import { OtpService } from '../modules/notifications/email/otp.service';
+import { NotificationsService } from '../modules/notifications/notifications.service';
 import { Context } from './context';
 
 @Injectable()
@@ -28,6 +30,8 @@ export class TrpcService {
     private caslAbilityFactory: CaslAbilityFactory,
     private aiService: AiService,
     private reportsService: ReportsService,
+    private otpService: OtpService,
+    private notificationsService: NotificationsService,
   ) {}
 
   createContext(opts: any): Context {
@@ -52,6 +56,8 @@ export class TrpcService {
       caslAbilityFactory: this.caslAbilityFactory,
       aiService: this.aiService,
       reportsService: this.reportsService,
+      otpService: this.otpService,
+      notificationsService: this.notificationsService,
     };
   }
 }

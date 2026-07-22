@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { AUTH_COOKIE_NAME } from './lib/auth/config';
 
-const PUBLIC_PATHS = ['/login', '/register', '/forgot-password'];
+const PUBLIC_PATHS = ['/login', '/register', '/forgot-password', '/verify-otp'];
 
 function isPublicPath(pathname: string) {
   return PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
@@ -13,6 +13,7 @@ function isProtectedPath(pathname: string) {
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/reports') ||
     pathname.startsWith('/settings') ||
+    pathname.startsWith('/notifications') ||
     pathname.startsWith('/embed')
   );
 }

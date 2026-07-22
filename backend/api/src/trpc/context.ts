@@ -10,6 +10,8 @@ import { CaslAbilityFactory } from '../modules/auth/casl-ability.factory';
 import { PrismaService } from '../prisma/prisma.service';
 import { AiService } from '../modules/ai/ai.service';
 import { ReportsService } from '../modules/reports/reports.service';
+import { OtpService } from '../modules/notifications/email/otp.service';
+import { NotificationsService } from '../modules/notifications/notifications.service';
 
 export interface Context {
   user?: any;
@@ -25,4 +27,6 @@ export interface Context {
   prisma: PrismaService;
   aiService: AiService;
   reportsService: ReportsService;
+  otpService: OtpService;
+  notificationsService: NotificationsService;
 }

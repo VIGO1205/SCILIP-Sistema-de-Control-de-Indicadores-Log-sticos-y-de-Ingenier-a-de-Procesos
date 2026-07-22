@@ -43,6 +43,23 @@ export class AuthService {
     };
   }
 
+  generateTempToken(userId: string): string {
+    return this.jwtService.sign(
+      { sub: userId, type: 'otp_verify' },
+      { expiresIn: '5m' },
+    );
+  }
+
+  verifyTempToken(token: string): { sub: string } | null {
+    try {
+      const payload = this.jwtService.verify(token);
+      if (payload.type !== 'otp_verify') return null;
+      return payload;
+    } catch {
+      return null;
+    }
+  }
+
   async register(email: string, password: string, fullName: string) {
     const existing = await this.prisma.user.findUnique({
       where: { email: email.toLowerCase().trim() },

@@ -13,6 +13,7 @@ import { InternationalTradeModule } from '../modules/international-trade/interna
 import { AuthModule } from '../modules/auth/auth.module';
 import { AiModule } from '../modules/ai/ai.module';
 import { ReportsModule } from '../modules/reports/reports.module';
+import { NotificationsModule } from '../modules/notifications/notifications.module';
 import { TrpcAuthMiddleware } from './trpc-auth.middleware';
 
 @Module({
@@ -28,6 +29,7 @@ import { TrpcAuthMiddleware } from './trpc-auth.middleware';
     AuthModule,
     AiModule,
     ReportsModule,
+    NotificationsModule,
   ],
   providers: [TrpcService, TrpcAuthMiddleware],
 })

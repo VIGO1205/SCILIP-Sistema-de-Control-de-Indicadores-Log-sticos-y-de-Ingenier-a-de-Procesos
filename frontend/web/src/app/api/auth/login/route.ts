@@ -39,6 +39,14 @@ export async function POST(request: Request) {
     );
   }
 
+  if (data.requiresOtp) {
+    return NextResponse.json({
+      requiresOtp: true,
+      tempToken: data.tempToken,
+      email: data.email,
+    });
+  }
+
   const response = NextResponse.json({
     user: data.user,
   });

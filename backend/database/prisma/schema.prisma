@@ -35,6 +35,11 @@ model User {
   createdAt              DateTime            @default(now()) @map("created_at")
   updatedAt              DateTime            @default(now()) @updatedAt @map("updated_at")
   deletedAt              DateTime?           @map("deleted_at")
+  twoFactorEnabled       Boolean             @default(false) @map("two_factor_enabled")
+  twoFactorSecret        String?             @map("two_factor_secret") @db.VarChar(255)
+  lastOtpSentAt          DateTime?           @map("last_otp_sent_at")
+  otpAttempts            Int                 @default(0) @map("otp_attempts")
+  otpLockedUntil         DateTime?           @map("otp_locked_until")
   auditLogs              AuditLog[]
   dispatches             Dispatch[]
   inventoryMovements     InventoryMovement[]
@@ -51,6 +56,8 @@ model User {
   scheduledReports       ScheduledReport[]
   sessions               UserSession[]
   supplierRatings        SupplierRatingHistory[]
+  notifications          Notification[]
+  notificationPref       UserNotificationPref?
   role                   Role                @relation(fields: [roleId], references: [id])
 
   @@map("users")
@@ -100,6 +107,9 @@ model Company {
   city                String?              @db.VarChar(100)
   country             String?              @db.VarChar(100)
   website             String?              @db.VarChar(255)
+  currency            String?              @default("COP") @db.VarChar(10)
+  timezone            String?              @default("America/Bogota") @db.VarChar(50)
+  fiscalYearStart     Int?                 @default(1) @map("fiscal_year_start")
   settings            Json?                @default("{}")
   createdAt           DateTime             @default(now()) @map("created_at")
   updatedAt           DateTime             @default(now()) @updatedAt @map("updated_at")
@@ -906,6 +916,36 @@ model ReportHistory {
   report            ScheduledReport? @relation(fields: [scheduledReportId], references: [id])
 
   @@map("report_history")
+}
+
+model Notification {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  type      String   @db.VarChar(50)
+  title     String   @db.VarChar(255)
+  message   String
+  data      Json?
+  isRead    Boolean  @default(false) @map("is_read")
+  readAt    DateTime? @map("read_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead], map: "idx_notifications_user_read")
+  @@index([userId, createdAt(sort: Desc)], map: "idx_notifications_user_date")
+  @@map("notifications")
+}
+
+model UserNotificationPref {
+  id               String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId           String  @unique @map("user_id") @db.Uuid
+  kpiAlerts        Boolean @default(true) @map("kpi_alerts")
+  weeklyReports    Boolean @default(true) @map("weekly_reports")
+  purchaseOrders   Boolean @default(true) @map("purchase_orders")
+  inventoryChanges Boolean @default(true) @map("inventory_changes")
+  emailEnabled     Boolean @default(true) @map("email_enabled")
+  user             User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_notification_prefs")
 }
 
 enum IndicatorClass {

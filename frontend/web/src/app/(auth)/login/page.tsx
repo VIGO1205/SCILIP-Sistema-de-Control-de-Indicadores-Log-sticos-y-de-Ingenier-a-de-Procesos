@@ -50,7 +50,25 @@ function LoginForm() {
     setError(null);
     setSubmitting(true);
     try {
-      await login(data.email.trim(), data.password);
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: data.email.trim(), password: data.password }),
+      });
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message || 'Credenciales inválidas');
+      }
+
+      if (result.requiresOtp) {
+        sessionStorage.setItem('otp_temp_token', result.tempToken);
+        sessionStorage.setItem('otp_email', result.email);
+        window.location.assign('/verify-otp');
+        return;
+      }
+
+      document.cookie = `access_token=${result.access_token}; path=/; max-age=${24 * 60 * 60}; SameSite=Lax${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`;
       const from = searchParams.get('from') || '/dashboard';
       window.location.assign(from);
     } catch (err) {

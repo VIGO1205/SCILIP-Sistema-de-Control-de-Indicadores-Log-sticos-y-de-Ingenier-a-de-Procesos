@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { EmailService } from './email/email.service';
 import { NotificationsGateway } from './websocket/websocket.gateway';
 import { PrismaService } from '../../prisma/prisma.service';
+import { NotificationType } from './dto';
 
 @Injectable()
 export class NotificationsService {
@@ -13,52 +14,140 @@ export class NotificationsService {
     private readonly prisma: PrismaService,
   ) {}
 
+  async create(userId: string, type: string, title: string, message: string, data?: Record<string, any>) {
+    const notification = await this.prisma.notification.create({
+      data: { userId, type, title, message, data: data || undefined },
+    });
+
+    this.wsGateway.sendToUser(userId, 'notification', {
+      id: notification.id,
+      type,
+      title,
+      message,
+      data,
+      createdAt: notification.createdAt,
+    });
+
+    return notification;
+  }
+
+  async getUserNotifications(userId: string, page = 1, limit = 20) {
+    const skip = (page - 1) * limit;
+    const [notifications, total] = await Promise.all([
+      this.prisma.notification.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      this.prisma.notification.count({ where: { userId } }),
+    ]);
+
+    return {
+      notifications,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  async getUnreadCount(userId: string) {
+    const count = await this.prisma.notification.count({
+      where: { userId, isRead: false },
+    });
+    return { count };
+  }
+
+  async markAsRead(notificationId: string, userId: string) {
+    const notification = await this.prisma.notification.findFirst({
+      where: { id: notificationId, userId },
+    });
+    if (!notification) throw new Error('Notificación no encontrada');
+
+    const updated = await this.prisma.notification.update({
+      where: { id: notificationId },
+      data: { isRead: true, readAt: new Date() },
+    });
+
+    this.wsGateway.sendToUser(userId, 'notification_read', { id: notificationId });
+    return updated;
+  }
+
+  async markAllAsRead(userId: string) {
+    await this.prisma.notification.updateMany({
+      where: { userId, isRead: false },
+      data: { isRead: true, readAt: new Date() },
+    });
+    this.wsGateway.sendToUser(userId, 'notification_all_read', {});
+    return { success: true };
+  }
+
+  async deleteNotification(notificationId: string, userId: string) {
+    const notification = await this.prisma.notification.findFirst({
+      where: { id: notificationId, userId },
+    });
+    if (!notification) throw new Error('Notificación no encontrada');
+
+    await this.prisma.notification.delete({ where: { id: notificationId } });
+    this.wsGateway.sendToUser(userId, 'notification_deleted', { id: notificationId });
+    return { success: true };
+  }
+
+  async getPrefs(userId: string) {
+    let prefs = await this.prisma.userNotificationPref.findUnique({ where: { userId } });
+    if (!prefs) {
+      prefs = await this.prisma.userNotificationPref.create({ data: { userId } });
+    }
+    return prefs;
+  }
+
+  async updatePrefs(userId: string, data: {
+    kpiAlerts?: boolean;
+    weeklyReports?: boolean;
+    purchaseOrders?: boolean;
+    inventoryChanges?: boolean;
+    emailEnabled?: boolean;
+  }) {
+    return this.prisma.userNotificationPref.upsert({
+      where: { userId },
+      update: data,
+      create: { userId, ...data },
+    });
+  }
+
   async notifyApproval(orderId: string, status: 'approved' | 'rejected', reason?: string) {
     const order = await this.prisma.purchaseOrder.findUnique({
       where: { id: orderId },
-      include: { 
-        creator: true,
-        supplier: true 
-      },
+      include: { creator: true, supplier: true },
     });
 
-    if (!order || !order.creator) return;
+    if (!order?.creator) return;
 
-    const message = status === 'approved' 
+    const message = status === 'approved'
       ? `Tu orden de compra ${order.poNumber} para ${order.supplier.name} ha sido APROBADA.`
-      : `Tu orden de compra ${order.poNumber} para ${order.supplier.name} ha sido RECHAZADA. Motivo: ${reason}`;
+      : `Tu orden de compra ${order.poNumber} para ${order.supplier.name} ha sido RECHAZADA. ${reason ? `Motivo: ${reason}` : ''}`;
 
-    // 1. Notificación en Tiempo Real (WebSocket)
-    this.wsGateway.sendToUser(order.creator.id, 'notification', {
-      type: 'PURCHASE_ORDER_STATUS',
-      orderId,
-      status,
-      message,
-    });
+    await this.create(order.creator.id, NotificationType.PURCHASE_ORDER, `Orden ${status === 'approved' ? 'Aprobada' : 'Rechazada'}`, message, { orderId, status });
 
-    // 2. Notificación por Email
-    await this.emailService.sendReport({
-      to: [order.creator.email],
-      subject: `Actualización de Orden de Compra: ${order.poNumber}`,
-      body: message,
-      attachments: [],
-    });
-
-    this.logger.log(`Notification sent to ${order.creator.email} for order ${order.poNumber}`);
+    const prefs = await this.getPrefs(order.creator.id);
+    if (prefs.emailEnabled && prefs.purchaseOrders) {
+      await this.emailService.sendNotification(order.creator.email, `Orden de Compra: ${order.poNumber}`, message);
+    }
   }
 
   async notifyKpiAlert(kpiCode: string, value: number, severity: string, userIds: string[]) {
     const message = `ALERTA KPI: El indicador ${kpiCode} ha alcanzado un valor de ${value} (Severidad: ${severity})`;
 
     for (const userId of userIds) {
-      this.wsGateway.sendToUser(userId, 'kpi_alert', {
-        kpiCode,
-        value,
-        severity,
-        message,
-      });
+      await this.create(userId, NotificationType.KPI_ALERT, `Alerta KPI: ${kpiCode}`, message, { kpiCode, value, severity });
+
+      const prefs = await this.getPrefs(userId);
+      if (prefs.emailEnabled && prefs.kpiAlerts) {
+        const user = await this.prisma.user.findUnique({ where: { id: userId } });
+        if (user) {
+          await this.emailService.sendNotification(user.email, `Alerta KPI: ${kpiCode}`, message);
+        }
+      }
     }
-    
-    this.logger.log(`KPI Alert notification sent for ${kpiCode}`);
   }
 }

@@ -3,12 +3,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import { User, LogOut, Settings, ChevronDown, Menu } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../providers/auth-provider';
 import NotificationCenter from '../notifications/notification-center';
 
-export default function Header({ collapsed }: { collapsed?: boolean }) {
+export default function Header({
+  collapsed,
+  onToggleSidebar,
+}: {
+  collapsed?: boolean;
+  onToggleSidebar?: () => void;
+}) {
   const { user, isLoading, logout } = useAuth();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -49,6 +55,15 @@ export default function Header({ collapsed }: { collapsed?: boolean }) {
   return (
     <header className="bg-white shadow-header h-14 flex items-center justify-between px-6 z-10 flex-shrink-0">
       <div className="flex items-center flex-1">
+        {/* Hamburger - mobile only */}
+        {onToggleSidebar && (
+          <button
+            onClick={onToggleSidebar}
+            className="mr-3 p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors md:hidden"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+        )}
         <div className="relative w-full max-w-md">
           <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>

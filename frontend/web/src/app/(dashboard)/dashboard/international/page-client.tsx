@@ -218,19 +218,19 @@ export default function InternationalPage() {
         <TabList className="bg-gradient-to-r from-cyan-50 via-blue-50 to-indigo-50 dark:from-dark-tremor-background-subtle dark:via-dark-tremor-background-subtle dark:to-dark-tremor-background-subtle rounded-t-xl border border-cyan-100/50 dark:border-dark-tremor-border border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={Ship}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-cyan-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-cyan-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-cyan-100 data-[selected]:border-b-[3px] data-[selected]:border-cyan-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:text-cyan-600 dark:data-[selected]:text-cyan-400 data-[selected]:font-bold data-[selected]:border-b-[3px] data-[selected]:border-cyan-500"
           >
             Importaciones
           </Tab>
           <Tab
             icon={Plane}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-violet-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-violet-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-violet-100 data-[selected]:border-b-[3px] data-[selected]:border-violet-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-violet-600 dark:hover:text-violet-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:text-violet-600 dark:data-[selected]:text-violet-400 data-[selected]:font-bold data-[selected]:border-b-[3px] data-[selected]:border-violet-500"
           >
             Exportaciones
           </Tab>
           <Tab
             icon={BarChart3}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-blue-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-blue-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-blue-100 data-[selected]:border-b-[3px] data-[selected]:border-blue-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:text-blue-600 dark:data-[selected]:text-blue-400 data-[selected]:font-bold data-[selected]:border-b-[3px] data-[selected]:border-blue-500"
           >
             Análisis
           </Tab>

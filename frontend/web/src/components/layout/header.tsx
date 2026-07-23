@@ -7,6 +7,7 @@ import { User, LogOut, Settings, ChevronDown, Menu } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../providers/auth-provider';
 import NotificationCenter from '../notifications/notification-center';
+import GlobalSearch from './global-search';
 
 export default function Header({
   collapsed,
@@ -64,21 +65,7 @@ export default function Header({
             <Menu className="h-5 w-5" />
           </button>
         )}
-        <div className="relative w-full max-w-md">
-          <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-          </span>
-          <input
-            className="block w-full pl-10 pr-4 py-2 border-none rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all sm:text-sm"
-            placeholder="Buscar indicadores, reportes..."
-            type="search"
-          />
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-            <kbd className="hidden sm:inline-flex h-4 items-center gap-1 rounded border bg-white px-1 font-sans text-[9px] font-medium text-gray-400">
-              ⌘K
-            </kbd>
-          </div>
-        </div>
+        <GlobalSearch />
       </div>
 
       <div className="flex items-center space-x-4">

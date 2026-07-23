@@ -138,7 +138,7 @@ export default function ReportsPage() {
 
       {/* Tabs estilo Dashboard */}
       <TabGroup className="mt-6">
-        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5">
+        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 dark:from-dark-tremor-background-subtle dark:via-dark-tremor-background-subtle dark:to-dark-tremor-background-subtle rounded-t-xl border border-indigo-100/50 dark:border-dark-tremor-border border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={BarChart3}
             className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
@@ -208,20 +208,20 @@ export default function ReportsPage() {
 }
 
 function StatusCard({ label, count, color, icon }: { label: string; count: number; color: string; icon: React.ReactNode }) {
-  const colors: Record<string, { bg: string; border: string; text: string }> = {
-    indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-700' },
-    red: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700' },
-    emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700' },
-    purple: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700' },
+  const colors: Record<string, { bg: string; border: string; text: string; darkBg: string; darkBorder: string; darkText: string }> = {
+    indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-700', darkBg: 'bg-indigo-950/30', darkBorder: 'border-indigo-800/50', darkText: 'text-indigo-400' },
+    red: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', darkBg: 'bg-red-950/30', darkBorder: 'border-red-800/50', darkText: 'text-red-400' },
+    emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', darkBg: 'bg-emerald-950/30', darkBorder: 'border-emerald-800/50', darkText: 'text-emerald-400' },
+    purple: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700', darkBg: 'bg-purple-950/30', darkBorder: 'border-purple-800/50', darkText: 'text-purple-400' },
   };
   const c = colors[color] || colors.indigo;
 
   return (
-    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} border ${c.border}`}>
-      <span className={c.text}>{icon}</span>
+    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} ${c.darkBg} border ${c.border} ${c.darkBorder}`}>
+      <span className={`${c.text} ${c.darkText}`}>{icon}</span>
       <div>
         <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{label}</p>
-        <p className={`text-base font-bold ${c.text}`}>{count}</p>
+        <p className={`text-base font-bold ${c.text} ${c.darkText}`}>{count}</p>
       </div>
     </div>
   );

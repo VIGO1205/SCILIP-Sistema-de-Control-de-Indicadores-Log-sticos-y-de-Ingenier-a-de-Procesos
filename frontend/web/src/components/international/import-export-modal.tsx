@@ -208,7 +208,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
               <div className="h-6 w-6 rounded-md bg-gray-100 dark:bg-dark-tremor-background-muted flex items-center justify-center">
                 <Package className="h-3.5 w-3.5 text-gray-500 dark:text-dark-tremor-content-subtle" />
               </div>
-              <h3 className="text-sm font-bold text-gray-800">Información General</h3>
+              <h3 className="text-sm font-bold text-gray-800 dark:text-dark-tremor-content-strong">Información General</h3>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -295,7 +295,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
               <div className="h-6 w-6 rounded-md bg-gray-100 dark:bg-dark-tremor-background-muted flex items-center justify-center">
                 <DollarSign className="h-3.5 w-3.5 text-gray-500 dark:text-dark-tremor-content-subtle" />
               </div>
-              <h3 className="text-sm font-bold text-gray-800">Costos y Cantidades (USD)</h3>
+              <h3 className="text-sm font-bold text-gray-800 dark:text-dark-tremor-content-strong">Costos y Cantidades (USD)</h3>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
@@ -363,7 +363,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
               <div className="h-6 w-6 rounded-md bg-gray-100 dark:bg-dark-tremor-background-muted flex items-center justify-center">
                 <Anchor className="h-3.5 w-3.5 text-gray-500 dark:text-dark-tremor-content-subtle" />
               </div>
-              <h3 className="text-sm font-bold text-gray-800">Logística Internacional</h3>
+              <h3 className="text-sm font-bold text-gray-800 dark:text-dark-tremor-content-strong">Logística Internacional</h3>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>

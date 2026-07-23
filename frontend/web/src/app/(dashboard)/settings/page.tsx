@@ -156,12 +156,12 @@ export default function SettingsPage() {
       </div>
 
       <TabGroup className="mt-6">
-        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5 flex-wrap">
-          <Tab icon={User} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500">Perfil</Tab>
-          <Tab icon={Building2} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-blue-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-blue-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-blue-100 data-[selected]:border-b-[3px] data-[selected]:border-blue-500">Empresa</Tab>
-          <Tab icon={Bell} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500">Notificaciones</Tab>
-          <Tab icon={Shield} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-emerald-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500">Seguridad</Tab>
-          <Tab icon={Database} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-amber-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500">Sistema</Tab>
+        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 dark:from-dark-tremor-background-subtle dark:via-dark-tremor-background-subtle dark:to-dark-tremor-background-subtle rounded-t-xl border border-indigo-100/50 dark:border-dark-tremor-border border-b-0 shadow-sm p-1.5 gap-1.5 flex-wrap">
+          <Tab icon={User} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 dark:data-[selected]:text-indigo-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 dark:data-[selected]:shadow-indigo-900/20 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500">Perfil</Tab>
+          <Tab icon={Building2} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-blue-600 dark:data-[selected]:text-blue-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-blue-100 dark:data-[selected]:shadow-blue-900/20 data-[selected]:border-b-[3px] data-[selected]:border-blue-500">Empresa</Tab>
+          <Tab icon={Bell} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 dark:hover:text-purple-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 dark:data-[selected]:text-purple-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 dark:data-[selected]:shadow-purple-900/20 data-[selected]:border-b-[3px] data-[selected]:border-purple-500">Notificaciones</Tab>
+          <Tab icon={Shield} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-emerald-600 dark:data-[selected]:text-emerald-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 dark:data-[selected]:shadow-emerald-900/20 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500">Seguridad</Tab>
+          <Tab icon={Database} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-amber-600 dark:hover:text-amber-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-amber-600 dark:data-[selected]:text-amber-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 dark:data-[selected]:shadow-amber-900/20 data-[selected]:border-b-[3px] data-[selected]:border-amber-500">Sistema</Tab>
         </TabList>
 
         <TabPanels className="bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-b-xl shadow-sm">
@@ -332,7 +332,7 @@ export default function SettingsPage() {
               <div className="rounded-xl border border-gray-200 dark:border-dark-tremor-border p-4 bg-gray-50/50 dark:bg-dark-tremor-background-muted">
                 <p className="text-xs font-bold text-gray-900 dark:text-dark-tremor-content-strong mb-3">Mantenimiento</p>
                 <div className="flex flex-wrap gap-2">
-                  <button onClick={() => Swal.fire({ title: 'Caché Limpiada', text: 'El caché del sistema fue limpiado exitosamente.', icon: 'success', timer: 1500, showConfirmButton: false })} className="px-3 py-1.5 rounded-lg text-[11px] font-medium text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 transition-colors">Limpiar Caché</button>
+                  <button onClick={() => Swal.fire({ title: 'Caché Limpiada', text: 'El caché del sistema fue limpiado exitosamente.', icon: 'success', timer: 1500, showConfirmButton: false })} className="px-3 py-1.5 rounded-lg text-[11px] font-medium text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 border border-red-200 dark:border-red-800/30 transition-colors">Limpiar Caché</button>
                   <button onClick={() => Swal.fire({ title: 'Sistema', text: 'Todos los servicios están operativos.', icon: 'info', timer: 1500, showConfirmButton: false })} className="px-3 py-1.5 rounded-lg text-[11px] font-medium text-gray-700 dark:text-dark-tremor-content bg-white dark:bg-dark-tremor-background hover:bg-gray-50 dark:hover:bg-dark-tremor-background-subtle border border-gray-200 dark:border-dark-tremor-border transition-colors">Verificar Estado</button>
                 </div>
               </div>
@@ -345,10 +345,20 @@ export default function SettingsPage() {
 }
 
 function NotificationToggle({ icon: Icon, color, title, desc, checked, onChange }: { icon: any; color: string; title: string; desc: string; checked: boolean; onChange: (v: boolean) => void }) {
+  // Parse color prop and add dark variants
+  const colorClasses = {
+    "bg-red-50 text-red-600 border-red-200": "bg-red-50 text-red-600 dark:text-red-400 border-red-200 dark:bg-red-900/20 dark:border-red-800/30",
+    "bg-purple-50 text-purple-600 border-purple-200": "bg-purple-50 text-purple-600 dark:text-purple-400 border-purple-200 dark:bg-purple-900/20 dark:border-purple-800/30",
+    "bg-emerald-50 text-emerald-600 border-emerald-200": "bg-emerald-50 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800/30",
+    "bg-blue-50 text-blue-600 border-blue-200": "bg-blue-50 text-blue-600 dark:text-blue-400 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800/30",
+    "bg-amber-50 text-amber-600 border-amber-200": "bg-amber-50 text-amber-600 dark:text-amber-400 border-amber-200 dark:bg-amber-900/20 dark:border-amber-800/30",
+  };
+  const finalColor = colorClasses[color as keyof typeof colorClasses] || color;
+  
   return (
     <div className="flex items-center justify-between p-3 rounded-xl border border-gray-100 dark:border-dark-tremor-border hover:border-gray-200 dark:hover:border-dark-tremor-border transition-colors bg-white dark:bg-dark-tremor-background">
       <div className="flex items-center gap-3">
-        <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${color}`}>
+        <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${finalColor}`}>
           <Icon className="h-4 w-4" />
         </div>
         <div>
@@ -358,16 +368,24 @@ function NotificationToggle({ icon: Icon, color, title, desc, checked, onChange 
       </div>
       <label className="relative inline-flex items-center cursor-pointer">
         <input type="checkbox" className="sr-only peer" checked={checked} onChange={() => onChange(!checked)} />
-        <div className="w-10 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600" />
+        <div className="w-10 h-5 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-100 dark:peer-focus:ring-indigo-900/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:after:bg-gray-200 after:border-gray-300 dark:after:border-gray-600 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600" />
       </label>
     </div>
   );
 }
 
 function SystemCard({ icon: Icon, label, value, color }: { icon: any; label: string; value: string; color: string }) {
+  // Parse color prop and add dark variants
+  const colorClasses = {
+    "text-indigo-600 bg-indigo-50 border-indigo-200": "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800/30",
+    "text-emerald-600 bg-emerald-50 border-emerald-200": "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800/30",
+    "text-amber-600 bg-amber-50 border-amber-200": "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800/30",
+  };
+  const finalColor = colorClasses[color as keyof typeof colorClasses] || color;
+  
   return (
     <div className="rounded-xl border border-gray-200 dark:border-dark-tremor-border p-4 bg-white dark:bg-dark-tremor-background flex items-start gap-3">
-      <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${color}`}>
+      <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${finalColor}`}>
         <Icon className="h-4 w-4" />
       </div>
       <div>

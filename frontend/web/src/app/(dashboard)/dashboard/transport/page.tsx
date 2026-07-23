@@ -180,14 +180,14 @@ export default function TransportPage() {
           <div className="flex gap-2">
             <button
               onClick={() => { setSelectedDriver(null); setIsDriverModalOpen(true); }}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-700 bg-amber-50 border border-amber-200 hover:bg-amber-100 rounded-lg transition-colors shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/30 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded-lg transition-colors shadow-sm"
             >
               <Users className="h-4 w-4" />
               Nuevo Conductor
             </button>
             <button
               onClick={() => { setSelectedVehicle(null); setIsVehicleModalOpen(true); }}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-orange-700 bg-orange-50 border border-orange-200 hover:bg-orange-100 rounded-lg transition-colors shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-orange-700 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700/30 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-lg transition-colors shadow-sm"
             >
               <Truck className="h-4 w-4" />
               Nuevo Vehículo
@@ -298,28 +298,28 @@ export default function TransportPage() {
 
       {/* Tabs estilo Dashboard */}
       <TabGroup className="mt-6">
-        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5">
+        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-t-xl border border-indigo-100/50 dark:border-indigo-900/30 border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={Truck}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 dark:data-[selected]:text-indigo-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 dark:data-[selected]:shadow-indigo-900/20 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Flota
           </Tab>
           <Tab
             icon={DollarSign}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-emerald-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-emerald-600 dark:data-[selected]:text-emerald-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 dark:data-[selected]:shadow-emerald-900/20 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Costos
           </Tab>
           <Tab
             icon={Users}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-amber-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-amber-600 dark:hover:text-amber-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-amber-600 dark:data-[selected]:text-amber-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 dark:data-[selected]:shadow-amber-900/20 data-[selected]:border-b-[3px] data-[selected]:border-amber-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Conductores
           </Tab>
           <Tab
             icon={BarChart3}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 dark:hover:text-purple-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 dark:data-[selected]:text-purple-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 dark:data-[selected]:shadow-purple-900/20 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Análisis
           </Tab>
@@ -357,7 +357,12 @@ export default function TransportPage() {
                           <Text className="font-bold text-gray-900 dark:text-dark-tremor-content-strong">{vehicle.plateNumber}</Text>
                           <Text className="text-xs text-gray-400 dark:text-dark-tremor-content-subtle">{vehicle.brand} {vehicle.model} {vehicle.year ? `(${vehicle.year})` : ''}</Text>
                         </div>
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-${s.color}-50 text-${s.color}-700 border border-${s.color}-200`}>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                          s.color === 'emerald' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700/30' :
+                          s.color === 'amber' ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-700/30' :
+                          s.color === 'gray' ? 'bg-gray-50 dark:bg-dark-tremor-background-muted text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border' :
+                          'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-700/30'
+                        }`}>
                           {s.label}
                         </span>
                       </div>
@@ -420,7 +425,7 @@ export default function TransportPage() {
               <div className="flex justify-end">
                 <button
                   onClick={() => { setSelectedDriver(null); setIsDriverModalOpen(true); }}
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-700 bg-amber-50 border border-amber-200 hover:bg-amber-100 rounded-lg transition-colors shadow-sm"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/30 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded-lg transition-colors shadow-sm"
                 >
                   <Users className="h-4 w-4" />
                   Nuevo Conductor
@@ -510,37 +515,37 @@ export default function TransportPage() {
                 </div>
                 <div className="px-5 pb-5 space-y-2">
                   {inMaintenance > 0 ? (
-                    <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                    <div className="flex items-start gap-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/30 rounded-lg">
                       <Wrench className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-amber-700">{inMaintenance} vehículo(s) en mantenimiento</p>
-                        <p className="text-xs text-amber-500 mt-0.5">Verifica disponibilidad de flota antes de programar despachos.</p>
+                        <p className="text-sm font-semibold text-amber-700 dark:text-amber-400">{inMaintenance} vehículo(s) en mantenimiento</p>
+                        <p className="text-xs text-amber-500 dark:text-amber-400/80 mt-0.5">Verifica disponibilidad de flota antes de programar despachos.</p>
                       </div>
                     </div>
                   ) : (
-                    <div className="flex items-start gap-2 p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+                    <div className="flex items-start gap-2 p-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700/30 rounded-lg">
                       <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-emerald-700">Toda la flota operativa</p>
-                        <p className="text-xs text-emerald-500 mt-0.5">No hay alertas de vehículos en este momento.</p>
+                        <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Toda la flota operativa</p>
+                        <p className="text-xs text-emerald-500 dark:text-emerald-400/80 mt-0.5">No hay alertas de vehículos en este momento.</p>
                       </div>
                     </div>
                   )}
                   {drivers?.some((d: any) => d.licenseExpiry && new Date(d.licenseExpiry) < new Date()) && (
-                    <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <div className="flex items-start gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/30 rounded-lg">
                       <AlertTriangle className="h-4 w-4 text-red-500 mt-0.5 shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-red-700">Licencias vencidas detectadas</p>
-                        <p className="text-xs text-red-500 mt-0.5">Hay conductores con licencia vencida. Revisa la pestaña Conductores.</p>
+                        <p className="text-sm font-semibold text-red-700 dark:text-red-400">Licencias vencidas detectadas</p>
+                        <p className="text-xs text-red-500 dark:text-red-400/80 mt-0.5">Hay conductores con licencia vencida. Revisa la pestaña Conductores.</p>
                       </div>
                     </div>
                   )}
                   {(transportVsSales.data?.averagePercentage ?? 0) > 15 && (
-                    <div className="flex items-start gap-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                    <div className="flex items-start gap-2 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700/30 rounded-lg">
                       <Gauge className="h-4 w-4 text-orange-500 mt-0.5 shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-orange-700">Costo de transporte alto: {(transportVsSales.data?.averagePercentage ?? 0).toFixed(1)}%</p>
-                        <p className="text-xs text-orange-500 mt-0.5">El costo de transporte supera el 15% de las ventas. Revisa rutas y eficiencia.</p>
+                        <p className="text-sm font-semibold text-orange-700 dark:text-orange-400">Costo de transporte alto: {(transportVsSales.data?.averagePercentage ?? 0).toFixed(1)}%</p>
+                        <p className="text-xs text-orange-500 dark:text-orange-400/80 mt-0.5">El costo de transporte supera el 15% de las ventas. Revisa rutas y eficiencia.</p>
                       </div>
                     </div>
                   )}
@@ -555,22 +560,22 @@ export default function TransportPage() {
 }
 
 function StatusCard({ label, count, color, icon }: { label: string; count: number; color: string; icon: React.ReactNode }) {
-  const colors: Record<string, { bg: string; border: string; text: string }> = {
-    blue: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700' },
-    primary: { bg: 'bg-primary/5', border: 'border-primary/20', text: 'text-primary' },
-    emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700' },
-    amber: { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700' },
-    orange: { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700' },
-    red: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700' },
+  const colors: Record<string, { bg: string; border: string; text: string; darkBg?: string; darkBorder?: string; darkText?: string }> = {
+    blue: { bg: 'bg-blue-50/50', border: 'border-blue-200/50', text: 'text-blue-700', darkBg: 'dark:bg-blue-900/20', darkBorder: 'dark:border-blue-700/30', darkText: 'dark:text-blue-400' },
+    primary: { bg: 'bg-primary/5', border: 'border-primary/20', text: 'text-primary', darkBg: 'dark:bg-primary/10', darkBorder: 'dark:border-primary/20', darkText: 'dark:text-primary' },
+    emerald: { bg: 'bg-emerald-50/50', border: 'border-emerald-200/50', text: 'text-emerald-700', darkBg: 'dark:bg-emerald-900/20', darkBorder: 'dark:border-emerald-700/30', darkText: 'dark:text-emerald-400' },
+    amber: { bg: 'bg-amber-50/50', border: 'border-amber-200/50', text: 'text-amber-700', darkBg: 'dark:bg-amber-900/20', darkBorder: 'dark:border-amber-700/30', darkText: 'dark:text-amber-400' },
+    orange: { bg: 'bg-orange-50/50', border: 'border-orange-200/50', text: 'text-orange-700', darkBg: 'dark:bg-orange-900/20', darkBorder: 'dark:border-orange-700/30', darkText: 'dark:text-orange-400' },
+    red: { bg: 'bg-red-50/50', border: 'border-red-200/50', text: 'text-red-700', darkBg: 'dark:bg-red-900/20', darkBorder: 'dark:border-red-700/30', darkText: 'dark:text-red-400' },
   };
   const c = colors[color] || colors.primary;
 
   return (
-    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} border ${c.border}`}>
-      <span className={c.text}>{icon}</span>
+    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} ${c.darkBg} border ${c.border} ${c.darkBorder}`}>
+      <span className={`${c.text} ${c.darkText}`}>{icon}</span>
       <div>
         <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{label}</p>
-        <p className={`text-base font-bold ${c.text}`}>
+        <p className={`text-base font-bold ${c.text} ${c.darkText}`}>
           {typeof count === 'number' && count > 1000 ? '$ ' + count.toLocaleString('en-US', { maximumFractionDigits: 0 }) : count}
         </p>
       </div>

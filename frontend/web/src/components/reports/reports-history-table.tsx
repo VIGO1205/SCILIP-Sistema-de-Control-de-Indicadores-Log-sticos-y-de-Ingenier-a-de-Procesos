@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Card } from '@tremor/react';
@@ -31,10 +31,10 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
   }
 
   const statusConfig: Record<string, { label: string; class: string; icon: any }> = {
-    success: { label: 'Completado', class: 'bg-emerald-50 text-emerald-700 border-emerald-200', icon: CheckCircle2 },
-    completed: { label: 'Completado', class: 'bg-emerald-50 text-emerald-700 border-emerald-200', icon: CheckCircle2 },
-    failed: { label: 'Error', class: 'bg-red-50 text-red-700 border-red-200', icon: XCircle },
-    pending: { label: 'En Proceso', class: 'bg-amber-50 text-amber-700 border-amber-200', icon: AlertTriangle },
+    success: { label: 'Completado', class: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50', icon: CheckCircle2 },
+    completed: { label: 'Completado', class: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50', icon: CheckCircle2 },
+    failed: { label: 'Error', class: 'bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400 border-red-200 dark:border-red-800/50', icon: XCircle },
+    pending: { label: 'En Proceso', class: 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 border-amber-200 dark:border-amber-800/50', icon: AlertTriangle },
   };
 
   const handleReDownload = async (item: any) => {
@@ -157,10 +157,10 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${
                       item.format === 'pdf'
-                        ? 'bg-red-50 text-red-700 border border-red-200'
-                        : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        ? 'bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800/50'
+                        : 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50'
                     }`}>
                       {item.format.toUpperCase()}
                     </span>
@@ -183,14 +183,14 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
                         <button
                           onClick={() => handleReDownload(item)}
                           disabled={isDlLoading || isDelLoading}
-                          className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 transition-colors disabled:opacity-50"
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium text-indigo-700 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 border border-indigo-200 dark:border-indigo-800/50 transition-colors disabled:opacity-50"
                           title="Volver a descargar"
                         >
                           {isDlLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Download className="h-3 w-3" />}
                           Descargar
                         </button>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium text-gray-400 bg-gray-50 border border-gray-200 dark:border-dark-tremor-border cursor-not-allowed" title="Registro antiguo sin parámetros">
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium text-gray-400 bg-gray-50 dark:bg-gray-800/30 border border-gray-200 dark:border-dark-tremor-border cursor-not-allowed" title="Registro antiguo sin parámetros">
                           <Download className="h-3 w-3" />
                           Descargar
                         </span>
@@ -198,7 +198,7 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
                       <button
                         onClick={() => handleDelete(item.id)}
                         disabled={isDlLoading || isDelLoading}
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 transition-colors disabled:opacity-50"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-900/40 border border-red-200 dark:border-red-800/50 transition-colors disabled:opacity-50"
                         title="Eliminar del historial"
                       >
                         {isDelLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Trash2 className="h-3 w-3" />}

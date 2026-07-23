@@ -215,7 +215,7 @@ export default function InternationalPage() {
 
       {/* Tabs estilo Dashboard */}
       <TabGroup className="mt-6">
-        <TabList className="bg-gradient-to-r from-cyan-50 via-blue-50 to-indigo-50 rounded-t-xl border border-cyan-100/50 border-b-0 shadow-sm p-1.5 gap-1.5">
+        <TabList className="bg-gradient-to-r from-cyan-50 via-blue-50 to-indigo-50 dark:from-dark-tremor-background-subtle dark:via-dark-tremor-background-subtle dark:to-dark-tremor-background-subtle rounded-t-xl border border-cyan-100/50 dark:border-dark-tremor-border border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={Ship}
             className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-cyan-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-cyan-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-cyan-100 data-[selected]:border-b-[3px] data-[selected]:border-cyan-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
@@ -398,22 +398,22 @@ export default function InternationalPage() {
 }
 
 function StatusCard({ label, count, color, icon }: { label: string; count: number; color: string; icon: React.ReactNode }) {
-  const colors: Record<string, { bg: string; border: string; text: string }> = {
-    cyan: { bg: 'bg-cyan-50', border: 'border-cyan-200', text: 'text-cyan-700' },
-    blue: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700' },
-    violet: { bg: 'bg-violet-50', border: 'border-violet-200', text: 'text-violet-700' },
-    emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700' },
-    amber: { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700' },
-    primary: { bg: 'bg-primary/5', border: 'border-primary/20', text: 'text-primary' },
+  const colors: Record<string, { bg: string; border: string; text: string; darkBg: string; darkBorder: string; darkText: string }> = {
+    cyan: { bg: 'bg-cyan-50', border: 'border-cyan-200', text: 'text-cyan-700', darkBg: 'bg-cyan-950/30', darkBorder: 'border-cyan-800/50', darkText: 'text-cyan-400' },
+    blue: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700', darkBg: 'bg-blue-950/30', darkBorder: 'border-blue-800/50', darkText: 'text-blue-400' },
+    violet: { bg: 'bg-violet-50', border: 'border-violet-200', text: 'text-violet-700', darkBg: 'bg-violet-950/30', darkBorder: 'border-violet-800/50', darkText: 'text-violet-400' },
+    emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', darkBg: 'bg-emerald-950/30', darkBorder: 'border-emerald-800/50', darkText: 'text-emerald-400' },
+    amber: { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700', darkBg: 'bg-amber-950/30', darkBorder: 'border-amber-800/50', darkText: 'text-amber-400' },
+    primary: { bg: 'bg-primary/5', border: 'border-primary/20', text: 'text-primary', darkBg: 'bg-primary/10', darkBorder: 'border-primary/20', darkText: 'text-primary' },
   };
   const c = colors[color] || colors.primary;
 
   return (
-    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} border ${c.border}`}>
-      <span className={c.text}>{icon}</span>
+    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} ${c.darkBg} border ${c.border} ${c.darkBorder}`}>
+      <span className={`${c.text} ${c.darkText}`}>{icon}</span>
       <div>
         <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{label}</p>
-        <p className={`text-base font-bold ${c.text}`}>{count}</p>
+        <p className={`text-base font-bold ${c.text} ${c.darkText}`}>{count}</p>
       </div>
     </div>
   );

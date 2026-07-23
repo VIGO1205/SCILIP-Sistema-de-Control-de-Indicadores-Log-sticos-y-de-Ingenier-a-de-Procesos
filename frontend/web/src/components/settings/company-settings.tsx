@@ -66,32 +66,32 @@ function Combobox({ value, options, placeholder, onChange }: ComboboxProps) {
     <div ref={containerRef} className="relative">
       <div
         onClick={() => { setOpen(!open); setTimeout(() => inputRef.current?.focus(), 0); }}
-        className="flex items-center justify-between w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50/50 cursor-pointer hover:border-gray-300 transition-colors"
+        className="flex items-center justify-between w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm bg-gray-50/50 dark:bg-dark-tremor-background cursor-pointer hover:border-gray-300 dark:hover:border-dark-tremor-border transition-colors"
       >
-        <span className={value ? 'text-gray-900' : 'text-gray-400'}>
+        <span className={value ? 'text-gray-900 dark:text-dark-tremor-content-strong' : 'text-gray-400 dark:text-dark-tremor-content-subtle'}>
           {value || placeholder}
         </span>
-        <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle transition-transform ${open ? 'rotate-180' : ''}`} />
       </div>
 
       {open && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-          <div className="p-2 border-b border-gray-100">
+        <div className="absolute z-50 w-full mt-1 bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-lg shadow-lg overflow-hidden">
+          <div className="p-2 border-b border-gray-100 dark:border-dark-tremor-border">
             <div className="relative">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400 dark:text-dark-tremor-content-subtle" />
               <input
                 ref={inputRef}
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Buscar..."
-                className="w-full pl-8 pr-7 py-1.5 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400"
+                className="w-full pl-8 pr-7 py-1.5 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-md bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content focus:outline-none focus:ring-1 focus:ring-blue-400 dark:focus:ring-blue-600 focus:border-blue-400 dark:focus:border-blue-600"
               />
               {query && (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 dark:text-dark-tremor-content-subtle hover:text-gray-600 dark:hover:text-dark-tremor-content"
                 >
                   <X className="h-3 w-3" />
                 </button>
@@ -100,14 +100,14 @@ function Combobox({ value, options, placeholder, onChange }: ComboboxProps) {
           </div>
           <div className="max-h-48 overflow-y-auto">
             {filtered.length === 0 ? (
-              <div className="px-3 py-2 text-xs text-gray-400 text-center">Sin resultados</div>
+              <div className="px-3 py-2 text-xs text-gray-400 dark:text-dark-tremor-content-subtle text-center">Sin resultados</div>
             ) : (
               filtered.map((opt) => (
                 <button
                   key={opt}
                   type="button"
                   onClick={() => { onChange(opt); setOpen(false); setQuery(''); }}
-                  className={`w-full text-left px-3 py-2 text-sm hover:bg-blue-50 transition-colors ${opt === value ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700'}`}
+                  className={`w-full text-left px-3 py-2 text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors ${opt === value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium' : 'text-gray-700 dark:text-dark-tremor-content'}`}
                 >
                   {opt}
                 </button>
@@ -186,39 +186,39 @@ export default function CompanySettings() {
       />
 
       <div className="flex items-center gap-3 mb-2">
-        <div className="h-10 w-10 rounded-xl bg-blue-100 flex items-center justify-center">
-          <Building2 className="h-5 w-5 text-blue-600" />
+        <div className="h-10 w-10 rounded-xl bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center">
+          <Building2 className="h-5 w-5 text-blue-600 dark:text-blue-400" />
         </div>
         <div>
-          <h3 className="text-sm font-bold text-gray-900">Datos de la Empresa</h3>
-          <p className="text-xs text-gray-500">Informacion legal y de contacto</p>
+          <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Datos de la Empresa</h3>
+          <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">Informacion legal y de contacto</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Razon Social *</label>
-          <input value={form.legalName} onChange={(e) => setForm({ ...form, legalName: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 bg-gray-50/50" placeholder="Nombre legal de la empresa" />
+          <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Razon Social *</label>
+          <input value={form.legalName} onChange={(e) => setForm({ ...form, legalName: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-400 dark:focus:border-blue-600 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="Nombre legal de la empresa" />
         </div>
         <div>
-          <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Nombre Comercial</label>
-          <input value={form.tradeName} onChange={(e) => setForm({ ...form, tradeName: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 bg-gray-50/50" placeholder="Nombre que usa la empresa" />
+          <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Nombre Comercial</label>
+          <input value={form.tradeName} onChange={(e) => setForm({ ...form, tradeName: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-400 dark:focus:border-blue-600 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="Nombre que usa la empresa" />
         </div>
         <div>
-          <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">NIT/RIF</label>
-          <input value={form.taxId} onChange={(e) => setForm({ ...form, taxId: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 bg-gray-50/50" placeholder="900.000.000-0" />
+          <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">NIT/RIF</label>
+          <input value={form.taxId} onChange={(e) => setForm({ ...form, taxId: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-400 dark:focus:border-blue-600 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="900.000.000-0" />
         </div>
         <div>
-          <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Email</label>
-          <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 bg-gray-50/50" placeholder="empresa@email.com" />
+          <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Email</label>
+          <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-400 dark:focus:border-blue-600 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="empresa@email.com" />
         </div>
         <div className="md:col-span-2 grid grid-cols-3 gap-4">
           <div>
-            <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Telefono</label>
-            <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 bg-gray-50/50" placeholder="+57 601 000 0000" />
+            <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Telefono</label>
+            <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-400 dark:focus:border-blue-600 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="+57 601 000 0000" />
           </div>
           <div>
-            <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Pais</label>
+            <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Pais</label>
             <Combobox
               value={form.country}
               options={ALL_COUNTRIES}
@@ -227,7 +227,7 @@ export default function CompanySettings() {
             />
           </div>
           <div>
-            <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Ciudad</label>
+            <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Ciudad</label>
             <Combobox
               value={form.city}
               options={availableCities}
@@ -237,18 +237,18 @@ export default function CompanySettings() {
           </div>
         </div>
         <div className="md:col-span-2">
-          <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Direccion</label>
+          <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Direccion</label>
           <div className="flex">
             <input
               value={form.address}
               onChange={(e) => setForm({ ...form, address: e.target.value })}
-              className="flex-1 px-3 py-2 border border-gray-200 rounded-l-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 bg-gray-50/50"
+              className="flex-1 px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-l-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong transition-all focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-400 dark:focus:border-blue-600 bg-gray-50/50 dark:bg-dark-tremor-background"
               placeholder="Direccion completa"
             />
             <button
               type="button"
               onClick={() => setIsAddressPickerOpen(true)}
-              className="px-3 rounded-r-lg border border-l-0 border-gray-200 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-blue-600 transition-colors shrink-0 flex items-center justify-center"
+              className="px-3 rounded-r-lg border border-l-0 border-gray-200 dark:border-dark-tremor-border bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-subtle text-gray-600 dark:text-dark-tremor-content hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0 flex items-center justify-center"
               title="Buscar en mapa"
             >
               <MapPin className="h-4 w-4" />
@@ -257,12 +257,12 @@ export default function CompanySettings() {
         </div>
       </div>
 
-      <div className="border-t border-gray-100 pt-4">
-        <p className="text-xs font-bold text-gray-900 mb-3">Configuracion General</p>
+      <div className="border-t border-gray-100 dark:border-dark-tremor-border pt-4">
+        <p className="text-xs font-bold text-gray-900 dark:text-dark-tremor-content-strong mb-3">Configuracion General</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Moneda</label>
-            <select value={form.currency} onChange={(e) => setForm({ ...form, currency: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400">
+            <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Moneda</label>
+            <select value={form.currency} onChange={(e) => setForm({ ...form, currency: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong bg-gray-50/50 dark:bg-dark-tremor-background focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-400 dark:focus:border-blue-600">
               <option value="COP">COP - Peso Colombiano</option>
               <option value="USD">USD - Dolar</option>
               <option value="EUR">EUR - Euro</option>
@@ -270,8 +270,8 @@ export default function CompanySettings() {
             </select>
           </div>
           <div>
-            <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Zona Horaria</label>
-            <select value={form.timezone} onChange={(e) => setForm({ ...form, timezone: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400">
+            <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Zona Horaria</label>
+            <select value={form.timezone} onChange={(e) => setForm({ ...form, timezone: e.target.value })} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong bg-gray-50/50 dark:bg-dark-tremor-background focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-400 dark:focus:border-blue-600">
               <option value="America/Bogota">Bogota (GMT-5)</option>
               <option value="America/Mexico_City">Ciudad de Mexico (GMT-6)</option>
               <option value="America/Buenos_Aires">Buenos Aires (GMT-3)</option>
@@ -281,8 +281,8 @@ export default function CompanySettings() {
             </select>
           </div>
           <div>
-            <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Ano Fiscal Inicia</label>
-            <select value={form.fiscalYearStart} onChange={(e) => setForm({ ...form, fiscalYearStart: parseInt(e.target.value) })} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400">
+            <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content uppercase tracking-wider mb-1.5">Ano Fiscal Inicia</label>
+            <select value={form.fiscalYearStart} onChange={(e) => setForm({ ...form, fiscalYearStart: parseInt(e.target.value) })} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong bg-gray-50/50 dark:bg-dark-tremor-background focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 focus:border-blue-400 dark:focus:border-blue-600">
               {['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'].map((m, i) => (
                 <option key={i + 1} value={i + 1}>{m}</option>
               ))}

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Card } from '@tremor/react';
@@ -28,10 +28,10 @@ interface OperationsTableProps {
 const ITEMS_PER_PAGE = 10;
 
 const statusMap: Record<string, { label: string; class: string; icon: any }> = {
-  in_transit: { label: 'En Tránsito', class: 'bg-cyan-50 text-cyan-700 border border-cyan-200', icon: Ship },
-  port_of_origin: { label: 'Puerto Origen', class: 'bg-gray-50 text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border', icon: Anchor },
-  customs: { label: 'En Aduana', class: 'bg-amber-50 text-amber-700 border border-amber-200', icon: Package },
-  delivered: { label: 'Entregado', class: 'bg-emerald-50 text-emerald-700 border border-emerald-200', icon: Navigation },
+  in_transit: { label: 'En Tránsito', class: 'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/30 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800/50', icon: Ship },
+  port_of_origin: { label: 'Puerto Origen', class: 'bg-gray-50 text-gray-700 dark:bg-gray-800/50 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border', icon: Anchor },
+  customs: { label: 'En Aduana', class: 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 border border-amber-200 dark:border-amber-800/50', icon: Package },
+  delivered: { label: 'Entregado', class: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50', icon: Navigation },
 };
 
 export function OperationsTable({ operations, type, onEdit }: OperationsTableProps) {
@@ -147,10 +147,10 @@ export function OperationsTable({ operations, type, onEdit }: OperationsTablePro
                   </td>
                   <td className="px-4 py-3 text-center">
                     <div className="flex items-center justify-center gap-1">
-                      <button onClick={() => onEdit?.(op)} className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 transition-colors" title="Editar">
+                      <button onClick={() => onEdit?.(op)} className="p-1.5 rounded-lg text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30 transition-colors" title="Editar">
                         <Pencil className="h-3.5 w-3.5" />
                       </button>
-                      <button onClick={() => handleDelete(op)} className="p-1.5 rounded-lg text-red-500 hover:bg-red-50 transition-colors" title="Eliminar">
+                      <button onClick={() => handleDelete(op)} className="p-1.5 rounded-lg text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors" title="Eliminar">
                         <Trash2 className="h-3.5 w-3.5" />
                       </button>
                     </div>
@@ -168,15 +168,15 @@ export function OperationsTable({ operations, type, onEdit }: OperationsTablePro
             Mostrando {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, filtered.length)} de {filtered.length}
           </span>
           <div className="flex items-center gap-1">
-            <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="p-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 transition-colors">
+            <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-tremor-background-muted disabled:opacity-30 transition-colors">
               <ChevronLeft className="h-4 w-4 text-gray-600 dark:text-dark-tremor-content" />
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button key={page} onClick={() => setCurrentPage(page)} className={`min-w-[2rem] h-8 px-2 rounded-lg text-xs font-semibold transition-colors ${page === currentPage ? 'bg-primary text-white' : 'text-gray-600 dark:text-dark-tremor-content hover:bg-gray-200'}`}>
+              <button key={page} onClick={() => setCurrentPage(page)} className={`min-w-[2rem] h-8 px-2 rounded-lg text-xs font-semibold transition-colors ${page === currentPage ? 'bg-primary text-white' : 'text-gray-600 dark:text-dark-tremor-content hover:bg-gray-200 dark:hover:bg-dark-tremor-background-muted'}`}>
                 {page}
               </button>
             ))}
-            <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="p-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 transition-colors">
+            <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-tremor-background-muted disabled:opacity-30 transition-colors">
               <ChevronRight className="h-4 w-4 text-gray-600 dark:text-dark-tremor-content" />
             </button>
           </div>

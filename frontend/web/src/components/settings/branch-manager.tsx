@@ -205,7 +205,7 @@ export default function BranchManager() {
             <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">{branches?.length || 0} registradas</p>
           </div>
         </div>
-        <button onClick={handleOpenNew} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-green-700 bg-green-50 hover:bg-green-100 border border-green-200 transition-colors">
+        <button onClick={handleOpenNew} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 border border-green-200 dark:border-green-800/30 transition-colors">
           <Plus className="h-3 w-3" /> Agregar
         </button>
       </div>
@@ -304,7 +304,7 @@ export default function BranchManager() {
           branches.map((branch) => (
             <div key={branch.id} className="flex items-center justify-between p-3 rounded-xl border border-gray-100 dark:border-dark-tremor-border hover:border-gray-200 transition-colors bg-white dark:bg-dark-tremor-background">
               <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center shrink-0">
+                <div className="h-8 w-8 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 flex items-center justify-center shrink-0">
                   <MapPin className="h-4 w-4" />
                 </div>
                 <div>
@@ -316,9 +316,9 @@ export default function BranchManager() {
                 </div>
               </div>
               <div className="flex items-center gap-1">
-                <button onClick={() => handleEdit(branch)} className="p-1.5 rounded-md text-gray-400 dark:text-dark-tremor-content-subtle hover:text-indigo-600 hover:bg-indigo-50 transition-colors"><Pencil className="h-3.5 w-3.5" /></button>
+                <button onClick={() => handleEdit(branch)} className="p-1.5 rounded-md text-gray-400 dark:text-dark-tremor-content-subtle hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors"><Pencil className="h-3.5 w-3.5" /></button>
                 {!branch.isMain && (
-                  <button onClick={() => handleDelete(branch.id, branch.name)} className="p-1.5 rounded-md text-gray-400 dark:text-dark-tremor-content-subtle hover:text-red-600 hover:bg-red-50 transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
+                  <button onClick={() => handleDelete(branch.id, branch.name)} className="p-1.5 rounded-md text-gray-400 dark:text-dark-tremor-content-subtle hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
                 )}
               </div>
             </div>

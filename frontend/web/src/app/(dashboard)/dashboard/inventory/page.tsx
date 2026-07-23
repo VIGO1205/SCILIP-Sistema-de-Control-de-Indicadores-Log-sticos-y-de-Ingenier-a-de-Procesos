@@ -99,29 +99,29 @@ export default function InventoryPage() {
   const outMovements = movements?.filter((m: any) => m.type?.toUpperCase() === 'OUT').length ?? 0;
 
   return (
-    <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
+    <main className="p-4 sm:p-5 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header estilo Dashboard */}
       <div className="mb-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">
               Gestión de Inventarios
             </h1>
-            <p className="text-gray-500 mt-0.5 text-xs">
+            <p className="text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5 text-xs">
               Control de existencias, movimientos y auditoría de stock
             </p>
           </div>
           <div className="flex gap-2">
             <button
               onClick={() => setIsAuditModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg transition-colors shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border hover:bg-gray-50 dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors shadow-sm"
             >
               <ClipboardCheck className="h-4 w-4" />
               Auditoría
             </button>
             <button
               onClick={() => { setSelectedProduct(null); setIsProductModalOpen(true); }}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-700 bg-amber-50 border border-amber-200 hover:bg-amber-100 rounded-lg transition-colors shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/30 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded-lg transition-colors shadow-sm"
             >
               <Package className="h-4 w-4" />
               Nuevo Producto
@@ -243,40 +243,40 @@ export default function InventoryPage() {
 
       {/* Tabs estilo Dashboard */}
       <TabGroup className="mt-6">
-        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5">
+        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-t-xl border border-indigo-100/50 dark:border-indigo-900/30 border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={BarChart3}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-indigo-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 dark:data-[selected]:text-indigo-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 dark:data-[selected]:shadow-indigo-900/20 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Indicadores
           </Tab>
           <Tab
             icon={History}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-emerald-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-emerald-600 dark:data-[selected]:text-emerald-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 dark:data-[selected]:shadow-emerald-900/20 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Movimientos
           </Tab>
           <Tab
             icon={Package}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-amber-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-amber-600 dark:hover:text-amber-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-amber-600 dark:data-[selected]:text-amber-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 dark:data-[selected]:shadow-amber-900/20 data-[selected]:border-b-[3px] data-[selected]:border-amber-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Productos
           </Tab>
           <Tab
             icon={ClipboardCheck}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 dark:hover:text-purple-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 dark:data-[selected]:text-purple-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 dark:data-[selected]:shadow-purple-900/20 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Auditorías
           </Tab>
         </TabList>
-        <TabPanels className="bg-white border border-gray-200 rounded-b-xl shadow-sm">
+        <TabPanels className="bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-b-xl shadow-sm">
           <TabPanel>
             <div className="p-5 space-y-5">
               {/* Resumen de Movimientos */}
-              <div className="rounded-xl border border-gray-200 shadow-sm p-4 bg-white">
+              <div className="rounded-xl border border-gray-200 dark:border-dark-tremor-border shadow-sm p-4 bg-white dark:bg-dark-tremor-background">
                 <div className="flex items-center gap-2 mb-3">
                   <TrendingUp className="h-4 w-4 text-primary" />
-                  <h3 className="text-sm font-bold text-gray-900">Resumen de Movimientos</h3>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Resumen de Movimientos</h3>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <StatusCard label="Total Productos" count={totalProducts} color="blue" icon={<Box className="h-4 w-4" />} />
@@ -287,18 +287,18 @@ export default function InventoryPage() {
               </div>
 
               {/* Placeholder para gráfico */}
-              <Card className="border border-gray-200 shadow-sm rounded-xl">
-                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
-                  <BarChart3 className="h-4 w-4 text-gray-400" />
-                  <h3 className="text-sm font-bold text-gray-900">Rotación de Inventario</h3>
-                  <span className="ml-auto text-[10px] font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
+              <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
+                  <BarChart3 className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Rotación de Inventario</h3>
+                  <span className="ml-auto text-[10px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle bg-gray-100 dark:bg-dark-tremor-background-muted px-2 py-0.5 rounded">
                     NOR_DIS_IND_05
                   </span>
                 </div>
-                <div className="h-72 flex items-center justify-center border-2 border-dashed border-gray-200 rounded-lg bg-gray-50/50">
+                <div className="h-72 flex items-center justify-center border-2 border-dashed border-gray-200 dark:border-dark-tremor-border rounded-lg bg-gray-50/50 dark:bg-dark-tremor-background-muted mx-5 mb-5">
                   <div className="text-center">
                     <BarChart3 className="h-10 w-10 text-gray-300 mx-auto mb-2" />
-                    <p className="text-xs text-gray-400">Gráfico de rotación de inventario</p>
+                    <p className="text-xs text-gray-400 dark:text-dark-tremor-content-subtle">Gráfico de rotación de inventario</p>
                   </div>
                 </div>
               </Card>
@@ -329,20 +329,20 @@ export default function InventoryPage() {
 }
 
 function StatusCard({ label, count, color, icon }: { label: string; count: number; color: string; icon: React.ReactNode }) {
-  const colors: Record<string, { bg: string; border: string; text: string }> = {
-    blue: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700' },
-    primary: { bg: 'bg-primary/5', border: 'border-primary/20', text: 'text-primary' },
-    emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700' },
-    red: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700' },
+  const colors: Record<string, { bg: string; border: string; text: string; darkBg?: string; darkBorder?: string; darkText?: string }> = {
+    blue: { bg: 'bg-blue-50/50', border: 'border-blue-200/50', text: 'text-blue-700', darkBg: 'dark:bg-blue-900/20', darkBorder: 'dark:border-blue-700/30', darkText: 'dark:text-blue-400' },
+    primary: { bg: 'bg-primary/5', border: 'border-primary/20', text: 'text-primary', darkBg: 'dark:bg-primary/10', darkBorder: 'dark:border-primary/20', darkText: 'dark:text-primary' },
+    emerald: { bg: 'bg-emerald-50/50', border: 'border-emerald-200/50', text: 'text-emerald-700', darkBg: 'dark:bg-emerald-900/20', darkBorder: 'dark:border-emerald-700/30', darkText: 'dark:text-emerald-400' },
+    red: { bg: 'bg-red-50/50', border: 'border-red-200/50', text: 'text-red-700', darkBg: 'dark:bg-red-900/20', darkBorder: 'dark:border-red-700/30', darkText: 'dark:text-red-400' },
   };
   const c = colors[color] || colors.primary;
 
   return (
-    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} border ${c.border}`}>
-      <span className={c.text}>{icon}</span>
+    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} ${c.darkBg} border ${c.border} ${c.darkBorder}`}>
+      <span className={`${c.text} ${c.darkText}`}>{icon}</span>
       <div>
-        <p className="text-[11px] text-gray-500">{label}</p>
-        <p className={`text-base font-bold ${c.text}`}>{count}</p>
+        <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{label}</p>
+        <p className={`text-base font-bold ${c.text} ${c.darkText}`}>{count}</p>
       </div>
     </div>
   );

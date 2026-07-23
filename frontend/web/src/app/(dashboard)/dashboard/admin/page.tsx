@@ -151,7 +151,7 @@ export default function ProductionPage() {
           <div className="flex gap-2">
             <button
               onClick={() => { setSelectedMachine(null); setIsMachineModalOpen(true); }}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 rounded-lg transition-colors shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700/30 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded-lg transition-colors shadow-sm"
             >
               <Factory className="h-4 w-4" />
               Nueva Máquina
@@ -272,28 +272,28 @@ export default function ProductionPage() {
 
       {/* Tabs estilo Dashboard */}
       <TabGroup className="mt-6">
-        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5">
+        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-t-xl border border-indigo-100/50 dark:border-indigo-900/30 border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={Activity}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 dark:data-[selected]:text-indigo-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 dark:data-[selected]:shadow-indigo-900/20 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Líneas de Producción
           </Tab>
           <Tab
             icon={ClipboardList}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-emerald-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-emerald-600 dark:data-[selected]:text-emerald-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 dark:data-[selected]:shadow-emerald-900/20 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Registros
           </Tab>
           <Tab
             icon={Factory}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-amber-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-amber-600 dark:hover:text-amber-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-amber-600 dark:data-[selected]:text-amber-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 dark:data-[selected]:shadow-amber-900/20 data-[selected]:border-b-[3px] data-[selected]:border-amber-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Máquinas
           </Tab>
           <Tab
             icon={Wrench}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 dark:hover:text-purple-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 dark:data-[selected]:text-purple-400 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 dark:data-[selected]:shadow-purple-900/20 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Mantenimiento
           </Tab>
@@ -336,7 +336,12 @@ export default function ProductionPage() {
                           <Text className="font-bold text-gray-900 dark:text-dark-tremor-content-strong">{machine.name}</Text>
                           <Text className="text-xs text-gray-400 dark:text-dark-tremor-content-subtle font-mono">{machine.code}</Text>
                         </div>
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-${s.color}-50 text-${s.color}-700 border border-${s.color}-200`}>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                          s.color === 'emerald' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700/30' :
+                          s.color === 'amber' ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-700/30' :
+                          s.color === 'red' ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-700/30' :
+                          'bg-gray-50 dark:bg-dark-tremor-background-muted text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border'
+                        }`}>
                           {s.label}
                         </span>
                       </div>
@@ -454,7 +459,7 @@ export default function ProductionPage() {
               <div className="flex justify-end">
                 <button
                   onClick={() => { setSelectedMaintenanceOrder(null); setIsMaintenanceModalOpen(true); }}
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-purple-700 bg-purple-50 border border-purple-200 hover:bg-purple-100 rounded-lg transition-colors shadow-sm"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700/30 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-lg transition-colors shadow-sm"
                 >
                   <Wrench className="h-4 w-4" />
                   Nueva Orden de Mantenimiento
@@ -496,18 +501,18 @@ export default function ProductionPage() {
                                 </div>
                               </div>
                             </td>
-                            <td className="px-4 py-3 text-gray-600 text-xs">{last}</td>
+                            <td className="px-4 py-3 text-gray-600 dark:text-dark-tremor-content text-xs">{last}</td>
                             <td className="px-4 py-3 text-xs">
-                              <span className={isOverdue ? 'text-red-600 font-semibold' : 'text-gray-600'}>
+                              <span className={isOverdue ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-gray-600 dark:text-dark-tremor-content'}>
                                 {next}
                               </span>
-                              {isOverdue && <span className="ml-2 text-[10px] text-red-500 bg-red-50 px-1.5 py-0.5 rounded font-bold">VENCIDO</span>}
+                              {isOverdue && <span className="ml-2 text-[10px] text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20 px-1.5 py-0.5 rounded font-bold">VENCIDO</span>}
                             </td>
                             <td className="px-4 py-3 text-center">
                               <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                                machine.status === 'operational' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' :
-                                machine.status === 'maintenance' ? 'bg-amber-50 text-amber-700 border border-amber-200' :
-                                'bg-red-50 text-red-700 border border-red-200'
+                                machine.status === 'operational' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700/30' :
+                                machine.status === 'maintenance' ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-700/30' :
+                                'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-700/30'
                               }`}>
                                 {machine.status === 'operational' ? 'Operativa' : machine.status === 'maintenance' ? 'Mantenimiento' : 'Avería'}
                               </span>
@@ -535,37 +540,37 @@ export default function ProductionPage() {
                 </div>
                 <div className="px-5 pb-5 space-y-2">
                   {breakdownMachines > 0 ? (
-                    <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <div className="flex items-start gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/30 rounded-lg">
                       <AlertTriangle className="h-4 w-4 text-red-500 mt-0.5 shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-red-700">{breakdownMachines} máquina(s) en avería</p>
-                        <p className="text-xs text-red-500 mt-0.5">Revisa la pestaña Máquinas para ver detalles.</p>
+                        <p className="text-sm font-semibold text-red-700 dark:text-red-400">{breakdownMachines} máquina(s) en avería</p>
+                        <p className="text-xs text-red-500 dark:text-red-400/80 mt-0.5">Revisa la pestaña Máquinas para ver detalles.</p>
                       </div>
                     </div>
                   ) : (
-                    <div className="flex items-start gap-2 p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+                    <div className="flex items-start gap-2 p-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700/30 rounded-lg">
                       <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-emerald-700">Todas las máquinas operativas</p>
-                        <p className="text-xs text-emerald-500 mt-0.5">No hay alertas críticas en este momento.</p>
+                        <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Todas las máquinas operativas</p>
+                        <p className="text-xs text-emerald-500 dark:text-emerald-400/80 mt-0.5">No hay alertas críticas en este momento.</p>
                       </div>
                     </div>
                   )}
                   {inMaintenance > 0 && (
-                    <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                    <div className="flex items-start gap-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/30 rounded-lg">
                       <Wrench className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-amber-700">{inMaintenance} máquina(s) en mantenimiento</p>
-                        <p className="text-xs text-amber-500 mt-0.5">Programadas para mantenimiento preventivo.</p>
+                        <p className="text-sm font-semibold text-amber-700 dark:text-amber-400">{inMaintenance} máquina(s) en mantenimiento</p>
+                        <p className="text-xs text-amber-500 dark:text-amber-400/80 mt-0.5">Programadas para mantenimiento preventivo.</p>
                       </div>
                     </div>
                   )}
                   {Number(qualityRate) < 90 && (
-                    <div className="flex items-start gap-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                    <div className="flex items-start gap-2 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700/30 rounded-lg">
                       <Gauge className="h-4 w-4 text-orange-500 mt-0.5 shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-orange-700">Tasa de calidad baja: {qualityRate}%</p>
-                        <p className="text-xs text-orange-500 mt-0.5">Revisa los registros de producción para identificar el problema.</p>
+                        <p className="text-sm font-semibold text-orange-700 dark:text-orange-400">Tasa de calidad baja: {qualityRate}%</p>
+                        <p className="text-xs text-orange-500 dark:text-orange-400/80 mt-0.5">Revisa los registros de producción para identificar el problema.</p>
                       </div>
                     </div>
                   )}
@@ -580,21 +585,21 @@ export default function ProductionPage() {
 }
 
 function StatusCard({ label, count, color, icon }: { label: string; count: number; color: string; icon: React.ReactNode }) {
-  const colors: Record<string, { bg: string; border: string; text: string }> = {
-    blue: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700' },
-    primary: { bg: 'bg-primary/5', border: 'border-primary/20', text: 'text-primary' },
-    emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700' },
-    amber: { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700' },
-    red: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700' },
+  const colors: Record<string, { bg: string; border: string; text: string; darkBg?: string; darkBorder?: string; darkText?: string }> = {
+    blue: { bg: 'bg-blue-50/50', border: 'border-blue-200/50', text: 'text-blue-700', darkBg: 'dark:bg-blue-900/20', darkBorder: 'dark:border-blue-700/30', darkText: 'dark:text-blue-400' },
+    primary: { bg: 'bg-primary/5', border: 'border-primary/20', text: 'text-primary', darkBg: 'dark:bg-primary/10', darkBorder: 'dark:border-primary/20', darkText: 'dark:text-primary' },
+    emerald: { bg: 'bg-emerald-50/50', border: 'border-emerald-200/50', text: 'text-emerald-700', darkBg: 'dark:bg-emerald-900/20', darkBorder: 'dark:border-emerald-700/30', darkText: 'dark:text-emerald-400' },
+    amber: { bg: 'bg-amber-50/50', border: 'border-amber-200/50', text: 'text-amber-700', darkBg: 'dark:bg-amber-900/20', darkBorder: 'dark:border-amber-700/30', darkText: 'dark:text-amber-400' },
+    red: { bg: 'bg-red-50/50', border: 'border-red-200/50', text: 'text-red-700', darkBg: 'dark:bg-red-900/20', darkBorder: 'dark:border-red-700/30', darkText: 'dark:text-red-400' },
   };
   const c = colors[color] || colors.primary;
 
   return (
-    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} border ${c.border}`}>
-      <span className={c.text}>{icon}</span>
+    <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} ${c.darkBg} border ${c.border} ${c.darkBorder}`}>
+      <span className={`${c.text} ${c.darkText}`}>{icon}</span>
       <div>
         <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{label}</p>
-        <p className={`text-base font-bold ${c.text}`}>{count}</p>
+        <p className={`text-base font-bold ${c.text} ${c.darkText}`}>{count}</p>
       </div>
     </div>
   );

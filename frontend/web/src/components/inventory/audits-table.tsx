@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Card } from '@tremor/react';
@@ -91,7 +91,7 @@ export function AuditsTable({ audits }: AuditsTableProps) {
                   <td className="px-4 py-3 text-right text-gray-900 dark:text-dark-tremor-content-strong font-semibold">{audit.physicalQuantity ?? 0}</td>
                   <td className="px-4 py-3 text-right">
                     <span className={`text-xs font-bold ${
-                      diff === 0 ? 'text-emerald-600' : diff > 0 ? 'text-blue-600' : 'text-red-600'
+                      diff === 0 ? 'text-emerald-600 dark:text-emerald-400' : diff > 0 ? 'text-blue-600 dark:text-blue-400' : 'text-red-600 dark:text-red-400'
                     }`}>
                       {diff > 0 ? '+' : ''}{diff}
                     </span>

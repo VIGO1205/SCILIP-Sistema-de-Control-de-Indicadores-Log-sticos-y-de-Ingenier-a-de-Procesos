@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Card } from '@tremor/react';
@@ -90,11 +90,11 @@ export function InventoryMovementsTable({ movements }: InventoryMovementsTablePr
                 <tr key={movement.id} className="hover:bg-gray-50/50 dark:hover:bg-dark-tremor-background-subtle transition-colors">
                   <td className="px-4 py-3">
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                      typeInfo.color === 'emerald' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' :
-                      typeInfo.color === 'red' ? 'bg-red-50 text-red-700 border border-red-200' :
-                      typeInfo.color === 'amber' ? 'bg-amber-50 text-amber-700 border border-amber-200' :
-                      typeInfo.color === 'blue' ? 'bg-blue-50 text-blue-700 border border-blue-200' :
-                      'bg-gray-50 text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border'
+                      typeInfo.color === 'emerald' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700/30' :
+                      typeInfo.color === 'red' ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-700/30' :
+                      typeInfo.color === 'amber' ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-700/30' :
+                      typeInfo.color === 'blue' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-700/30' :
+                      'bg-gray-50 dark:bg-dark-tremor-background-muted text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border'
                     }`}>
                       {typeInfo.icon}
                       {typeInfo.label}

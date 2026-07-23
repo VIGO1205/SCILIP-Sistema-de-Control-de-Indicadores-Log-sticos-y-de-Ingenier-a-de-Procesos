@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Card } from '@tremor/react';
@@ -131,8 +131,8 @@ export function ProductsTable({ products, onEdit }: ProductsTableProps) {
                 <td className="px-4 py-3 text-center">
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                     product.isActive
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                      : 'bg-gray-50 text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border'
+                      ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700/30'
+                      : 'bg-gray-50 dark:bg-dark-tremor-background-muted text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border'
                   }`}>
                     {product.isActive ? 'Activo' : 'Inactivo'}
                   </span>

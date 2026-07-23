@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Card, Text } from '@tremor/react';
@@ -114,14 +114,14 @@ export function SuppliersTable({ suppliers, onEdit }: SuppliersTableProps) {
                     <div className="flex items-center gap-2">
                       <div className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold ${
                         supplier.isCertified 
-                          ? 'bg-success/10 text-success' 
-                          : 'bg-gray-100 text-gray-600 dark:text-dark-tremor-content'
+                          ? 'bg-success/10 text-success dark:bg-success/20' 
+                          : 'bg-gray-100 text-gray-600 dark:bg-dark-tremor-background-muted dark:text-dark-tremor-content-strong'
                       }`}>
                         {supplier.name?.charAt(0).toUpperCase()}
                       </div>
                       <div>
                         <p className="font-medium text-gray-900 dark:text-dark-tremor-content-strong">{supplier.name}</p>
-                        <p className="text-[10px] text-gray-400">{supplier.code || '-'}</p>
+                        <p className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle">{supplier.code || '-'}</p>
                       </div>
                     </div>
                   </td>

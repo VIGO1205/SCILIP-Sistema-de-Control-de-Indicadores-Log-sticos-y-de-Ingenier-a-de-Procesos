@@ -32,9 +32,9 @@ export function OrderQualityChart({ quality = 0, target = 90, loading = false }:
 
   const status = quality >= target ? 'good' : quality >= target * 0.85 ? 'warning' : 'bad';
   const statusConfig = {
-    good: { icon: TrendingUp, color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200', label: 'Óptimo' },
-    warning: { icon: Minus, color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200', label: 'Atención' },
-    bad: { icon: TrendingDown, color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-200', label: 'Crítico' },
+    good: { icon: TrendingUp, color: 'text-emerald-600', darkColor: 'dark:text-emerald-400', bg: 'bg-emerald-50', darkBg: 'dark:bg-emerald-900/20', border: 'border-emerald-200', darkBorder: 'dark:border-emerald-700/30', label: 'Óptimo' },
+    warning: { icon: Minus, color: 'text-amber-600', darkColor: 'dark:text-amber-400', bg: 'bg-amber-50', darkBg: 'dark:bg-amber-900/20', border: 'border-amber-200', darkBorder: 'dark:border-amber-700/30', label: 'Atención' },
+    bad: { icon: TrendingDown, color: 'text-red-600', darkColor: 'dark:text-red-400', bg: 'bg-red-50', darkBg: 'dark:bg-red-900/20', border: 'border-red-200', darkBorder: 'dark:border-red-700/30', label: 'Crítico' },
   };
   const config = statusConfig[status];
   const Icon = config.icon;
@@ -51,10 +51,10 @@ export function OrderQualityChart({ quality = 0, target = 90, loading = false }:
 
       <div className="px-5 pb-5">
         <div className="flex items-center gap-4 mb-6">
-          <div className={`flex items-center gap-2 px-4 py-2 rounded-lg ${config.bg} border ${config.border}`}>
-            <Icon className={`h-5 w-5 ${config.color}`} />
+          <div className={`flex items-center gap-2 px-4 py-2 rounded-lg ${config.bg} ${config.darkBg} border ${config.border} ${config.darkBorder}`}>
+            <Icon className={`h-5 w-5 ${config.color} ${config.darkColor}`} />
             <div>
-              <p className={`text-xs font-medium ${config.color}`}>{config.label}</p>
+              <p className={`text-xs font-medium ${config.color} ${config.darkColor}`}>{config.label}</p>
               <p className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">{quality.toFixed(1)}%</p>
             </div>
           </div>

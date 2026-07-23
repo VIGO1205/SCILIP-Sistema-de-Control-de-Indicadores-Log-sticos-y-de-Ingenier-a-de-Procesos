@@ -46,7 +46,7 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900 overflow-hidden transition-colors">
       <Sidebar
         onNavigate={navigate}
         currentPath={pathname}
@@ -67,7 +67,7 @@ export default function DashboardLayout({
         />
         <main className="flex-1 overflow-x-hidden overflow-y-auto relative">
           {(isLoading || isPending) && (
-            <div className="sticky top-0 left-0 w-full h-full bg-white/70 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="sticky top-0 left-0 w-full h-full bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm flex items-center justify-center z-50">
               <Spinner size="lg" />
             </div>
           )}

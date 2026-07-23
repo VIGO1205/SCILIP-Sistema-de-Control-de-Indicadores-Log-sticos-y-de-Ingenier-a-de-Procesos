@@ -84,7 +84,7 @@ export function PendingApprovalsTable() {
 
   if (isLoading) {
     return (
-      <Card className="border border-gray-200 shadow-sm rounded-xl overflow-hidden">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl overflow-hidden bg-white dark:bg-dark-tremor-background transition-colors">
         <div className="flex items-center justify-center p-12">
           <Loader2 className="h-6 w-6 animate-spin text-indigo-500" />
         </div>
@@ -94,18 +94,18 @@ export function PendingApprovalsTable() {
 
   if (pendingOrders.length === 0) {
     return (
-      <Card className="border border-gray-200 shadow-sm rounded-xl overflow-hidden">
-        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
-          <FileCheck className="h-4 w-4 text-gray-400" />
-          <h3 className="text-sm font-bold text-gray-900">Aprobaciones Pendientes</h3>
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl overflow-hidden bg-white dark:bg-dark-tremor-background transition-colors">
+        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
+          <FileCheck className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
+          <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Aprobaciones Pendientes</h3>
         </div>
-        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 rounded-lg border border-dashed border-gray-200 mx-5 mb-5">
+        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 dark:from-dark-tremor-background dark:to-dark-tremor-background-subtle rounded-lg border border-dashed border-gray-200 dark:border-dark-tremor-border mx-5 mb-5">
           <div className="relative">
             <div className="absolute -inset-2 bg-emerald-500/10 rounded-full blur-xl" />
             <FileCheck className="h-12 w-12 text-emerald-500 mb-4 relative" />
           </div>
-          <p className="text-xl font-bold text-gray-900">Todo al día</p>
-          <p className="text-gray-500 mt-2 text-center text-sm">
+          <p className="text-xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">Todo al día</p>
+          <p className="text-gray-500 dark:text-dark-tremor-content-subtle mt-2 text-center text-sm">
             No hay órdenes de compra pendientes de aprobación en este momento
           </p>
         </div>
@@ -114,10 +114,10 @@ export function PendingApprovalsTable() {
   }
 
   return (
-    <Card className="border border-gray-200 shadow-sm rounded-xl overflow-hidden">
-      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
-        <FileCheck className="h-4 w-4 text-gray-400" />
-        <h3 className="text-sm font-bold text-gray-900">Aprobaciones Pendientes</h3>
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl overflow-hidden bg-white dark:bg-dark-tremor-background transition-colors">
+      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
+        <FileCheck className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
+        <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Aprobaciones Pendientes</h3>
         <span className="ml-auto text-[10px] font-medium text-white bg-amber-500 px-2 py-0.5 rounded-full">
           {pendingOrders.length} pendiente{pendingOrders.length > 1 ? 's' : ''}
         </span>
@@ -126,27 +126,27 @@ export function PendingApprovalsTable() {
       <div className="overflow-x-auto px-5 pb-5">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50/80 border-b border-gray-100">
-              <th className="text-left px-3 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Orden</th>
-              <th className="text-left px-3 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Proveedor</th>
-              <th className="text-left px-3 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha</th>
-              <th className="text-right px-3 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Total</th>
-              <th className="text-center px-3 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Estado</th>
-              <th className="text-center px-3 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Acción</th>
+            <tr className="bg-gray-50/80 dark:bg-dark-tremor-background-subtle border-b border-gray-100 dark:border-dark-tremor-border">
+              <th className="text-left px-3 py-2.5 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Orden</th>
+              <th className="text-left px-3 py-2.5 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Proveedor</th>
+              <th className="text-left px-3 py-2.5 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Fecha</th>
+              <th className="text-right px-3 py-2.5 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Total</th>
+              <th className="text-center px-3 py-2.5 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Estado</th>
+              <th className="text-center px-3 py-2.5 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Acción</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {pendingOrders.map((order: any) => {
               const isActioning = actioningId === order.id;
               return (
-                <tr key={order.id} className="hover:bg-gray-50/50 transition-colors">
+                <tr key={order.id} className="hover:bg-gray-50/50 dark:hover:bg-dark-tremor-background-subtle transition-colors">
                   <td className="px-3 py-3">
                     <div className="flex items-center gap-2">
                       <FileText className="h-4 w-4 text-indigo-400" />
-                      <span className="font-medium text-gray-900">{order.poNumber}</span>
+                      <span className="font-medium text-gray-900 dark:text-dark-tremor-content-strong">{order.poNumber}</span>
                     </div>
                   </td>
-                  <td className="px-3 py-3 text-gray-600">{order.supplier?.name || '-'}</td>
+                  <td className="px-3 py-3 text-gray-600 dark:text-dark-tremor-content">{order.supplier?.name || '-'}</td>
                   <td className="px-3 py-3">
                     <div className="flex items-center gap-1.5 text-gray-600">
                       <Clock className="h-3.5 w-3.5 text-gray-400" />
@@ -157,7 +157,7 @@ export function PendingApprovalsTable() {
                       </span>
                     </div>
                   </td>
-                  <td className="px-3 py-3 text-right text-gray-900 font-semibold">
+                  <td className="px-3 py-3 text-right text-gray-900 dark:text-dark-tremor-content-strong font-semibold">
                     ${Number(order.totalAmount || 0).toLocaleString('en-US', {
                       minimumFractionDigits: 0, maximumFractionDigits: 0
                     })}

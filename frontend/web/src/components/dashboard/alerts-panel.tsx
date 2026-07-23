@@ -52,12 +52,12 @@ export default function AlertsPanel({ alerts, loading }: AlertsPanelProps) {
 
   if (loading) {
     return (
-      <Card className="border border-gray-200 shadow-sm">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm bg-white dark:bg-dark-tremor-background transition-colors">
         <div className="animate-pulse space-y-4">
-          <div className="h-5 bg-gray-200 rounded w-1/3" />
+          <div className="h-5 bg-gray-200 dark:bg-dark-tremor-background-subtle rounded w-1/3" />
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-16 bg-gray-100 rounded-lg" />
+              <div key={i} className="h-16 bg-gray-100 dark:bg-dark-tremor-background-subtle rounded-lg" />
             ))}
           </div>
         </div>
@@ -66,17 +66,17 @@ export default function AlertsPanel({ alerts, loading }: AlertsPanelProps) {
   }
 
   return (
-    <Card className="border border-gray-200 shadow-sm">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm bg-white dark:bg-dark-tremor-background transition-colors">
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 bg-danger/10 rounded-lg flex items-center justify-center">
             <AlertTriangle className="h-4 w-4 text-danger" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-gray-900">
+            <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">
               Alertas Activas
             </h3>
-            <p className="text-[10px] text-gray-400">
+            <p className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle">
               Indicadores fuera de rango
             </p>
           </div>
@@ -100,10 +100,10 @@ export default function AlertsPanel({ alerts, loading }: AlertsPanelProps) {
           <div className="h-12 w-12 bg-success/10 rounded-full flex items-center justify-center mb-3">
             <CheckCircle2 className="h-6 w-6 text-success" />
           </div>
-          <p className="text-sm font-semibold text-gray-700">
+          <p className="text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">
             Todo bajo control
           </p>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-gray-400 dark:text-dark-tremor-content-subtle mt-1">
             Todos los indicadores dentro de rango
           </p>
         </div>
@@ -124,10 +124,10 @@ export default function AlertsPanel({ alerts, loading }: AlertsPanelProps) {
                   <AlertCircle className="h-4 w-4 text-danger" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-gray-900 truncate">
+                  <p className="text-xs font-bold text-gray-900 dark:text-dark-tremor-content-strong truncate">
                     {alert.kpiName}
                   </p>
-                  <p className="text-[10px] text-gray-500 mt-0.5">
+                  <p className="text-[10px] text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5">
                     {alert.category}
                   </p>
                 </div>
@@ -135,7 +135,7 @@ export default function AlertsPanel({ alerts, loading }: AlertsPanelProps) {
                   <p className="text-xs font-bold text-danger">
                     {formatKpiValue(alert.actualValue, alert.unit)}
                   </p>
-                  <p className="text-[10px] text-gray-400">
+                  <p className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle">
                     Meta: {formatKpiValue(alert.targetValue, alert.unit)}
                   </p>
                 </div>

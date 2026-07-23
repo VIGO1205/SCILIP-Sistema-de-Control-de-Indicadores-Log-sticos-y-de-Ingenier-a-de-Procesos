@@ -9,10 +9,10 @@ interface StatusBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 export function StatusBadge({ status, className, children, ...props }: StatusBadgeProps) {
   const styles = {
-    good: 'bg-emerald-100 text-emerald-800 border-emerald-200',
-    bad: 'bg-red-100 text-red-800 border-red-200',
-    warning: 'bg-amber-100 text-amber-800 border-amber-200',
-    neutral: 'bg-gray-100 text-gray-800 border-gray-200',
+    good: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800',
+    bad: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800',
+    warning: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-800',
+    neutral: 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-dark-tremor-background-subtle dark:text-dark-tremor-content dark:border-dark-tremor-border',
   };
 
   return (

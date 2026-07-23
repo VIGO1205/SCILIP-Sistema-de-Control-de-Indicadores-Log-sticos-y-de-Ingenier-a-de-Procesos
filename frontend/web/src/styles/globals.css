@@ -4,25 +4,34 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900 antialiased;
+    @apply bg-gray-50 text-gray-900 antialiased dark:bg-gray-900 dark:text-dark-tremor-content-strong transition-colors;
   }
 }
 
-/* Forzar modo claro en Tremor: ignorar prefers-color-scheme del SO */
 html {
   color-scheme: light;
 }
 
-[data-tremor-theme] {
-  color-scheme: light !important;
+html.dark {
+  color-scheme: dark;
 }
 
-/* Estilos para solucionar opciones transparentes en Select de Tremor */
+[data-tremor-theme] {
+  color-scheme: inherit !important;
+}
+
+/* Tremor Select dropdowns */
 @layer components {
   [data-tremor-select-listbox] {
     @apply bg-white border border-gray-200 shadow-md rounded-md !important;
   }
   [data-tremor-select-option] {
     @apply bg-white text-gray-900 hover:bg-gray-100 !important;
+  }
+  html.dark [data-tremor-select-listbox] {
+    @apply bg-dark-tremor-background border-dark-tremor-border !important;
+  }
+  html.dark [data-tremor-select-option] {
+    @apply bg-dark-tremor-background text-dark-tremor-content hover:bg-dark-tremor-background-subtle !important;
   }
 }

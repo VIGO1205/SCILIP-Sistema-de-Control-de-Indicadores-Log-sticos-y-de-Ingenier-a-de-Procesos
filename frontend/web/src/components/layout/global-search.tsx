@@ -196,11 +196,11 @@ export default function GlobalSearch() {
   return (
     <div className="relative w-full max-w-md">
       <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <Search className="h-4 w-4 text-gray-400" />
+        <Search className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
       </span>
       <input
         ref={inputRef}
-        className="block w-full pl-10 pr-16 py-2 border-none rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all sm:text-sm"
+        className="block w-full pl-10 pr-16 py-2 border-none rounded-xl leading-5 bg-gray-50 dark:bg-dark-tremor-background-subtle placeholder-gray-400 dark:placeholder-dark-tremor-content-subtle focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content-strong transition-all sm:text-sm"
         placeholder="Buscar módulos, indicadores..."
         type="search"
         value={query}
@@ -214,7 +214,7 @@ export default function GlobalSearch() {
         onKeyDown={handleKeyDown}
       />
       <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-        <kbd className="hidden sm:inline-flex h-4 items-center gap-1 rounded border bg-white px-1 font-sans text-[9px] font-medium text-gray-400">
+        <kbd className="hidden sm:inline-flex h-4 items-center gap-1 rounded border bg-white dark:bg-dark-tremor-background-subtle border-gray-200 dark:border-dark-tremor-border px-1 font-sans text-[9px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle">
           ⌘K
         </kbd>
       </div>
@@ -222,13 +222,13 @@ export default function GlobalSearch() {
       {open && query.trim() && (
         <div
           ref={dropdownRef}
-          className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50 max-h-80 overflow-y-auto"
+          className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl border border-gray-200 dark:border-dark-tremor-border py-2 z-50 max-h-80 overflow-y-auto"
         >
           {flatResults.length === 0 ? (
             <div className="px-4 py-6 text-center">
-              <Search className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">Sin resultados para &ldquo;{query}&rdquo;</p>
-              <p className="text-xs text-gray-400 mt-1">Intentá con otro término</p>
+              <Search className="h-8 w-8 text-gray-300 dark:text-dark-tremor-content-subtle mx-auto mb-2" />
+              <p className="text-sm text-gray-500 dark:text-dark-tremor-content">Sin resultados para &ldquo;{query}&rdquo;</p>
+              <p className="text-xs text-gray-400 dark:text-dark-tremor-content-subtle mt-1">Intentá con otro término</p>
             </div>
           ) : (
             <div ref={listRef}>
@@ -239,8 +239,8 @@ export default function GlobalSearch() {
                 return (
                   <div key={cat}>
                     <div className="px-3 py-1.5 flex items-center gap-2">
-                      <CatIcon className="h-3 w-3 text-gray-400" />
-                      <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
+                      <CatIcon className="h-3 w-3 text-gray-400 dark:text-dark-tremor-content-subtle" />
+                      <span className="text-[10px] font-semibold text-gray-400 dark:text-dark-tremor-content-subtle uppercase tracking-wider">
                         {categoryLabels[cat]}
                       </span>
                     </div>
@@ -257,22 +257,22 @@ export default function GlobalSearch() {
                           onMouseEnter={() => setActiveIndex(idx)}
                           className={clsx(
                             'w-full text-left px-3 py-2 flex items-center gap-3 transition-colors',
-                            isActive ? 'bg-gray-100' : 'hover:bg-gray-50'
+                            isActive ? 'bg-gray-100 dark:bg-dark-tremor-background-subtle' : 'hover:bg-gray-50 dark:hover:bg-dark-tremor-background-muted'
                           )}
                         >
                           <div
                             className={clsx(
                               'h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0',
-                              isActive ? 'bg-primary/10 text-primary' : 'bg-gray-100 text-gray-500'
+                              isActive ? 'bg-primary/10 text-primary' : 'bg-gray-100 dark:bg-dark-tremor-background-muted text-gray-500 dark:text-dark-tremor-content-subtle'
                             )}
                           >
                             <ItemIcon className="h-4 w-4" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-900 truncate">
+                            <p className="text-sm font-medium text-gray-900 dark:text-dark-tremor-content-strong truncate">
                               {item.name}
                             </p>
-                            <p className="text-xs text-gray-500 truncate">
+                            <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle truncate">
                               {item.description}
                             </p>
                           </div>

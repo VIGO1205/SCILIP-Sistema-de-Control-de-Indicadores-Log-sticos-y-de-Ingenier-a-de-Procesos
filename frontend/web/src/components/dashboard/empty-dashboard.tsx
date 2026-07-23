@@ -73,10 +73,10 @@ export default function EmptyDashboard({ userName }: { userName?: string }) {
         <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-indigo-100 mb-4">
           <Building2 className="h-8 w-8 text-indigo-600" />
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-dark-tremor-content-strong mb-2">
           ¡Bienvenido{userName ? `, ${userName}` : ''}!
         </h1>
-        <p className="text-sm text-gray-500 max-w-md mx-auto">
+        <p className="text-sm text-gray-500 dark:text-dark-tremor-content-subtle max-w-md mx-auto">
           Tu empresa fue creada exitosamente. Para que tu dashboard muestre datos, segui estos pasos:
         </p>
       </div>
@@ -89,21 +89,21 @@ export default function EmptyDashboard({ userName }: { userName?: string }) {
             <Link
               key={i}
               href={step.href}
-              className="group flex items-start gap-3.5 p-4 bg-white rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-md transition-all duration-200"
+              className="group flex items-start gap-3.5 p-4 bg-white dark:bg-dark-tremor-background rounded-xl border border-gray-200 dark:border-dark-tremor-border hover:border-indigo-300 dark:hover:border-indigo-500 hover:shadow-md transition-all duration-200"
             >
               <div className={`h-10 w-10 rounded-lg ${step.bgColor} flex items-center justify-center shrink-0`}>
                 <Icon className={`h-5 w-5 ${step.color}`} />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold text-gray-400 bg-gray-100 rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="text-[10px] font-bold text-gray-400 dark:text-dark-tremor-content-subtle bg-gray-100 dark:bg-dark-tremor-background-subtle rounded-full h-5 w-5 flex items-center justify-center">
                     {i + 1}
                   </span>
-                  <h3 className="text-sm font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-dark-tremor-content-strong group-hover:text-indigo-600 transition-colors">
                     {step.title}
                   </h3>
                 </div>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle mt-1 leading-relaxed">
                   {step.description}
                 </p>
               </div>
@@ -124,7 +124,7 @@ export default function EmptyDashboard({ userName }: { userName?: string }) {
         </Link>
         <Link
           href="/inventario/productos"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 dark:text-dark-tremor-content bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border hover:bg-gray-50 dark:hover:bg-dark-tremor-background-subtle transition-colors"
         >
           <Package className="h-4 w-4" />
           Ver Inventario

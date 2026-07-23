@@ -62,22 +62,22 @@ export default function SummaryDonut({
 
   if (loading) {
     return (
-      <Card className="border border-gray-200 shadow-sm">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm bg-white dark:bg-dark-tremor-background transition-colors">
         <div className="animate-pulse flex flex-col items-center py-6">
-          <div className="h-32 w-32 bg-gray-200 rounded-full" />
-          <div className="h-4 bg-gray-200 rounded w-1/2 mt-4" />
+          <div className="h-32 w-32 bg-gray-200 dark:bg-dark-tremor-background-subtle rounded-full" />
+          <div className="h-4 bg-gray-200 dark:bg-dark-tremor-background-subtle rounded w-1/2 mt-4" />
         </div>
       </Card>
     );
   }
 
   return (
-    <Card className="border border-gray-200 shadow-sm">
-      <div className="mb-4 pb-3 border-b border-gray-100">
-        <h3 className="text-sm font-bold text-gray-900">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm bg-white dark:bg-dark-tremor-background transition-colors">
+      <div className="mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border">
+        <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">
           Estado General de KPIs
         </h3>
-        <p className="text-[10px] text-gray-400 mt-0.5">
+        <p className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle mt-0.5">
           Distribución por cumplimiento
         </p>
       </div>
@@ -125,7 +125,7 @@ export default function SummaryDonut({
             </PieChart>
           </ResponsiveContainer>
           <div className="absolute -bottom-1 left-1/2 -translate-x-1/2">
-            <span className="text-[9px] font-bold text-gray-500 bg-gray-50 px-2 py-0.5 rounded border border-gray-200">
+            <span className="text-[9px] font-bold text-gray-500 dark:text-dark-tremor-content-subtle bg-gray-50 dark:bg-dark-tremor-background-subtle px-2 py-0.5 rounded border border-gray-200 dark:border-dark-tremor-border">
               Desempeño Global
             </span>
           </div>
@@ -155,14 +155,14 @@ export default function SummaryDonut({
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-semibold text-gray-700">
+                    <span className="text-[11px] font-semibold text-gray-700 dark:text-dark-tremor-content">
                       {LABELS[key]}
                     </span>
-                    <span className="text-[11px] font-bold text-gray-900">
+                    <span className="text-[11px] font-bold text-gray-900 dark:text-dark-tremor-content-strong">
                       {count}
                     </span>
                   </div>
-                  <div className="h-1 w-full bg-gray-100 rounded-full overflow-hidden mt-1">
+                  <div className="h-1 w-full bg-gray-100 dark:bg-dark-tremor-background-muted rounded-full overflow-hidden mt-1">
                     <div
                       className="h-full rounded-full transition-all duration-500"
                       style={{

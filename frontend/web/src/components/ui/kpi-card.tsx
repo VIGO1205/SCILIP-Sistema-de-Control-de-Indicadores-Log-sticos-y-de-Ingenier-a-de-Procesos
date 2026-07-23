@@ -127,7 +127,7 @@ export const KPICard: React.FC<KPICardProps> = ({
       return direction === 'up' ? 'text-success' : 'text-danger';
     if (computedTrend < 0)
       return direction === 'down' ? 'text-success' : 'text-danger';
-    return 'text-gray-500';
+    return 'text-gray-500 dark:text-dark-tremor-content-subtle';
   };
 
   const formatValue = (val: number | string): string => {
@@ -149,7 +149,7 @@ export const KPICard: React.FC<KPICardProps> = ({
   return (
     <div
       className={cn(
-        'relative bg-white p-5 rounded-xl border border-gray-200 shadow-kpi hover:shadow-kpi-hover transition-all duration-300 group',
+        'relative bg-white dark:bg-dark-tremor-background p-5 rounded-xl border border-gray-200 dark:border-dark-tremor-border shadow-kpi hover:shadow-kpi-hover transition-all duration-300 group',
         onClick && 'cursor-pointer',
         className
       )}
@@ -157,11 +157,11 @@ export const KPICard: React.FC<KPICardProps> = ({
     >
       <div className="flex justify-between items-start mb-3">
         <div className="flex flex-col min-w-0 flex-1">
-          <Text style={{ color: '#6B7280' }} className="text-xs font-semibold uppercase tracking-wide leading-none mb-1 truncate">
+          <Text className="text-xs font-semibold uppercase tracking-wide leading-none mb-1 truncate text-gray-500 dark:text-dark-tremor-content-subtle">
             {title}
           </Text>
           {subtitle && (
-            <Text style={{ color: '#9CA3AF' }} className="text-[10px] font-medium">
+            <Text className="text-[10px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle">
               {subtitle}
             </Text>
           )}
@@ -181,9 +181,8 @@ export const KPICard: React.FC<KPICardProps> = ({
       <div className="flex items-end justify-between mb-3">
         <div className="flex flex-col">
           <Metric
-            style={{ color: '#111827' }}
             className={cn(
-              'text-2xl font-bold',
+              'text-2xl font-bold text-gray-900 dark:text-dark-tremor-content-strong',
               loading && 'animate-pulse'
             )}
           >
@@ -191,10 +190,10 @@ export const KPICard: React.FC<KPICardProps> = ({
           </Metric>
           {target !== undefined && (
             <div className="flex items-center gap-1.5 mt-1">
-              <span className="text-[10px] font-medium text-gray-400">
+              <span className="text-[10px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle">
                 Meta:
               </span>
-              <span className="text-[11px] font-semibold text-gray-600">
+              <span className="text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content">
                 {formatValue(target)}
               </span>
             </div>
@@ -229,6 +228,7 @@ export const KPICard: React.FC<KPICardProps> = ({
                   <ReferenceLine
                     y={target}
                     stroke="#9CA3AF"
+                    className="dark:stroke-dark-tremor-content-subtle"
                     strokeDasharray="3 3"
                     strokeWidth={1}
                   />
@@ -251,14 +251,14 @@ export const KPICard: React.FC<KPICardProps> = ({
       {progressPercent !== null && (
         <div className="mb-3">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[10px] font-medium text-gray-400">
+            <span className="text-[10px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle">
               Progreso vs meta
             </span>
-            <span className="text-[10px] font-bold text-gray-600">
+            <span className="text-[10px] font-bold text-gray-600 dark:text-dark-tremor-content">
               {progressPercent.toFixed(2)}%
             </span>
           </div>
-          <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-gray-100 dark:bg-dark-tremor-background-muted rounded-full overflow-hidden">
             <div
               className={cn(
                 'h-full rounded-full transition-all duration-700 ease-out',
@@ -270,7 +270,7 @@ export const KPICard: React.FC<KPICardProps> = ({
         </div>
       )}
 
-      <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+      <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-dark-tremor-border">
         <div className={cn('flex items-center text-xs font-semibold', getTrendColor())}>
           {computedTrend > 0 ? (
             <ArrowUpRight className="h-3.5 w-3.5 mr-0.5" />
@@ -281,7 +281,7 @@ export const KPICard: React.FC<KPICardProps> = ({
           )}
           {Math.abs(computedTrend).toFixed(1)}%
         </div>
-        <span className="text-[10px] font-medium text-gray-400">
+        <span className="text-[10px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle">
           {trendLabel}
         </span>
         <div

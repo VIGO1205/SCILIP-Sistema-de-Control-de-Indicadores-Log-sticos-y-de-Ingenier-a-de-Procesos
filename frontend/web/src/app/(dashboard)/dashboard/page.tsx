@@ -425,8 +425,8 @@ function KpiDataFetcher({
 
       {/* ═══ Panel de Análisis ═══ */}
       <section className="mb-5">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
-          <div className="lg:col-span-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+          <div>
             <AiOverlay
               type="chart"
               chartType="donut"
@@ -442,7 +442,7 @@ function KpiDataFetcher({
               />
             </AiOverlay>
           </div>
-          <div className="lg:col-span-5">
+          <div>
             <AiOverlay
               type="chart"
               chartType="bar"
@@ -452,7 +452,7 @@ function KpiDataFetcher({
               <CategoryBarChart categoryData={categoryCompliance} loading={isLoading} />
             </AiOverlay>
           </div>
-          <div className="lg:col-span-4">
+          <div>
             <AlertsPanel alerts={alerts} loading={isLoading} />
           </div>
         </div>

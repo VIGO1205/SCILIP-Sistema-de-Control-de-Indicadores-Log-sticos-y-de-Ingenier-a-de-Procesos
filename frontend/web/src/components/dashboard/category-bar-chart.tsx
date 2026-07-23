@@ -95,14 +95,10 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   );
 };
 
-import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
-
 export default function CategoryBarChart({
   categoryData,
   loading,
 }: CategoryBarChartProps) {
-  const controls = useAnimation();
   const chartData = useMemo(
     () =>
       categoryData.map((cat) => ({
@@ -112,33 +108,6 @@ export default function CategoryBarChart({
       })),
     [categoryData]
   );
-  
-  useEffect(() => {
-    const animate = async () => {
-      while (true) {
-        // Start position (left of screen)
-        await controls.start({
-          x: -150,
-          transition: { duration: 0 }
-        });
-        // Drive to warehouse with ease out
-        await controls.start({
-          x: "calc(100% - 180px)",
-          transition: { duration: 4, ease: "easeOut" }
-        });
-        // Wait at warehouse
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        // Drive back to start
-        await controls.start({
-          x: -150,
-          transition: { duration: 3.5, ease: "easeInOut" }
-        });
-        // Wait before starting again
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      }
-    };
-    animate();
-  }, [controls]);
 
   if (loading) {
     return (
@@ -243,115 +212,6 @@ export default function CategoryBarChart({
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-      </div>
-
-      {/* Animated Truck Section */}
-      <div className="mt-3 relative h-24 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-sky-100 to-sky-50 dark:from-gray-800 dark:to-gray-900" />
-        
-        {/* Road */}
-        <div className="absolute bottom-0 w-full h-5 bg-gray-700 rounded-t-xl">
-          <div className="absolute top-1/2 left-0 w-full h-1 -translate-y-1/2"
-               style={{ 
-                 backgroundImage: 'repeating-linear-gradient(90deg, #facc15 0px, #facc15 30px, transparent 30px, transparent 60px)',
-               }} />
-        </div>
-        
-        {/* Warehouse on the right */}
-        <div className="absolute bottom-5 right-8 flex flex-col items-center">
-          <div className="w-28 h-20 bg-gray-200 dark:bg-gray-600 border-2 border-gray-300 dark:border-gray-500 rounded-t-xl flex items-center justify-center relative">
-            <div className="absolute -top-3 w-36 h-4 bg-gray-300 dark:bg-gray-500 -skew-x-12" />
-            <div className="w-14 h-14 bg-amber-800 dark:bg-amber-900 rounded-t-lg border-2 border-amber-900" />
-          </div>
-          <div className="w-28 h-2 bg-gray-400 dark:bg-gray-600 rounded" />
-          <div className="flex gap-1 mt-1">
-            <Package className="h-4 w-4 text-blue-500" />
-            <Package className="h-4 w-4 text-orange-500" />
-            <Package className="h-4 w-4 text-green-500" />
-          </div>
-        </div>
-        
-        {/* Animated Truck with Framer Motion */}
-        <motion.div
-          className="absolute bottom-5 left-0"
-          animate={controls}
-        >
-          <div className="relative">
-            {/* Exhaust fumes */}
-            <motion.div
-              className="absolute -top-4 -left-2 w-3 h-3 bg-gray-400 rounded-full opacity-60"
-              animate={{
-                y: [0, -20, -30],
-                x: [0, -5, -10],
-                scale: [1, 1.5, 2],
-                opacity: [0.6, 0.3, 0]
-              }}
-              transition={{
-                duration: 1,
-                repeat: Infinity,
-                ease: "easeOut"
-              }}
-            />
-            <motion.div
-              className="absolute -top-3 -left-1 w-2 h-2 bg-gray-400 rounded-full opacity-50"
-              animate={{
-                y: [0, -15, -25],
-                x: [0, -3, -8],
-                scale: [1, 1.3, 1.8],
-                opacity: [0.5, 0.2, 0]
-              }}
-              transition={{
-                duration: 0.8,
-                repeat: Infinity,
-                ease: "easeOut",
-                delay: 0.3
-              }}
-            />
-            
-            {/* Truck body */}
-            <div className="flex flex-col items-center">
-              <div className="relative">
-                <Truck className="h-14 w-20 text-orange-600" />
-                
-                {/* Cargo box */}
-                <div className="absolute top-1 right-0 w-10 h-8 bg-blue-700 rounded border border-blue-900">
-                  <div className="absolute -top-1 left-1 w-8 h-2 bg-blue-600 rounded-t" />
-                </div>
-              </div>
-              
-              {/* Rotating wheels */}
-              <div className="flex gap-4 -mt-2">
-                <motion.div
-                  className="w-5 h-5 bg-gray-800 rounded-full border-3 border-gray-600"
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                >
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-1 h-1 bg-gray-500 rounded-full" />
-                  </div>
-                </motion.div>
-                <motion.div
-                  className="w-5 h-5 bg-gray-800 rounded-full border-3 border-gray-600"
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                >
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-1 h-1 bg-gray-500 rounded-full" />
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </Card>
   );

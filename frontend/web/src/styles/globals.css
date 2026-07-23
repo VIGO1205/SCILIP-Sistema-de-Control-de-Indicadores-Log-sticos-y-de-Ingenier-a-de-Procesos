@@ -8,6 +8,15 @@
   }
 }
 
+/* Forzar modo claro en Tremor: ignorar prefers-color-scheme del SO */
+html {
+  color-scheme: light;
+}
+
+[data-tremor-theme] {
+  color-scheme: light !important;
+}
+
 /* Estilos para solucionar opciones transparentes en Select de Tremor */
 @layer components {
   [data-tremor-select-listbox] {

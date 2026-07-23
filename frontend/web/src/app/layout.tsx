@@ -1,5 +1,6 @@
 import React from 'react';
 import { Providers } from '../components/providers/trpc-provider';
+import { ThemeProvider } from '../components/providers/theme-provider';
 import { ErrorBoundary } from '../components/error/error-boundary';
 import '../styles/globals.css';
 import 'leaflet/dist/leaflet.css';
@@ -15,11 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning className="light">
       <body>
-        <ErrorBoundary>
-          <Providers>{children}</Providers>
-        </ErrorBoundary>
+        <ThemeProvider>
+          <ErrorBoundary>
+            <Providers>{children}</Providers>
+          </ErrorBoundary>
+        </ThemeProvider>
       </body>
     </html>
   );

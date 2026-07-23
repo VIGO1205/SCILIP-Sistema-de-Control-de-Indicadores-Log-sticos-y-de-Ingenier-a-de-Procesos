@@ -114,6 +114,8 @@ export default function SummaryDonut({
                   border: '1px solid #E5E7EB',
                   fontSize: '12px',
                   padding: '8px 12px',
+                  backgroundColor: '#ffffff',
+                  color: '#374151',
                 }}
                 formatter={(value: number, name: string) => [
                   `${value} KPIs`,

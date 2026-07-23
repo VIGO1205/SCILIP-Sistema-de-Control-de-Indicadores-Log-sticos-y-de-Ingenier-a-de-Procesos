@@ -334,7 +334,7 @@ export default function CustomerServicePage() {
                           ))}
                         </Pie>
                         <Tooltip
-                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
                           formatter={(value: any, name: string) => [value, name]}
                         />
                         <Legend wrapperStyle={{ fontSize: '12px' }} />
@@ -441,7 +441,7 @@ export default function CustomerServicePage() {
                         <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} />
                         <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} />
                         <Tooltip
-                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
                         />
                         <Legend wrapperStyle={{ fontSize: '12px' }} />
                         <Bar dataKey="delivered" name="Entregados" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={40} />

@@ -82,7 +82,7 @@ export function OrderQualityChart({ quality = 0, target = 90, loading = false }:
               <YAxis tick={{ fontSize: 12, fill: '#6B7280' }} axisLine={false} tickLine={false} domain={[0, 100]} />
               <Tooltip 
                 formatter={(value: number) => [`${value.toFixed(1)}%`, 'Calidad']}
-                contentStyle={{ borderRadius: '8px', border: '1px solid #E5E7EB', fontSize: '12px' }}
+                contentStyle={{ borderRadius: '8px', border: '1px solid #E5E7EB', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
               />
               <Bar dataKey="value" radius={[6, 6, 0, 0]}>
                 {data.map((entry, index) => (

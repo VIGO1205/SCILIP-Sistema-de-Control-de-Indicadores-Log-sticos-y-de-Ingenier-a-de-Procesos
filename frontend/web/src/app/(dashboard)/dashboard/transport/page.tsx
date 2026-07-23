@@ -452,7 +452,7 @@ export default function TransportPage() {
                         <XAxis dataKey="name" tickFormatter={(v) => costTypeLabels[v] || v} tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} />
                         <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} />
                         <Tooltip
-                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
                           formatter={(value: any, name: string, props: any) => [
                             '$ ' + Number(value).toLocaleString('en-US'),
                             costTypeLabels[props.payload.name] || props.payload.name,
@@ -491,7 +491,7 @@ export default function TransportPage() {
                         <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} />
                         <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} unit="%" />
                         <Tooltip
-                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
                           formatter={(value: any) => [`${Number(value).toFixed(2)}%`, 'Transporte vs Ventas']}
                         />
                         <Legend wrapperStyle={{ fontSize: '12px' }} />

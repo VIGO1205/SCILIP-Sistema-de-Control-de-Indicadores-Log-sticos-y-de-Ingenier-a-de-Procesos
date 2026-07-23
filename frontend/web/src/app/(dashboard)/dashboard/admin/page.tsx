@@ -409,7 +409,7 @@ export default function ProductionPage() {
                         label={{ value: 'Capacidad', angle: 90, position: 'insideRight', style: { fontSize: 11, fill: '#6b7280' } }}
                       />
                       <Tooltip
-                        contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                        contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
                         formatter={(value: any, name: string) => [
                           name === 'eficiencia' ? `${Number(value).toFixed(1)}%` : Number(value).toLocaleString('en-US'),
                           name === 'eficiencia' ? 'Eficiencia' : 'Capacidad Máx',

@@ -307,7 +307,7 @@ export default function InternationalPage() {
                         <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} />
                         <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} />
                         <Tooltip
-                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
                           formatter={(value: any) => [`$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2 })}`, '']}
                         />
                         <Legend wrapperStyle={{ fontSize: '12px' }} />
@@ -344,7 +344,7 @@ export default function InternationalPage() {
                           ))}
                         </Pie>
                         <Tooltip
-                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
                           formatter={(value: any, name: string) => [value, name]}
                         />
                         <Legend wrapperStyle={{ fontSize: '12px' }} />

@@ -157,11 +157,11 @@ export const KPICard: React.FC<KPICardProps> = ({
     >
       <div className="flex justify-between items-start mb-3">
         <div className="flex flex-col min-w-0 flex-1">
-          <Text className="text-xs font-semibold text-gray-500 uppercase tracking-wide leading-none mb-1 truncate">
+          <Text style={{ color: '#6B7280' }} className="text-xs font-semibold uppercase tracking-wide leading-none mb-1 truncate">
             {title}
           </Text>
           {subtitle && (
-            <Text className="text-[10px] font-medium text-gray-400">
+            <Text style={{ color: '#9CA3AF' }} className="text-[10px] font-medium">
               {subtitle}
             </Text>
           )}
@@ -181,8 +181,9 @@ export const KPICard: React.FC<KPICardProps> = ({
       <div className="flex items-end justify-between mb-3">
         <div className="flex flex-col">
           <Metric
+            style={{ color: '#111827' }}
             className={cn(
-              'text-2xl font-bold text-gray-900',
+              'text-2xl font-bold',
               loading && 'animate-pulse'
             )}
           >
@@ -288,7 +289,7 @@ export const KPICard: React.FC<KPICardProps> = ({
             'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider',
             status === 'good' && 'bg-success/10 text-success',
             status === 'bad' && 'bg-danger/10 text-danger',
-            status === 'warning' && 'bg-warning/10 text-warning',
+            status === 'warning' && 'bg-amber-50 text-amber-700',
             status === 'neutral' && 'bg-primary/10 text-primary'
           )}
         >

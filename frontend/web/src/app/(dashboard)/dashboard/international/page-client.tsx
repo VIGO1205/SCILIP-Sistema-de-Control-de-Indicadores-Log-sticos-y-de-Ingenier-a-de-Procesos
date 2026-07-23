@@ -215,7 +215,7 @@ export default function InternationalPage() {
 
       {/* Tabs estilo Dashboard */}
       <TabGroup className="mt-6">
-        <TabList className="bg-gradient-to-r from-cyan-50 via-blue-50 to-indigo-50 dark:from-cyan-900/20 dark:via-blue-900/20 dark:to-indigo-900/20 rounded-t-xl border border-cyan-100/50 dark:border-cyan-900/30 border-b-0 shadow-sm p-1.5 gap-1.5">
+        <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-t-xl border border-indigo-100/50 dark:border-indigo-900/30 border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={Ship}
             className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:text-cyan-600 dark:data-[selected]:text-cyan-400 data-[selected]:font-bold data-[selected]:border-b-[3px] data-[selected]:border-cyan-500"

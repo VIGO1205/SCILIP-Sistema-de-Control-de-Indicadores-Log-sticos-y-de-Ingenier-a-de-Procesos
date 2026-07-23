@@ -144,7 +144,7 @@ export function AddressPickerModal({ isOpen, onClose, onSelect, initialAddress }
                 placeholder="Buscar dirección, ciudad o país..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-3 py-2 pl-9 pr-9 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                className="w-full px-3 py-2 pl-9 pr-9 text-sm text-gray-900 dark:text-dark-tremor-content-strong bg-white dark:bg-dark-tremor-background-muted border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary placeholder:text-gray-400 dark:placeholder:text-dark-tremor-content-subtle"
                 onKeyDown={(e) => e.key === 'Enter' && searchAddress()}
               />
               {searchQuery && (

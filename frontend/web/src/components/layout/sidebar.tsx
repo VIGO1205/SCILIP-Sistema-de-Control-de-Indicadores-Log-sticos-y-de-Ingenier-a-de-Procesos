@@ -193,7 +193,7 @@ export default function Sidebar({
       {/* Mobile: Drawer */}
       <div
         className={clsx(
-          'fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-bi-dark to-bi-blue text-white shadow-2xl z-50 md:hidden transition-transform duration-300 ease-in-out',
+          'fixed inset-y-0 left-0 w-64 flex flex-col bg-gradient-to-b from-bi-dark to-bi-blue text-white shadow-2xl z-50 md:hidden transition-transform duration-300 ease-in-out',
           open ? 'translate-x-0' : '-translate-x-full'
         )}
       >

@@ -90,50 +90,16 @@ La persistencia de datos del sistema SCILIP se gestiona de forma centralizada y 
 
 ---
 
-### 3. Instrucciones de Instalación
+### 3. Despliegue y Acceso a la Plataforma
 
-Antes de proceder con la instalación, es necesario contar con las siguientes herramientas en el equipo: Node.js (v20.x+), pnpm (v9.0.0+), Docker Desktop y Git.
+El sistema SCILIP se encuentra desplegado en la nube para su acceso y uso directo, eliminando la necesidad de configuración o instalación local. 
 
-1.  **Clonación del repositorio:**
-    - `git clone https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos.git`
-    - `cd SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos`
-
-2.  **Configuración del entorno:**
-    Se debe copiar el archivo `.env.example` a `.env` utilizando `Copy-Item .env.example .env` (Windows) o `cp .env.example .env` (Linux/macOS). Revisar variables críticas como las credenciales de PostgreSQL (`DATABASE_URL`), `JWT_SECRET` y `NEXT_PUBLIC_API_URL`.
-    _[Captura de pantalla sugerida: Archivo .env con las variables principales configuradas.]_
-
-3.  **Instalación de dependencias:**
-    Ejecutar el comando `pnpm install` desde la raíz del proyecto para instalar todas las dependencias del monorepo (aplicaciones y paquetes compartidos).
-    _[Captura de pantalla sugerida: Terminal de comandos ejecutando pnpm install exitosamente.]_
-
-4.  **Configuración de la base de datos:**
-    Asegurarse de tener configurada la variable `DATABASE_URL` y luego ejecutar en orden:
-    - `npm run db:generate` (Genera el cliente Prisma).
-    - `npm run db:push` (Sincroniza el esquema con PostgreSQL).
-    - `npm run db:seed` (Inserta datos iniciales de prueba como KPIs, usuarios demo, y catálogos).
-      _[Captura de pantalla sugerida: Terminal mostrando la salida exitosa de npm run db:push o npm run db:seed.]_
+- **Enlace de Producción (Vercel):** [https://scilip-sistema-de-control-de-indica.vercel.app/](https://scilip-sistema-de-control-de-indica.vercel.app/)
+  _[Captura de pantalla sugerida: Interfaz principal (ej. login o dashboard) de la aplicación web cargada en el navegador.]_
 
 ---
 
-### 4. Ejecución del sistema
-
-Al utilizar Turborepo, la ejecución del sistema está orquestada de forma global, lo que permite levantar tanto la API (Backend) como la Web (Frontend) de manera simultánea.
-
-**Para entorno de desarrollo local:**
-Asegúrese de estar en la carpeta raíz del proyecto y ejecute en la terminal:
-`pnpm dev`
-_(Este comando iniciará NestJS en modo watch y Next.js en el puerto 3000)._
-
-**Para entorno de producción:**
-
-1.  Compilar aplicaciones: `pnpm build`
-2.  Iniciar los servicios: `pnpm start`
-
-_[Captura de pantalla sugerida: Consola mostrando los procesos de Turborepo ejecutando el backend y frontend en paralelo tras el comando pnpm dev.]_
-
----
-
-### 5. Repositorio del Proyecto (Daniel)
+### 4. Repositorio del Proyecto (Daniel)
 
 El código fuente de la plataforma se encuentra alojado en un repositorio privado bajo la plataforma GitHub para el control de versiones, integración continua y mantenimiento del ciclo de vida del software.
 

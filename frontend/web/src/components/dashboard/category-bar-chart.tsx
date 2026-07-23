@@ -65,30 +65,30 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   const data = payload[0].payload;
   return (
-    <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200 text-xs">
-      <p className="font-bold text-gray-900 mb-1">{data.name}</p>
+    <div className="bg-white dark:bg-dark-tremor-background p-3 rounded-lg shadow-lg border border-gray-200 dark:border-dark-tremor-border text-xs">
+      <p className="font-bold text-gray-900 dark:text-dark-tremor-content-strong mb-1">{data.name}</p>
       <div className="space-y-1">
         <div className="flex items-center justify-between gap-4">
-          <span className="text-gray-500">Cumplimiento:</span>
+          <span className="text-gray-500 dark:text-dark-tremor-content-subtle">Cumplimiento:</span>
           <span className="font-bold" style={{ color: getBarColor(data.compliance) }}>
             {formatNumber(data.compliance, 1)}%
           </span>
         </div>
         <div className="flex items-center justify-between gap-4">
-          <span className="text-gray-500">Óptimos:</span>
+          <span className="text-gray-500 dark:text-dark-tremor-content-subtle">Óptimos:</span>
           <span className="font-semibold text-success">{data.good}</span>
         </div>
         <div className="flex items-center justify-between gap-4">
-          <span className="text-gray-500">Alertas:</span>
+          <span className="text-gray-500 dark:text-dark-tremor-content-subtle">Alertas:</span>
           <span className="font-semibold text-warning">{data.warning}</span>
         </div>
         <div className="flex items-center justify-between gap-4">
-          <span className="text-gray-500">Críticos:</span>
+          <span className="text-gray-500 dark:text-dark-tremor-content-subtle">Críticos:</span>
           <span className="font-semibold text-danger">{data.bad}</span>
         </div>
-        <div className="flex items-center justify-between gap-4 pt-1 border-t border-gray-100">
-          <span className="text-gray-500">Total KPIs:</span>
-          <span className="font-bold text-gray-900">{data.totalKpis}</span>
+        <div className="flex items-center justify-between gap-4 pt-1 border-t border-gray-100 dark:border-dark-tremor-border">
+          <span className="text-gray-500 dark:text-dark-tremor-content-subtle">Total KPIs:</span>
+          <span className="font-bold text-gray-900 dark:text-dark-tremor-content-strong">{data.totalKpis}</span>
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@ export default function CategoryBarChart({
 
   if (loading) {
     return (
-      <Card className="border border-gray-200 shadow-sm">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm">
         <div className="animate-pulse">
           <div className="h-5 bg-gray-200 rounded w-1/3 mb-6" />
           <div className="h-64 bg-gray-100 rounded-lg" />
@@ -126,18 +126,18 @@ export default function CategoryBarChart({
       : 0;
 
   return (
-    <Card className="border border-gray-200 shadow-sm">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm">
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border">
         <div>
-          <h3 className="text-sm font-bold text-gray-900">
+          <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">
             Cumplimiento por Categoría
           </h3>
-          <p className="text-[10px] text-gray-400 mt-0.5">
+          <p className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle mt-0.5">
             % de indicadores dentro de meta por área
           </p>
         </div>
-        <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 rounded-lg border border-gray-200">
-          <span className="text-[10px] font-medium text-gray-500">Global:</span>
+        <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-dark-tremor-background-subtle rounded-lg border border-gray-200 dark:border-dark-tremor-border">
+          <span className="text-[10px] font-medium text-gray-500 dark:text-dark-tremor-content-subtle">Global:</span>
           <span
             className={cn(
               'text-xs font-bold',

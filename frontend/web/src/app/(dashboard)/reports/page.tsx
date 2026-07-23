@@ -82,13 +82,13 @@ export default function ReportsPage() {
   const totalGenerated = history?.length ?? 0;
 
   return (
-    <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
+    <main className="p-4 sm:p-5 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header estilo Dashboard */}
       <div className="mb-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Reportes Logísticos</h1>
-            <p className="text-gray-500 mt-0.5 text-xs">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">Reportes Logísticos</h1>
+            <p className="text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5 text-xs">
               Generación y descarga de informes técnicos de gestión en PDF y Excel
             </p>
           </div>
@@ -141,19 +141,19 @@ export default function ReportsPage() {
         <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={BarChart3}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-indigo-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Reportes Disponibles
           </Tab>
           <Tab
             icon={Clock}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Historial
           </Tab>
         </TabList>
 
-        <TabPanels className="bg-white border border-gray-200 rounded-b-xl shadow-sm">
+        <TabPanels className="bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-b-xl shadow-sm">
           {/* Reportes Disponibles */}
           <TabPanel>
             <div className="p-5 space-y-5">
@@ -163,10 +163,10 @@ export default function ReportsPage() {
                 </div>
               ) : (
                 <>
-                  <div className="rounded-xl border border-gray-200 shadow-sm p-4 bg-white">
+                  <div className="rounded-xl border border-gray-200 dark:border-dark-tremor-border shadow-sm p-4 bg-white dark:bg-dark-tremor-background">
                     <div className="flex items-center gap-2 mb-3">
                       <TrendingUp className="h-4 w-4 text-primary" />
-                      <h3 className="text-sm font-bold text-gray-900">Resumen de Reportes</h3>
+                      <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Resumen de Reportes</h3>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       <StatusCard label="Total" count={totalReports} color="indigo" icon={<BarChart3 className="h-4 w-4" />} />
@@ -220,7 +220,7 @@ function StatusCard({ label, count, color, icon }: { label: string; count: numbe
     <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} border ${c.border}`}>
       <span className={c.text}>{icon}</span>
       <div>
-        <p className="text-[11px] text-gray-500">{label}</p>
+        <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{label}</p>
         <p className={`text-base font-bold ${c.text}`}>{count}</p>
       </div>
     </div>

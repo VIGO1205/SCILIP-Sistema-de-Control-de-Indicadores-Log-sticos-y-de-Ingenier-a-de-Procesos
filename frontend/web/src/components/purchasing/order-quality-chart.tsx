@@ -14,7 +14,7 @@ interface OrderQualityChartProps {
 export function OrderQualityChart({ quality = 0, target = 90, loading = false }: OrderQualityChartProps) {
   if (loading) {
     return (
-      <Card className="border border-gray-200 shadow-sm rounded-xl p-6">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl p-6">
         <div className="h-72 flex items-center justify-center">
           <div className="animate-pulse flex flex-col items-center">
             <div className="h-10 w-10 bg-gray-200 rounded-full mb-2" />
@@ -40,11 +40,11 @@ export function OrderQualityChart({ quality = 0, target = 90, loading = false }:
   const Icon = config.icon;
 
   return (
-    <Card className="border border-gray-200 shadow-sm rounded-xl">
-      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
-        <BarChart3 className="h-4 w-4 text-gray-400" />
-        <h3 className="text-sm font-bold text-gray-900">Calidad de los Pedidos Generados</h3>
-        <span className="ml-auto text-[10px] font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
+        <BarChart3 className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
+        <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Calidad de los Pedidos Generados</h3>
+        <span className="ml-auto text-[10px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle bg-gray-100 dark:bg-dark-tremor-background-muted px-2 py-0.5 rounded">
           NOR_DIS_IND_02
         </span>
       </div>
@@ -55,15 +55,15 @@ export function OrderQualityChart({ quality = 0, target = 90, loading = false }:
             <Icon className={`h-5 w-5 ${config.color}`} />
             <div>
               <p className={`text-xs font-medium ${config.color}`}>{config.label}</p>
-              <p className="text-lg font-bold text-gray-900">{quality.toFixed(1)}%</p>
+              <p className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">{quality.toFixed(1)}%</p>
             </div>
           </div>
           <div className="flex-1">
-            <div className="flex justify-between text-xs text-gray-500 mb-1">
+            <div className="flex justify-between text-xs text-gray-500 dark:text-dark-tremor-content-subtle mb-1">
               <span>Progreso hacia meta</span>
               <span>{target}%</span>
             </div>
-            <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+            <div className="h-2.5 bg-gray-100 dark:bg-dark-tremor-background-muted rounded-full overflow-hidden">
               <div 
                 className={`h-full rounded-full transition-all duration-1000 ${
                   status === 'good' ? 'bg-emerald-500' : status === 'warning' ? 'bg-amber-500' : 'bg-red-500'

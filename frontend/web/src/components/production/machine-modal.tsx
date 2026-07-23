@@ -118,24 +118,24 @@ export function MachineModal({ isOpen, onClose, onSuccess, machine }: MachineMod
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-xl p-0">
+      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl p-0">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 rounded-t-xl">
+        <div className="sticky top-0 z-10 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-6 py-4 rounded-t-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-lg ${isEditing ? 'bg-amber-500/10' : 'bg-primary/10'}`}>
                 {isEditing ? <Pencil className="h-5 w-5 text-amber-600" /> : <Factory className="h-5 w-5 text-primary" />}
               </div>
               <div>
-                <Title className="text-lg font-bold text-gray-900">
+                <Title className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">
                   {isEditing ? 'Editar Máquina' : 'Nueva Máquina'}
                 </Title>
-                <Text className="text-xs text-gray-400">
+                <Text className="text-xs text-gray-400 dark:text-dark-tremor-content-subtle">
                   {isEditing ? `Modificando: ${machine?.name}` : 'Registra una nueva máquina o equipo'}
                 </Text>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               <X className="h-5 w-5 text-gray-400" />
             </button>
           </div>
@@ -147,13 +147,13 @@ export function MachineModal({ isOpen, onClose, onSuccess, machine }: MachineMod
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Información Básica</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Código *</Text>
-                <input {...register('code')} placeholder="Ej: M-001" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Código *</Text>
+                <input {...register('code')} placeholder="Ej: M-001" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
                 {errors.code && <Text className="text-red-500 text-xs mt-1">{errors.code.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Nombre *</Text>
-                <input {...register('name')} placeholder="Nombre de la máquina" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Nombre *</Text>
+                <input {...register('name')} placeholder="Nombre de la máquina" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
                 {errors.name && <Text className="text-red-500 text-xs mt-1">{errors.name.message}</Text>}
               </div>
             </div>
@@ -164,29 +164,29 @@ export function MachineModal({ isOpen, onClose, onSuccess, machine }: MachineMod
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Especificaciones</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Tipo</Text>
-                <select {...register('type')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Tipo</Text>
+                <select {...register('type')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content">
                   <option value="">Seleccionar...</option>
                   {MACHINE_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Marca</Text>
-                <input {...register('brand')} placeholder="Ej: Siemens" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Marca</Text>
+                <input {...register('brand')} placeholder="Ej: Siemens" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Modelo</Text>
-                <input {...register('model')} placeholder="Ej: XJ-2000" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Modelo</Text>
+                <input {...register('model')} placeholder="Ej: XJ-2000" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Número de Serie</Text>
-                <input {...register('serialNumber')} placeholder="Ej: SN123456" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Número de Serie</Text>
+                <input {...register('serialNumber')} placeholder="Ej: SN123456" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Estado</Text>
-                <select {...register('status')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Estado</Text>
+                <select {...register('status')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content">
                   {STATUSES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
                 </select>
               </div>
@@ -198,27 +198,27 @@ export function MachineModal({ isOpen, onClose, onSuccess, machine }: MachineMod
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Capacidad y Costos</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Capacidad Máxima</Text>
-                <input type="number" {...register('maxCapacity', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Capacidad Máxima</Text>
+                <input type="number" {...register('maxCapacity', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Unidad de Capacidad</Text>
-                <input {...register('capacityUnit')} placeholder="Ej: un/h" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Unidad de Capacidad</Text>
+                <input {...register('capacityUnit')} placeholder="Ej: un/h" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Eficiencia (%)</Text>
-                <input type="number" {...register('efficiencyRate', { valueAsNumber: true })} placeholder="100" min={0} max={100} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Eficiencia (%)</Text>
+                <input type="number" {...register('efficiencyRate', { valueAsNumber: true })} placeholder="100" min={0} max={100} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
             </div>
             <div className="mt-3">
-              <Text className="mb-1.5 text-sm font-semibold text-gray-700">Costo por Hora ($)</Text>
-              <input type="number" {...register('hourlyRate', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+              <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Costo por Hora ($)</Text>
+              <input type="number" {...register('hourlyRate', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
             </div>
           </div>
 
           {/* Footer */}
-          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+          <div className="sticky bottom-0 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={isPending} className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors disabled:opacity-50">

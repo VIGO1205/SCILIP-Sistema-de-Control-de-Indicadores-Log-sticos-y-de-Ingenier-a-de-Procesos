@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { Card } from '@tremor/react';
@@ -20,10 +20,10 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
 
   if (!history || history.length === 0) {
     return (
-      <Card className="border border-gray-200 shadow-sm rounded-xl">
-        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 rounded-lg border border-dashed border-gray-200">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 dark:from-dark-tremor-background dark:to-dark-tremor-background-subtle rounded-lg border border-dashed border-gray-200 dark:border-dark-tremor-border">
           <Clock className="h-12 w-12 text-gray-300 mb-4" />
-          <p className="text-gray-500 font-medium">No hay reportes generados aún</p>
+          <p className="text-gray-500 dark:text-dark-tremor-content-subtle font-medium">No hay reportes generados aún</p>
           <p className="text-gray-400 text-xs mt-1">Los reportes descargados aparecerán aquí</p>
         </div>
       </Card>
@@ -114,11 +114,11 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
   };
 
   return (
-    <Card className="border border-gray-200 shadow-sm rounded-xl overflow-hidden">
-      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl overflow-hidden">
+      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
         <Clock className="h-4 w-4 text-gray-400" />
-        <h3 className="text-sm font-bold text-gray-900">Historial de Reportes Generados</h3>
-        <span className="ml-auto text-[10px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+        <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Historial de Reportes Generados</h3>
+        <span className="ml-auto text-[10px] font-medium text-gray-500 dark:text-dark-tremor-content-subtle bg-gray-100 px-2 py-0.5 rounded-full">
           {history.length} reportes
         </span>
       </div>
@@ -126,13 +126,13 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50/80 border-b border-gray-100">
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Reporte</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Formato</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha</th>
-              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Estado</th>
-              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Tamaño</th>
-              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Acciones</th>
+            <tr className="bg-gray-50/80 dark:bg-dark-tremor-background-subtle border-b border-gray-100 dark:border-dark-tremor-border">
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Reporte</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Formato</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Fecha</th>
+              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Estado</th>
+              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Tamaño</th>
+              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Acciones</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -147,13 +147,13 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
               const canReDownload = !!meta.type && !!meta.format && !!meta.year;
 
               return (
-                <tr key={item.id} className="hover:bg-gray-50/50 transition-colors">
+                <tr key={item.id} className="hover:bg-gray-50/50 dark:hover:bg-dark-tremor-background-subtle transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
                         <FileText className="h-4 w-4 text-primary" />
                       </div>
-                      <span className="font-medium text-gray-900 text-xs">{item.name}</span>
+                      <span className="font-medium text-gray-900 dark:text-dark-tremor-content-strong text-xs">{item.name}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3">
@@ -165,7 +165,7 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
                       {item.format.toUpperCase()}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-600">
+                  <td className="px-4 py-3 text-xs text-gray-600 dark:text-dark-tremor-content">
                     {new Date(item.generatedAt).toLocaleString('es-CO', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                   </td>
                   <td className="px-4 py-3 text-center">
@@ -174,7 +174,7 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
                       {status.label}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right text-xs text-gray-600">
+                  <td className="px-4 py-3 text-right text-xs text-gray-600 dark:text-dark-tremor-content">
                     {item.fileSizeBytes ? `${(item.fileSizeBytes / 1024).toFixed(1)} KB` : '-'}
                   </td>
                   <td className="px-4 py-3 text-center">
@@ -190,7 +190,7 @@ export function ReportsHistoryTable({ history }: ReportsHistoryTableProps) {
                           Descargar
                         </button>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium text-gray-400 bg-gray-50 border border-gray-200 cursor-not-allowed" title="Registro antiguo sin parámetros">
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium text-gray-400 bg-gray-50 border border-gray-200 dark:border-dark-tremor-border cursor-not-allowed" title="Registro antiguo sin parámetros">
                           <Download className="h-3 w-3" />
                           Descargar
                         </span>

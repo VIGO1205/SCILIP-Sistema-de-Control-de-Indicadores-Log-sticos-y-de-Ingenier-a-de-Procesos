@@ -19,7 +19,7 @@ const typeColors: Record<string, string> = {
   PURCHASE_ORDER: 'bg-blue-50 text-blue-600',
   INVENTORY: 'bg-amber-50 text-amber-600',
   REPORT: 'bg-purple-50 text-purple-600',
-  SYSTEM: 'bg-gray-50 text-gray-600',
+  SYSTEM: 'bg-gray-50 dark:bg-dark-tremor-background-subtle text-gray-600 dark:text-dark-tremor-content',
 };
 
 function timeAgo(date: Date): string {
@@ -50,7 +50,7 @@ export default function NotificationCenter() {
       <button
         type="button"
         onClick={handleOpen}
-        className="p-2 text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-all relative"
+        className="p-2 text-gray-400 dark:text-dark-tremor-content-subtle hover:text-primary hover:bg-primary/5 rounded-lg transition-all relative"
         aria-label="Notificaciones"
       >
         <Bell className="h-5 w-5" />
@@ -64,9 +64,9 @@ export default function NotificationCenter() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-              <h3 className="text-sm font-bold text-gray-900">Notificaciones</h3>
+          <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-dark-tremor-background rounded-xl shadow-2xl border border-gray-200 dark:border-dark-tremor-border z-50 overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-dark-tremor-border">
+              <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Notificaciones</h3>
               <div className="flex items-center gap-2">
                 {unreadCount > 0 && (
                   <button
@@ -76,7 +76,7 @@ export default function NotificationCenter() {
                     Marcar todas leídas
                   </button>
                 )}
-                <button onClick={() => setOpen(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setOpen(false)} className="text-gray-400 dark:text-dark-tremor-content-subtle hover:text-gray-600 dark:hover:text-dark-tremor-content">
                   <X className="h-4 w-4" />
                 </button>
               </div>
@@ -86,18 +86,18 @@ export default function NotificationCenter() {
               {notifications.length === 0 ? (
                 <div className="py-8 text-center">
                   <Bell className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-                  <p className="text-xs text-gray-500">No hay notificaciones</p>
+                  <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">No hay notificaciones</p>
                 </div>
               ) : (
                 notifications.map((n) => {
                   const Icon = typeIcons[n.type] || Bell;
-                  const colorClass = typeColors[n.type] || 'bg-gray-50 text-gray-600';
+                  const colorClass = typeColors[n.type] || 'bg-gray-50 dark:bg-dark-tremor-background-subtle text-gray-600 dark:text-dark-tremor-content';
                   return (
                     <div
                       key={n.id}
                       onClick={() => !n.isRead && markAsRead(n.id)}
                       className={clsx(
-                        'flex items-start gap-3 px-4 py-3 border-b border-gray-50 cursor-pointer transition-colors hover:bg-gray-50',
+                        'flex items-start gap-3 px-4 py-3 border-b border-gray-50 cursor-pointer transition-colors hover:bg-gray-50 dark:hover:bg-dark-tremor-background-subtle',
                         !n.isRead && 'bg-indigo-50/30'
                       )}
                     >
@@ -106,17 +106,17 @@ export default function NotificationCenter() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
-                          <p className={clsx('text-xs leading-tight', !n.isRead ? 'font-bold text-gray-900' : 'font-medium text-gray-700')}>
+                          <p className={clsx('text-xs leading-tight', !n.isRead ? 'font-bold text-gray-900 dark:text-dark-tremor-content-strong' : 'font-medium text-gray-700 dark:text-dark-tremor-content')}>
                             {n.title}
                           </p>
                           {!n.isRead && (
                             <span className="h-2 w-2 rounded-full bg-indigo-500 shrink-0 mt-1" />
                           )}
                         </div>
-                        <p className="text-[11px] text-gray-500 mt-0.5 line-clamp-2">{n.message}</p>
+                        <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5 line-clamp-2">{n.message}</p>
                         <div className="flex items-center gap-2 mt-1">
-                          <Clock className="h-3 w-3 text-gray-400" />
-                          <span className="text-[10px] text-gray-400">{timeAgo(new Date(n.createdAt))}</span>
+                          <Clock className="h-3 w-3 text-gray-400 dark:text-dark-tremor-content-subtle" />
+                          <span className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle">{timeAgo(new Date(n.createdAt))}</span>
                         </div>
                       </div>
                     </div>
@@ -125,7 +125,7 @@ export default function NotificationCenter() {
               )}
             </div>
 
-            <div className="border-t border-gray-100 px-4 py-2">
+            <div className="border-t border-gray-100 dark:border-dark-tremor-border px-4 py-2">
               <a
                 href="/notifications"
                 onClick={() => setOpen(false)}

@@ -144,12 +144,12 @@ export default function SettingsPage() {
   };
 
   return (
-    <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
+    <main className="p-4 sm:p-5 bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="mb-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Configuración del Sistema</h1>
-            <p className="text-gray-500 mt-0.5 text-xs">Gestiona tu perfil, empresa, alertas, seguridad y parámetros</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">Configuración del Sistema</h1>
+            <p className="text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5 text-xs">Gestiona tu perfil, empresa, alertas, seguridad y parámetros</p>
           </div>
         </div>
         <Divider className="mt-4" />
@@ -157,14 +157,14 @@ export default function SettingsPage() {
 
       <TabGroup className="mt-6">
         <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5 flex-wrap">
-          <Tab icon={User} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-indigo-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500">Perfil</Tab>
-          <Tab icon={Building2} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-blue-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-blue-100 data-[selected]:border-b-[3px] data-[selected]:border-blue-500">Empresa</Tab>
-          <Tab icon={Bell} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-purple-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500">Notificaciones</Tab>
-          <Tab icon={Shield} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-emerald-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500">Seguridad</Tab>
-          <Tab icon={Database} className="px-3 py-2.5 text-xs font-medium text-gray-500 hover:text-amber-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500">Sistema</Tab>
+          <Tab icon={User} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500">Perfil</Tab>
+          <Tab icon={Building2} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-blue-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-blue-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-blue-100 data-[selected]:border-b-[3px] data-[selected]:border-blue-500">Empresa</Tab>
+          <Tab icon={Bell} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500">Notificaciones</Tab>
+          <Tab icon={Shield} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-emerald-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500">Seguridad</Tab>
+          <Tab icon={Database} className="px-3 py-2.5 text-xs font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-amber-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500">Sistema</Tab>
         </TabList>
 
-        <TabPanels className="bg-white border border-gray-200 rounded-b-xl shadow-sm">
+        <TabPanels className="bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-b-xl shadow-sm">
           {/* Perfil */}
           <TabPanel>
             <div className="p-5 space-y-5">
@@ -173,30 +173,30 @@ export default function SettingsPage() {
                   <User className="h-5 w-5 text-indigo-600" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-gray-900">Información Personal</h3>
-                  <p className="text-xs text-gray-500">Editá los datos de tu cuenta</p>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Información Personal</h3>
+                  <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">Editá los datos de tu cuenta</p>
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Nombre Completo</label>
-                  <input value={fullName} onChange={(e) => setFullName(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50" placeholder="Tu nombre" />
+                  <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content-subtle uppercase tracking-wider mb-1.5">Nombre Completo</label>
+                  <input value={fullName} onChange={(e) => setFullName(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="Tu nombre" />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Correo Electrónico (Login)</label>
-                  <input value={user?.email ?? ''} disabled className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-500 bg-gray-100 cursor-not-allowed" />
+                  <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content-subtle uppercase tracking-wider mb-1.5">Correo Electrónico (Login)</label>
+                  <input value={user?.email ?? ''} disabled className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-500 dark:text-dark-tremor-content-subtle bg-gray-100 dark:bg-dark-tremor-background-muted cursor-not-allowed" />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Correo para Notificaciones</label>
-                  <input type="email" value={notificationEmail} onChange={(e) => setNotificationEmail(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50" placeholder="tu-correo@gmail.com" />
+                  <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content-subtle uppercase tracking-wider mb-1.5">Correo para Notificaciones</label>
+                  <input type="email" value={notificationEmail} onChange={(e) => setNotificationEmail(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="tu-correo@gmail.com" />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Cargo / Rol</label>
-                  <input value={user?.role ?? ''} disabled className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-500 bg-gray-100 cursor-not-allowed" />
+                  <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content-subtle uppercase tracking-wider mb-1.5">Cargo / Rol</label>
+                  <input value={user?.role ?? ''} disabled className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-500 dark:text-dark-tremor-content-subtle bg-gray-100 dark:bg-dark-tremor-background-muted cursor-not-allowed" />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Teléfono</label>
-                  <input value={phone} onChange={(e) => setPhone(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50" placeholder="+57 300 000 0000" />
+                  <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content-subtle uppercase tracking-wider mb-1.5">Teléfono</label>
+                  <input value={phone} onChange={(e) => setPhone(e.target.value)} className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="+57 300 000 0000" />
                 </div>
               </div>
               <div className="flex justify-end pt-2">
@@ -225,8 +225,8 @@ export default function SettingsPage() {
                   <Bell className="h-5 w-5 text-purple-600" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-gray-900">Preferencias de Alerta</h3>
-                  <p className="text-xs text-gray-500">Configurá qué notificaciones querés recibir</p>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Preferencias de Alerta</h3>
+                  <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">Configurá qué notificaciones querés recibir</p>
                 </div>
               </div>
 
@@ -237,7 +237,7 @@ export default function SettingsPage() {
                 <NotificationToggle icon={Users} color="bg-blue-50 text-blue-600 border-blue-200" title="Cambios de Inventario" desc="Notificar movimientos de stock importantes." checked={notifPrefs.inventoryChanges} onChange={(v) => setNotifPrefs({ ...notifPrefs, inventoryChanges: v })} />
               </div>
 
-              <div className="border-t border-gray-100 pt-4">
+              <div className="border-t border-gray-100 dark:border-dark-tremor-border pt-4">
                 <NotificationToggle icon={Bell} color="bg-amber-50 text-amber-600 border-amber-200" title="Notificaciones por Email" desc="Recibir copia de las notificaciones por correo electrónico." checked={notifPrefs.emailEnabled} onChange={(v) => setNotifPrefs({ ...notifPrefs, emailEnabled: v })} />
               </div>
 
@@ -258,42 +258,42 @@ export default function SettingsPage() {
                   <Shield className="h-5 w-5 text-emerald-600" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-gray-900">Seguridad de la Cuenta</h3>
-                  <p className="text-xs text-gray-500">Protegé tu acceso al sistema</p>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Seguridad de la Cuenta</h3>
+                  <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">Protegé tu acceso al sistema</p>
                 </div>
               </div>
 
               {/* Cambiar Contraseña */}
-              <Card className="border border-gray-200 shadow-sm rounded-xl p-5">
+              <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl p-5">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="h-8 w-8 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-                    <Lock className="h-4 w-4 text-gray-500" />
+                  <div className="h-8 w-8 rounded-lg bg-gray-100 dark:bg-dark-tremor-background-muted flex items-center justify-center shrink-0">
+                    <Lock className="h-4 w-4 text-gray-500 dark:text-dark-tremor-content-subtle" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-gray-900">Cambiar Contraseña</p>
-                    <p className="text-[11px] text-gray-500">Actualizá tu contraseña de acceso</p>
+                    <p className="text-xs font-bold text-gray-900 dark:text-dark-tremor-content-strong">Cambiar Contraseña</p>
+                    <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">Actualizá tu contraseña de acceso</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-3 max-w-md">
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1">Contraseña actual</label>
+                    <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content-subtle uppercase tracking-wider mb-1">Contraseña actual</label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Eye className="h-4 w-4 text-gray-400" /></span>
-                      <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50" placeholder="••••••" />
+                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Eye className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" /></span>
+                      <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="block w-full pl-9 pr-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="••••••" />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1">Nueva contraseña</label>
+                    <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content-subtle uppercase tracking-wider mb-1">Nueva contraseña</label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Lock className="h-4 w-4 text-gray-400" /></span>
-                      <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50" placeholder="Mínimo 6 caracteres" />
+                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Lock className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" /></span>
+                      <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="block w-full pl-9 pr-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="Mínimo 6 caracteres" />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1">Confirmar nueva contraseña</label>
+                    <label className="block text-[11px] font-semibold text-gray-600 dark:text-dark-tremor-content-subtle uppercase tracking-wider mb-1">Confirmar nueva contraseña</label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Lock className="h-4 w-4 text-gray-400" /></span>
-                      <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50" placeholder="Repetí la nueva contraseña" />
+                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Lock className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" /></span>
+                      <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="block w-full pl-9 pr-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm text-gray-900 dark:text-dark-tremor-content-strong transition-all focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400 bg-gray-50/50 dark:bg-dark-tremor-background" placeholder="Repetí la nueva contraseña" />
                     </div>
                   </div>
                 </div>
@@ -306,7 +306,7 @@ export default function SettingsPage() {
               </Card>
 
               {/* 2FA */}
-              <Card className="border border-gray-200 shadow-sm rounded-xl p-5">
+              <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl p-5">
                 <TwoFactorSetup isEnabled={twoFAEnabled} onToggle={setTwoFAEnabled} />
               </Card>
             </div>
@@ -320,8 +320,8 @@ export default function SettingsPage() {
                   <Database className="h-5 w-5 text-amber-600" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-gray-900">Parámetros del Sistema</h3>
-                  <p className="text-xs text-gray-500">Información técnica y mantenimiento</p>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Parámetros del Sistema</h3>
+                  <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">Información técnica y mantenimiento</p>
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -329,11 +329,11 @@ export default function SettingsPage() {
                 <SystemCard icon={Database} label="Base de Datos" value="PostgreSQL 15" color="text-emerald-600 bg-emerald-50 border-emerald-200" />
                 <SystemCard icon={Clock} label="Último Reinicio" value="Activo" color="text-amber-600 bg-amber-50 border-amber-200" />
               </div>
-              <div className="rounded-xl border border-gray-200 p-4 bg-gray-50/50">
-                <p className="text-xs font-bold text-gray-900 mb-3">Mantenimiento</p>
+              <div className="rounded-xl border border-gray-200 dark:border-dark-tremor-border p-4 bg-gray-50/50 dark:bg-dark-tremor-background-muted">
+                <p className="text-xs font-bold text-gray-900 dark:text-dark-tremor-content-strong mb-3">Mantenimiento</p>
                 <div className="flex flex-wrap gap-2">
                   <button onClick={() => Swal.fire({ title: 'Caché Limpiada', text: 'El caché del sistema fue limpiado exitosamente.', icon: 'success', timer: 1500, showConfirmButton: false })} className="px-3 py-1.5 rounded-lg text-[11px] font-medium text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 transition-colors">Limpiar Caché</button>
-                  <button onClick={() => Swal.fire({ title: 'Sistema', text: 'Todos los servicios están operativos.', icon: 'info', timer: 1500, showConfirmButton: false })} className="px-3 py-1.5 rounded-lg text-[11px] font-medium text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 transition-colors">Verificar Estado</button>
+                  <button onClick={() => Swal.fire({ title: 'Sistema', text: 'Todos los servicios están operativos.', icon: 'info', timer: 1500, showConfirmButton: false })} className="px-3 py-1.5 rounded-lg text-[11px] font-medium text-gray-700 dark:text-dark-tremor-content bg-white dark:bg-dark-tremor-background hover:bg-gray-50 dark:hover:bg-dark-tremor-background-subtle border border-gray-200 dark:border-dark-tremor-border transition-colors">Verificar Estado</button>
                 </div>
               </div>
             </div>
@@ -346,14 +346,14 @@ export default function SettingsPage() {
 
 function NotificationToggle({ icon: Icon, color, title, desc, checked, onChange }: { icon: any; color: string; title: string; desc: string; checked: boolean; onChange: (v: boolean) => void }) {
   return (
-    <div className="flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-gray-200 transition-colors bg-white">
+    <div className="flex items-center justify-between p-3 rounded-xl border border-gray-100 dark:border-dark-tremor-border hover:border-gray-200 dark:hover:border-dark-tremor-border transition-colors bg-white dark:bg-dark-tremor-background">
       <div className="flex items-center gap-3">
         <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${color}`}>
           <Icon className="h-4 w-4" />
         </div>
         <div>
-          <p className="text-xs font-bold text-gray-900">{title}</p>
-          <p className="text-[11px] text-gray-500">{desc}</p>
+          <p className="text-xs font-bold text-gray-900 dark:text-dark-tremor-content-strong">{title}</p>
+          <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{desc}</p>
         </div>
       </div>
       <label className="relative inline-flex items-center cursor-pointer">
@@ -366,13 +366,13 @@ function NotificationToggle({ icon: Icon, color, title, desc, checked, onChange 
 
 function SystemCard({ icon: Icon, label, value, color }: { icon: any; label: string; value: string; color: string }) {
   return (
-    <div className="rounded-xl border border-gray-200 p-4 bg-white flex items-start gap-3">
+    <div className="rounded-xl border border-gray-200 dark:border-dark-tremor-border p-4 bg-white dark:bg-dark-tremor-background flex items-start gap-3">
       <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${color}`}>
         <Icon className="h-4 w-4" />
       </div>
       <div>
-        <p className="text-[11px] text-gray-500">{label}</p>
-        <p className="text-sm font-bold text-gray-900">{value}</p>
+        <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{label}</p>
+        <p className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">{value}</p>
       </div>
     </div>
   );

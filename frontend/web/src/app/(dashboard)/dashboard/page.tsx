@@ -177,7 +177,7 @@ export default function DashboardPage() {
   const isEmpty = !defsLoading && (!definitions || definitions.length === 0);
 
   return (
-    <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
+    <main className="p-4 sm:p-5 bg-gray-50 dark:bg-gray-900 min-h-screen">
       <DashboardHeader
         selectedMonth={selectedMonth}
         onMonthChange={setSelectedMonth}
@@ -219,33 +219,33 @@ function DashboardHeader({
     <div className="mb-5">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-gray-900">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">
             Panel de Control BI Logístico
           </h1>
-          <p className="text-gray-500 mt-0.5 text-xs">
+          <p className="text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5 text-xs">
             {userName ? `Bienvenido, ${userName}. ` : ''}
             Monitoreo consolidado de indicadores de gestión logística
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 shadow-sm">
-            <Calendar className="text-gray-400 h-3.5 w-3.5" />
+          <div className="flex items-center gap-1.5 bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-lg px-2.5 py-1.5 shadow-sm">
+            <Calendar className="text-gray-400 dark:text-dark-tremor-content-subtle h-3.5 w-3.5" />
             <select
               value={selectedMonth}
               onChange={(e) => onMonthChange(e.target.value)}
-              className="border-none text-xs font-medium text-gray-700 bg-transparent focus:outline-none cursor-pointer"
+              className="border-none text-xs font-medium text-gray-700 dark:text-dark-tremor-content bg-transparent focus:outline-none cursor-pointer"
             >
               {monthOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>
               ))}
             </select>
           </div>
-          <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 shadow-sm">
-            <Filter className="text-gray-400 h-3.5 w-3.5" />
+          <div className="flex items-center gap-1.5 bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-lg px-2.5 py-1.5 shadow-sm">
+            <Filter className="text-gray-400 dark:text-dark-tremor-content-subtle h-3.5 w-3.5" />
             <select
               value={selectedClass}
               onChange={(e) => onClassChange(e.target.value)}
-              className="border-none text-xs font-medium text-gray-700 bg-transparent focus:outline-none cursor-pointer"
+              className="border-none text-xs font-medium text-gray-700 dark:text-dark-tremor-content bg-transparent focus:outline-none cursor-pointer"
             >
               <option value="all">Todas las Clases</option>
               <option value="UTILIZATION">Utilización</option>
@@ -408,11 +408,11 @@ function KpiDataFetcher({
       {/* ═══ KPIs Principales ═══ */}
       <section className="mb-5">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-bold text-gray-800 flex items-center gap-1.5">
+          <h2 className="text-sm font-bold text-gray-800 dark:text-dark-tremor-content-strong flex items-center gap-1.5">
             <BarChart3 className="h-4 w-4 text-primary" />
             Indicadores Principales
           </h2>
-          <span className="text-[10px] font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+          <span className="text-[10px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle bg-gray-100 dark:bg-dark-tremor-background-muted px-2 py-0.5 rounded-full">
             {period.label}
           </span>
         </div>
@@ -473,16 +473,16 @@ function KpiDataFetcher({
       {/* ═══ Tendencia Global ═══ */}
       <section className="mb-5">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-bold text-gray-800 flex items-center gap-1.5">
+          <h2 className="text-sm font-bold text-gray-800 dark:text-dark-tremor-content-strong flex items-center gap-1.5">
             <TrendingUp className="h-4 w-4 text-primary" />
             Tendencia Mensual
           </h2>
-          <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-2.5 py-1 shadow-sm">
-            <span className="text-[10px] font-medium text-gray-400">KPI:</span>
+          <div className="flex items-center gap-1.5 bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-lg px-2.5 py-1 shadow-sm">
+            <span className="text-[10px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle">KPI:</span>
             <select
               value={selectedKpiForTrend}
               onChange={(e) => setSelectedKpiForTrend(e.target.value)}
-              className="border-none text-[11px] font-medium text-gray-700 bg-transparent focus:outline-none cursor-pointer"
+              className="border-none text-[11px] font-medium text-gray-700 dark:text-dark-tremor-content bg-transparent focus:outline-none cursor-pointer"
             >
               {kpis.map((kpi) => (
                 <option key={kpi.code} value={kpi.code}>{kpi.name}</option>
@@ -503,7 +503,7 @@ function KpiDataFetcher({
       {/* ═══ Grid Completo por Categoría ═══ */}
       <section>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-bold text-gray-800 flex items-center gap-1.5">
+          <h2 className="text-sm font-bold text-gray-800 dark:text-dark-tremor-content-strong flex items-center gap-1.5">
             <LayoutGrid className="h-4 w-4 text-primary" />
             Catálogo Completo de Indicadores
             <Badge className="ml-1" size="sm" color="gray">
@@ -577,9 +577,9 @@ function InsightCard({
 
   if (loading) {
     return (
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 animate-pulse">
-        <div className="h-4 bg-gray-200 rounded w-1/3 mb-3" />
-        <div className="h-3 bg-gray-100 rounded w-2/3" />
+      <div className="bg-white dark:bg-dark-tremor-background rounded-xl border border-gray-200 dark:border-dark-tremor-border shadow-sm p-4 animate-pulse">
+        <div className="h-4 bg-gray-200 dark:bg-dark-tremor-background-muted rounded w-1/3 mb-3" />
+        <div className="h-3 bg-gray-100 dark:bg-dark-tremor-background-muted rounded w-2/3" />
       </div>
     );
   }
@@ -595,9 +595,9 @@ function InsightCard({
             <span className={cn('text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full', c.labelBg, c.labelColor)}>
               {c.label}
             </span>
-            <span className="text-[10px] text-gray-400">{periodLabel}</span>
+            <span className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle">{periodLabel}</span>
           </div>
-          <p className="text-xs text-gray-700 leading-relaxed">{insight.text}</p>
+          <p className="text-xs text-gray-700 dark:text-dark-tremor-content leading-relaxed">{insight.text}</p>
           <div className="flex items-center gap-4 mt-3 pt-2.5 border-t border-gray-200/60">
             <StatPill
               icon={CheckCircle2}
@@ -663,7 +663,7 @@ function StatPill({
       </div>
       <div>
         <span className={cn('text-xs font-bold', color)}>{value}</span>
-        <span className="text-[9px] text-gray-400 ml-1">{label}</span>
+        <span className="text-[9px] text-gray-400 dark:text-dark-tremor-content-subtle ml-1">{label}</span>
       </div>
     </div>
   );

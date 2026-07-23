@@ -143,24 +143,24 @@ export function MaintenanceOrderModal({ isOpen, onClose, onSuccess, order }: Mai
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-xl p-0">
+      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl p-0">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 rounded-t-xl">
+        <div className="sticky top-0 z-10 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-6 py-4 rounded-t-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-lg ${isEditing ? 'bg-amber-500/10' : 'bg-primary/10'}`}>
                 {isEditing ? <Pencil className="h-5 w-5 text-amber-600" /> : <Wrench className="h-5 w-5 text-primary" />}
               </div>
               <div>
-                <Title className="text-lg font-bold text-gray-900">
+                <Title className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">
                   {isEditing ? 'Editar Orden de Mantenimiento' : 'Nueva Orden de Mantenimiento'}
                 </Title>
-                <Text className="text-xs text-gray-400">
+                <Text className="text-xs text-gray-400 dark:text-dark-tremor-content-subtle">
                   {isEditing ? `Modificando: ${order?.title}` : 'Registra una orden para mantenimiento de máquinas'}
                 </Text>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               <X className="h-5 w-5 text-gray-400" />
             </button>
           </div>
@@ -172,8 +172,8 @@ export function MaintenanceOrderModal({ isOpen, onClose, onSuccess, order }: Mai
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Información General</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Máquina *</Text>
-                <select {...register('machineId')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Máquina *</Text>
+                <select {...register('machineId')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content">
                   <option value="">Seleccionar máquina...</option>
                   {machines?.map((m: any) => (
                     <option key={m.id} value={m.id}>{m.name} ({m.code})</option>
@@ -182,14 +182,14 @@ export function MaintenanceOrderModal({ isOpen, onClose, onSuccess, order }: Mai
                 {errors.machineId && <Text className="text-red-500 text-xs mt-1">{errors.machineId.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Título *</Text>
-                <input {...register('title')} placeholder="Ej: Cambio de aceite hidráulico" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Título *</Text>
+                <input {...register('title')} placeholder="Ej: Cambio de aceite hidráulico" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
                 {errors.title && <Text className="text-red-500 text-xs mt-1">{errors.title.message}</Text>}
               </div>
             </div>
             <div className="mt-3">
-              <Text className="mb-1.5 text-sm font-semibold text-gray-700">Descripción</Text>
-              <textarea {...register('description')} placeholder="Descripción detallada del trabajo a realizar..." rows={2} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none" />
+              <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Descripción</Text>
+              <textarea {...register('description')} placeholder="Descripción detallada del trabajo a realizar..." rows={2} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
             </div>
           </div>
 
@@ -198,16 +198,16 @@ export function MaintenanceOrderModal({ isOpen, onClose, onSuccess, order }: Mai
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Clasificación</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Tipo</Text>
-                <select {...register('type')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Tipo</Text>
+                <select {...register('type')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content">
                   <option value="preventivo">Preventivo</option>
                   <option value="correctivo">Correctivo</option>
                   <option value="predictivo">Predictivo</option>
                 </select>
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Prioridad</Text>
-                <select {...register('priority')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Prioridad</Text>
+                <select {...register('priority')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content">
                   <option value="low">Baja</option>
                   <option value="medium">Media</option>
                   <option value="high">Alta</option>
@@ -215,14 +215,14 @@ export function MaintenanceOrderModal({ isOpen, onClose, onSuccess, order }: Mai
                 </select>
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Estado</Text>
-                <select {...register('status')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Estado</Text>
+                <select {...register('status')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content">
                   <option value="scheduled">Programada</option>
                   <option value="in_progress">En Progreso</option>
                   <option value="completed">Completada</option>
                   <option value="cancelled">Cancelada</option>
                 </select>
-                <Text className="text-[10px] text-gray-400 mt-1">
+                <Text className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle mt-1">
                   "En Progreso" bloqueará la máquina. "Completada" la liberará.
                 </Text>
               </div>
@@ -234,17 +234,17 @@ export function MaintenanceOrderModal({ isOpen, onClose, onSuccess, order }: Mai
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Fechas</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Programada *</Text>
-                <input type="date" {...register('scheduledDate')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Programada *</Text>
+                <input type="date" {...register('scheduledDate')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
                 {errors.scheduledDate && <Text className="text-red-500 text-xs mt-1">{errors.scheduledDate.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Inicio</Text>
-                <input type="date" {...register('startDate')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Inicio</Text>
+                <input type="date" {...register('startDate')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Fin</Text>
-                <input type="date" {...register('endDate')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Fin</Text>
+                <input type="date" {...register('endDate')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
             </div>
           </div>
@@ -254,25 +254,25 @@ export function MaintenanceOrderModal({ isOpen, onClose, onSuccess, order }: Mai
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Costos y Asignación</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Técnico</Text>
-                <input {...register('technician')} placeholder="Nombre del técnico asignado" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Técnico</Text>
+                <input {...register('technician')} placeholder="Nombre del técnico asignado" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Costo Estimado ($)</Text>
-                <input type="number" {...register('cost', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Costo Estimado ($)</Text>
+                <input type="number" {...register('cost', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
               </div>
             </div>
           </div>
 
           {/* Notas */}
           <div>
-            <Text className="mb-1.5 text-sm font-semibold text-gray-700">Notas Adicionales</Text>
-            <textarea {...register('notes')} placeholder="Observaciones, repuestos usados, etc." rows={2} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none" />
+            <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Notas Adicionales</Text>
+            <textarea {...register('notes')} placeholder="Observaciones, repuestos usados, etc." rows={2} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none bg-white dark:bg-dark-tremor-background text-gray-900 dark:text-dark-tremor-content" />
           </div>
 
           {/* Footer */}
-          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+          <div className="sticky bottom-0 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={isPending} className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors disabled:opacity-50">

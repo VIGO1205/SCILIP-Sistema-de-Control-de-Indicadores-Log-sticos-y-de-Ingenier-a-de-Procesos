@@ -182,19 +182,19 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] bg-white rounded-kpi shadow-kpi flex flex-col">
+      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] bg-white dark:bg-dark-tremor-background rounded-kpi shadow-kpi flex flex-col">
         {/* Sticky Header */}
-        <div className="sticky top-0 z-20 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between flex-shrink-0 rounded-t-kpi">
+        <div className="sticky top-0 z-20 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-6 py-4 flex items-center justify-between flex-shrink-0 rounded-t-kpi">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-cyan-50 flex items-center justify-center">
               <Globe className="h-5 w-5 text-cyan-600" />
             </div>
             <div>
-              <Title className="text-lg font-bold text-gray-900">{isEditing ? 'Editar' : 'Registrar'} {operationType === 'IMPORT' ? 'Importación' : 'Exportación'}</Title>
-              <Text className="text-xs text-gray-500">{isEditing ? 'Actualiza los datos de la operación.' : 'Registra una nueva operación de comercio exterior.'}</Text>
+              <Title className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">{isEditing ? 'Editar' : 'Registrar'} {operationType === 'IMPORT' ? 'Importación' : 'Exportación'}</Title>
+              <Text className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">{isEditing ? 'Actualiza los datos de la operación.' : 'Registra una nueva operación de comercio exterior.'}</Text>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
             <X className="h-5 w-5 text-gray-400" />
           </button>
         </div>
@@ -205,14 +205,14 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
           {/* Sección: Información General */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="h-6 w-6 rounded-md bg-gray-100 flex items-center justify-center">
-                <Package className="h-3.5 w-3.5 text-gray-500" />
+              <div className="h-6 w-6 rounded-md bg-gray-100 dark:bg-dark-tremor-background-muted flex items-center justify-center">
+                <Package className="h-3.5 w-3.5 text-gray-500 dark:text-dark-tremor-content-subtle" />
               </div>
               <h3 className="text-sm font-bold text-gray-800">Información General</h3>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Tipo de Operación</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Tipo de Operación</Text>
                 <Select
                   value={operationType}
                   onValueChange={(val: any) => setValue('operationType', val)}
@@ -225,7 +225,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
                 )}
               </div>
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Fecha</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Fecha</Text>
                 <DatePicker
                   value={watch('operationDate')}
                   onValueChange={(val) => val && setValue('operationDate', val)}
@@ -238,7 +238,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
 
             <div className="grid grid-cols-2 gap-4 mt-4">
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Producto</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Producto</Text>
                 <Select
                   value={watch('productId')}
                   onValueChange={(val) => setValue('productId', val)}
@@ -256,7 +256,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
               </div>
               {operationType === 'IMPORT' ? (
                 <div>
-                  <Text className="mb-1 text-xs font-medium text-gray-600">Proveedor Extranjero</Text>
+                  <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Proveedor Extranjero</Text>
                   <Select
                     value={watch('supplierId')}
                     onValueChange={(val) => setValue('supplierId', val)}
@@ -274,7 +274,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
                 </div>
               ) : (
                 <div>
-                  <Text className="mb-1 text-xs font-medium text-gray-600">Cliente Internacional</Text>
+                  <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Cliente Internacional</Text>
                   <TextInput
                     placeholder="Nombre del cliente..."
                     {...register('customerName')}
@@ -292,14 +292,14 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
           {/* Sección: Costos y Cantidades */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="h-6 w-6 rounded-md bg-gray-100 flex items-center justify-center">
-                <DollarSign className="h-3.5 w-3.5 text-gray-500" />
+              <div className="h-6 w-6 rounded-md bg-gray-100 dark:bg-dark-tremor-background-muted flex items-center justify-center">
+                <DollarSign className="h-3.5 w-3.5 text-gray-500 dark:text-dark-tremor-content-subtle" />
               </div>
               <h3 className="text-sm font-bold text-gray-800">Costos y Cantidades (USD)</h3>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Cantidad</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Cantidad</Text>
                 <NumberInput
                   value={quantity}
                   onValueChange={(val) => setValue('quantity', val)}
@@ -310,7 +310,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
                 )}
               </div>
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Costo Unitario</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Costo Unitario</Text>
                 <NumberInput
                   value={unitCostUsd}
                   onValueChange={(val) => setValue('unitCostUsd', val)}
@@ -319,7 +319,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
                 />
               </div>
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Flete</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Flete</Text>
                 <NumberInput
                   value={freightCostUsd}
                   onValueChange={(val) => setValue('freightCostUsd', val)}
@@ -331,7 +331,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
 
             <div className="grid grid-cols-3 gap-4 mt-4">
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Seguro</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Seguro</Text>
                 <NumberInput
                   value={insuranceCostUsd}
                   onValueChange={(val) => setValue('insuranceCostUsd', val)}
@@ -339,7 +339,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
                 />
               </div>
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Aranceles</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Aranceles</Text>
                 <NumberInput
                   value={customsDutiesUsd}
                   onValueChange={(val) => setValue('customsDutiesUsd', val)}
@@ -347,8 +347,8 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
                 />
               </div>
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Costo Total DDP</Text>
-                <div className="p-2 bg-gray-100 rounded text-center font-bold text-gray-900 text-sm">
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Costo Total DDP</Text>
+                <div className="p-2 bg-gray-100 dark:bg-dark-tremor-background-muted rounded text-center font-bold text-gray-900 dark:text-dark-tremor-content-strong text-sm">
                   ${watch('totalCostUsd').toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </div>
               </div>
@@ -360,14 +360,14 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
           {/* Sección: Logística Internacional */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="h-6 w-6 rounded-md bg-gray-100 flex items-center justify-center">
-                <Anchor className="h-3.5 w-3.5 text-gray-500" />
+              <div className="h-6 w-6 rounded-md bg-gray-100 dark:bg-dark-tremor-background-muted flex items-center justify-center">
+                <Anchor className="h-3.5 w-3.5 text-gray-500 dark:text-dark-tremor-content-subtle" />
               </div>
               <h3 className="text-sm font-bold text-gray-800">Logística Internacional</h3>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Puerto Origen</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Puerto Origen</Text>
                 <div className="flex items-stretch">
                   <div className="flex-1 relative">
                     <Anchor className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
@@ -375,13 +375,13 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
                       type="text"
                       placeholder="Ej: Shanghai, China"
                       {...register('portOfOrigin')}
-                      className="w-full px-3 py-2 pl-9 text-sm border border-gray-200 rounded-l-lg rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                      className="w-full px-3 py-2 pl-9 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-l-lg rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={() => setPickerField('portOfOrigin')}
-                    className="px-3 rounded-l-none rounded-r-lg border border-l-0 border-gray-200 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-primary transition-colors shrink-0 flex items-center justify-center"
+                    className="px-3 rounded-l-none rounded-r-lg border border-l-0 border-gray-200 dark:border-dark-tremor-border bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-muted text-gray-600 dark:text-dark-tremor-content hover:text-primary transition-colors shrink-0 flex items-center justify-center"
                     title="Buscar en mapa"
                   >
                     <MapPin className="h-4 w-4" />
@@ -389,7 +389,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
                 </div>
               </div>
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Puerto Destino</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Puerto Destino</Text>
                 <div className="flex items-stretch">
                   <div className="flex-1 relative">
                     <Anchor className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
@@ -397,13 +397,13 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
                       type="text"
                       placeholder="Ej: Buenaventura, Colombia"
                       {...register('portOfDestination')}
-                      className="w-full px-3 py-2 pl-9 text-sm border border-gray-200 rounded-l-lg rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                      className="w-full px-3 py-2 pl-9 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-l-lg rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={() => setPickerField('portOfDestination')}
-                    className="px-3 rounded-l-none rounded-r-lg border border-l-0 border-gray-200 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-primary transition-colors shrink-0 flex items-center justify-center"
+                    className="px-3 rounded-l-none rounded-r-lg border border-l-0 border-gray-200 dark:border-dark-tremor-border bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-muted text-gray-600 dark:text-dark-tremor-content hover:text-primary transition-colors shrink-0 flex items-center justify-center"
                     title="Buscar en mapa"
                   >
                     <MapPin className="h-4 w-4" />
@@ -414,14 +414,14 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
 
             <div className="grid grid-cols-2 gap-4 mt-4">
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Contenedor / BL</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Contenedor / BL</Text>
                 <TextInput
                   placeholder="Nº Contenedor o Bill of Lading"
                   {...register('containerNumber')}
                 />
               </div>
               <div>
-                <Text className="mb-1 text-xs font-medium text-gray-600">Estado</Text>
+                <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Estado</Text>
                 <Select
                   value={watch('status')}
                   onValueChange={(val) => setValue('status', val as any)}
@@ -435,7 +435,7 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
             </div>
 
             <div className="mt-4">
-              <Text className="mb-1 text-xs font-medium text-gray-600">Notas</Text>
+              <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Notas</Text>
               <TextInput
                 placeholder="Observaciones adicionales..."
                 {...register('notes')}
@@ -445,8 +445,8 @@ export function ImportExportModal({ isOpen, onClose, onSuccess, operation }: Imp
         </div>
 
           {/* Sticky Footer */}
-          <div className="sticky bottom-0 z-20 bg-white border-t border-gray-100 px-6 py-4 flex justify-end gap-3 flex-shrink-0 rounded-b-kpi">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+          <div className="sticky bottom-0 z-20 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-6 py-4 flex justify-end gap-3 flex-shrink-0 rounded-b-kpi">
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={isPending} className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors disabled:opacity-50">

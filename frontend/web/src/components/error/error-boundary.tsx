@@ -35,14 +35,14 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-tremor-background-subtle p-4">
           <Card className="max-w-md w-full">
             <div className="text-center">
               <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-4">
                 <AlertTriangle className="h-8 w-8 text-red-600" />
               </div>
               <Title className="text-2xl mb-2">Algo salió mal</Title>
-              <Text className="text-gray-600 mb-6">
+              <Text className="text-gray-600 dark:text-dark-tremor-content mb-6">
                 {this.state.error?.message || 'Ha ocurrido un error inesperado. Por favor, intenta recargar la página.'}
               </Text>
               <div className="flex gap-3 justify-center">
@@ -62,7 +62,7 @@ export class ErrorBoundary extends Component<Props, State> {
               </div>
               {process.env.NODE_ENV === 'development' && this.state.error && (
                 <details className="mt-6 text-left">
-                  <summary className="cursor-pointer text-sm text-gray-500 mb-2">
+                  <summary className="cursor-pointer text-sm text-gray-500 dark:text-dark-tremor-content-subtle mb-2">
                     Detalles técnicos (desarrollo)
                   </summary>
                   <pre className="text-xs text-red-600 bg-red-50 p-4 rounded overflow-auto max-h-40">

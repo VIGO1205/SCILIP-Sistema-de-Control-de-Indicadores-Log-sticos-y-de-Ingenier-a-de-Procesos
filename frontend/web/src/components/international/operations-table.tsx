@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { Card } from '@tremor/react';
@@ -29,7 +29,7 @@ const ITEMS_PER_PAGE = 10;
 
 const statusMap: Record<string, { label: string; class: string; icon: any }> = {
   in_transit: { label: 'En Tránsito', class: 'bg-cyan-50 text-cyan-700 border border-cyan-200', icon: Ship },
-  port_of_origin: { label: 'Puerto Origen', class: 'bg-gray-50 text-gray-700 border border-gray-200', icon: Anchor },
+  port_of_origin: { label: 'Puerto Origen', class: 'bg-gray-50 text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border', icon: Anchor },
   customs: { label: 'En Aduana', class: 'bg-amber-50 text-amber-700 border border-amber-200', icon: Package },
   delivered: { label: 'Entregado', class: 'bg-emerald-50 text-emerald-700 border border-emerald-200', icon: Navigation },
 };
@@ -71,14 +71,14 @@ export function OperationsTable({ operations, type, onEdit }: OperationsTablePro
 
   if (!filtered || filtered.length === 0) {
     return (
-      <Card className="border border-gray-200 shadow-sm rounded-xl">
-        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
           <Ship className="h-4 w-4 text-gray-400" />
-          <h3 className="text-sm font-bold text-gray-900">{type === 'IMPORT' ? 'Importaciones' : 'Exportaciones'}</h3>
+          <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">{type === 'IMPORT' ? 'Importaciones' : 'Exportaciones'}</h3>
         </div>
-        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 rounded-lg border border-dashed border-gray-200">
+        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 dark:from-dark-tremor-background dark:to-dark-tremor-background-subtle rounded-lg border border-dashed border-gray-200 dark:border-dark-tremor-border">
           <Ship className="h-12 w-12 text-gray-300 mb-4" />
-          <p className="text-gray-500 font-medium">No hay {type === 'IMPORT' ? 'importaciones' : 'exportaciones'} registradas</p>
+          <p className="text-gray-500 dark:text-dark-tremor-content-subtle font-medium">No hay {type === 'IMPORT' ? 'importaciones' : 'exportaciones'} registradas</p>
           <p className="text-gray-400 text-xs mt-1">Registra operaciones para hacer seguimiento</p>
         </div>
       </Card>
@@ -90,11 +90,11 @@ export function OperationsTable({ operations, type, onEdit }: OperationsTablePro
   const paginated = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <Card className="border border-gray-200 shadow-sm rounded-xl overflow-hidden">
-      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl overflow-hidden">
+      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
         <Ship className="h-4 w-4 text-gray-400" />
-        <h3 className="text-sm font-bold text-gray-900">{type === 'IMPORT' ? 'Importaciones' : 'Exportaciones'}</h3>
-        <span className="ml-auto text-[10px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+        <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">{type === 'IMPORT' ? 'Importaciones' : 'Exportaciones'}</h3>
+        <span className="ml-auto text-[10px] font-medium text-gray-500 dark:text-dark-tremor-content-subtle bg-gray-100 px-2 py-0.5 rounded-full">
           {filtered.length} operaciones
         </span>
       </div>
@@ -102,14 +102,14 @@ export function OperationsTable({ operations, type, onEdit }: OperationsTablePro
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50/80 border-b border-gray-100">
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Producto</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">{type === 'IMPORT' ? 'Proveedor' : 'Cliente'}</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">{type === 'IMPORT' ? 'Origen' : 'Destino'}</th>
-              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Estado</th>
-              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Costo Total</th>
-              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Acciones</th>
+            <tr className="bg-gray-50/80 dark:bg-dark-tremor-background-subtle border-b border-gray-100 dark:border-dark-tremor-border">
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Fecha</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Producto</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">{type === 'IMPORT' ? 'Proveedor' : 'Cliente'}</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">{type === 'IMPORT' ? 'Origen' : 'Destino'}</th>
+              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Estado</th>
+              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Costo Total</th>
+              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Acciones</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -118,8 +118,8 @@ export function OperationsTable({ operations, type, onEdit }: OperationsTablePro
               const status = statusMap[statusKey] || statusMap.in_transit;
               const StatusIcon = status.icon;
               return (
-                <tr key={op.id} className="hover:bg-gray-50/50 transition-colors">
-                  <td className="px-4 py-3 text-xs text-gray-600">
+                <tr key={op.id} className="hover:bg-gray-50/50 dark:hover:bg-dark-tremor-background-subtle transition-colors">
+                  <td className="px-4 py-3 text-xs text-gray-600 dark:text-dark-tremor-content">
                     {new Date(op.operationDate).toLocaleDateString('es-CO')}
                   </td>
                   <td className="px-4 py-3">
@@ -127,13 +127,13 @@ export function OperationsTable({ operations, type, onEdit }: OperationsTablePro
                       <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
                         <Package className="h-4 w-4 text-primary" />
                       </div>
-                      <span className="font-medium text-gray-900 text-xs">{op.product?.name || '-'}</span>
+                      <span className="font-medium text-gray-900 dark:text-dark-tremor-content-strong text-xs">{op.product?.name || '-'}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-600">
+                  <td className="px-4 py-3 text-xs text-gray-600 dark:text-dark-tremor-content">
                     {type === 'IMPORT' ? op.supplier?.name || '-' : op.customerName || '-'}
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-600">
+                  <td className="px-4 py-3 text-xs text-gray-600 dark:text-dark-tremor-content">
                     {type === 'IMPORT' ? op.portOfOrigin || '-' : op.portOfDestination || '-'}
                   </td>
                   <td className="px-4 py-3 text-center">
@@ -142,7 +142,7 @@ export function OperationsTable({ operations, type, onEdit }: OperationsTablePro
                       {status.label}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right text-xs font-bold text-gray-900">
+                  <td className="px-4 py-3 text-right text-xs font-bold text-gray-900 dark:text-dark-tremor-content-strong">
                     ${Number(op.totalCostUsd).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </td>
                   <td className="px-4 py-3 text-center">
@@ -163,21 +163,21 @@ export function OperationsTable({ operations, type, onEdit }: OperationsTablePro
       </div>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 bg-gray-50/50">
-          <span className="text-xs text-gray-500">
+        <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 dark:border-dark-tremor-border bg-gray-50/50 dark:bg-dark-tremor-background-muted">
+          <span className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">
             Mostrando {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, filtered.length)} de {filtered.length}
           </span>
           <div className="flex items-center gap-1">
             <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="p-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 transition-colors">
-              <ChevronLeft className="h-4 w-4 text-gray-600" />
+              <ChevronLeft className="h-4 w-4 text-gray-600 dark:text-dark-tremor-content" />
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button key={page} onClick={() => setCurrentPage(page)} className={`min-w-[2rem] h-8 px-2 rounded-lg text-xs font-semibold transition-colors ${page === currentPage ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-200'}`}>
+              <button key={page} onClick={() => setCurrentPage(page)} className={`min-w-[2rem] h-8 px-2 rounded-lg text-xs font-semibold transition-colors ${page === currentPage ? 'bg-primary text-white' : 'text-gray-600 dark:text-dark-tremor-content hover:bg-gray-200'}`}>
                 {page}
               </button>
             ))}
             <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="p-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 transition-colors">
-              <ChevronRight className="h-4 w-4 text-gray-600" />
+              <ChevronRight className="h-4 w-4 text-gray-600 dark:text-dark-tremor-content" />
             </button>
           </div>
         </div>

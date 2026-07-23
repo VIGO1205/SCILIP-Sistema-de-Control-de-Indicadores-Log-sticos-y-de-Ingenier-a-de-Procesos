@@ -27,8 +27,8 @@ interface GlobalTrendChartProps {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200 text-xs">
-      <p className="font-bold text-gray-900 mb-2">{label}</p>
+    <div className="bg-white dark:bg-dark-tremor-background p-3 rounded-lg shadow-lg border border-gray-200 dark:border-dark-tremor-border text-xs">
+      <p className="font-bold text-gray-900 dark:text-dark-tremor-content-strong mb-2">{label}</p>
       <div className="space-y-1.5">
         {payload.map((entry: any, i: number) => (
           <div key={i} className="flex items-center justify-between gap-4">
@@ -37,7 +37,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
                 className="h-2 w-2 rounded-full"
                 style={{ backgroundColor: entry.color }}
               />
-              <span className="text-gray-600">{entry.name}</span>
+              <span className="text-gray-600 dark:text-dark-tremor-content">{entry.name}</span>
             </div>
             <span className="font-bold" style={{ color: entry.color }}>
               {typeof entry.value === 'number'
@@ -78,7 +78,7 @@ export default function GlobalTrendChart({
 
   if (loading) {
     return (
-      <Card className="border border-gray-200 shadow-sm">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm">
         <div className="animate-pulse">
           <div className="h-5 bg-gray-200 rounded w-1/3 mb-6" />
           <div className="h-64 bg-gray-100 rounded-lg" />
@@ -88,12 +88,12 @@ export default function GlobalTrendChart({
   }
 
   return (
-    <Card className="border border-gray-200 shadow-sm">
-      <div className="mb-4 pb-3 border-b border-gray-100">
-        <h3 className="text-sm font-bold text-gray-900">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm">
+      <div className="mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border">
+        <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">
           Tendencia de Indicadores Clave
         </h3>
-        <p className="text-[10px] text-gray-400 mt-0.5">
+        <p className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle mt-0.5">
           Evolución mensual con línea de meta
         </p>
       </div>

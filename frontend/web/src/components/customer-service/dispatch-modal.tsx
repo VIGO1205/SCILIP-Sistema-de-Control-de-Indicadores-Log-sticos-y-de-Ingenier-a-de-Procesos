@@ -121,15 +121,15 @@ export function DispatchModal({ isOpen, onClose, onSuccess, dispatch }: Dispatch
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-xl p-0">
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 rounded-t-xl">
+      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl p-0">
+        <div className="sticky top-0 z-10 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-6 py-4 rounded-t-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-lg ${isEditing ? 'bg-amber-500/10' : 'bg-primary/10'}`}>
                 {isEditing ? <Pencil className="h-5 w-5 text-amber-600" /> : <Truck className="h-5 w-5 text-primary" />}
               </div>
               <div>
-                <Title className="text-lg font-bold text-gray-900">
+                <Title className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">
                   {isEditing ? 'Editar Despacho' : 'Nuevo Despacho'}
                 </Title>
                 <Text className="text-xs text-gray-400">
@@ -137,7 +137,7 @@ export function DispatchModal({ isOpen, onClose, onSuccess, dispatch }: Dispatch
                 </Text>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               <X className="h-5 w-5 text-gray-400" />
             </button>
           </div>
@@ -158,8 +158,8 @@ export function DispatchModal({ isOpen, onClose, onSuccess, dispatch }: Dispatch
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Información General</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Cliente *</Text>
-                <select {...register('customerId')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Cliente *</Text>
+                <select {...register('customerId')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
                   <option value="">Seleccionar cliente...</option>
                   {customers?.map((c: any) => (
                     <option key={c.id} value={c.id}>{c.name}</option>
@@ -168,20 +168,20 @@ export function DispatchModal({ isOpen, onClose, onSuccess, dispatch }: Dispatch
                 {errors.customerId && <Text className="text-red-500 text-xs mt-1">{errors.customerId.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Ref. Pedido *</Text>
-                <input {...register('orderReference')} placeholder="Ej: PED-2024-001" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Ref. Pedido *</Text>
+                <input {...register('orderReference')} placeholder="Ej: PED-2024-001" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                 {errors.orderReference && <Text className="text-red-500 text-xs mt-1">{errors.orderReference.message}</Text>}
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Fecha Despacho *</Text>
-                <input type="date" {...register('dispatchDate')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Fecha Despacho *</Text>
+                <input type="date" {...register('dispatchDate')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                 {errors.dispatchDate && <Text className="text-red-500 text-xs mt-1">{errors.dispatchDate.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Fecha Prometida</Text>
-                <input type="date" {...register('promisedDate')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Fecha Prometida</Text>
+                <input type="date" {...register('promisedDate')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
               </div>
             </div>
           </div>
@@ -190,13 +190,13 @@ export function DispatchModal({ isOpen, onClose, onSuccess, dispatch }: Dispatch
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Entrega</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Dirección de Entrega</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Dirección de Entrega</Text>
                 <div className="flex items-stretch">
-                  <input {...register('deliveryAddress')} placeholder="Ej: Calle 123 # 45-67, Bogotá" className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-l-lg rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                  <input {...register('deliveryAddress')} placeholder="Ej: Calle 123 # 45-67, Bogotá" className="flex-1 px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-l-lg rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                   <button
                     type="button"
                     onClick={() => setIsAddressPickerOpen(true)}
-                    className="px-3 rounded-l-none rounded-r-lg border border-l-0 border-gray-200 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-primary transition-colors shrink-0 flex items-center justify-center"
+                    className="px-3 rounded-l-none rounded-r-lg border border-l-0 border-gray-200 dark:border-dark-tremor-border bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 text-gray-600 dark:text-dark-tremor-content hover:text-primary transition-colors shrink-0 flex items-center justify-center"
                     title="Buscar en mapa"
                   >
                     <MapPin className="h-4 w-4" />
@@ -204,8 +204,8 @@ export function DispatchModal({ isOpen, onClose, onSuccess, dispatch }: Dispatch
                 </div>
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Nombre del Receptor</Text>
-                <input {...register('receiverName')} placeholder="Nombre de quien recibe" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Nombre del Receptor</Text>
+                <input {...register('receiverName')} placeholder="Nombre de quien recibe" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
               </div>
             </div>
           </div>
@@ -216,8 +216,8 @@ export function DispatchModal({ isOpen, onClose, onSuccess, dispatch }: Dispatch
               {fields.map((field, index) => (
                 <div key={field.id} className="flex items-end gap-2">
                   <div className="flex-1">
-                    <Text className="mb-1.5 text-xs font-semibold text-gray-700">Producto {index + 1}</Text>
-                    <select {...register(`lines.${index}.productId`)} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                    <Text className="mb-1.5 text-xs font-semibold text-gray-700 dark:text-dark-tremor-content">Producto {index + 1}</Text>
+                    <select {...register(`lines.${index}.productId`)} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
                       <option value="">Seleccionar...</option>
                       {products?.map((p: any) => (
                         <option key={p.id} value={p.id}>{p.name} ({p.sku})</option>
@@ -226,8 +226,8 @@ export function DispatchModal({ isOpen, onClose, onSuccess, dispatch }: Dispatch
                     {errors.lines?.[index]?.productId && <Text className="text-red-500 text-xs mt-1">{errors.lines[index]?.productId?.message}</Text>}
                   </div>
                   <div className="w-28">
-                    <Text className="mb-1.5 text-xs font-semibold text-gray-700">Cant.</Text>
-                    <input type="number" {...register(`lines.${index}.quantityRequested`, { valueAsNumber: true })} min={1} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                    <Text className="mb-1.5 text-xs font-semibold text-gray-700 dark:text-dark-tremor-content">Cant.</Text>
+                    <input type="number" {...register(`lines.${index}.quantityRequested`, { valueAsNumber: true })} min={1} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                     {errors.lines?.[index]?.quantityRequested && <Text className="text-red-500 text-xs mt-1">{errors.lines[index]?.quantityRequested?.message}</Text>}
                   </div>
                   <button
@@ -252,8 +252,8 @@ export function DispatchModal({ isOpen, onClose, onSuccess, dispatch }: Dispatch
             {errors.lines && <Text className="text-red-500 text-xs mt-2">{errors.lines.message}</Text>}
           </div>
 
-          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+          <div className="sticky bottom-0 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 rounded-lg transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={isPending} className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors disabled:opacity-50">

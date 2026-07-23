@@ -122,15 +122,15 @@ export function DriverModal({ isOpen, onClose, onSuccess, driver }: DriverModalP
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-xl p-0">
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 rounded-t-xl">
+      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl p-0">
+        <div className="sticky top-0 z-10 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-6 py-4 rounded-t-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-lg ${isEditing ? 'bg-amber-500/10' : 'bg-primary/10'}`}>
                 {isEditing ? <Pencil className="h-5 w-5 text-amber-600" /> : <Users className="h-5 w-5 text-primary" />}
               </div>
               <div>
-                <Title className="text-lg font-bold text-gray-900">
+                <Title className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">
                   {isEditing ? 'Editar Conductor' : 'Nuevo Conductor'}
                 </Title>
                 <Text className="text-xs text-gray-400">
@@ -138,7 +138,7 @@ export function DriverModal({ isOpen, onClose, onSuccess, driver }: DriverModalP
                 </Text>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               <X className="h-5 w-5 text-gray-400" />
             </button>
           </div>
@@ -156,15 +156,15 @@ export function DriverModal({ isOpen, onClose, onSuccess, driver }: DriverModalP
             )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Empleado *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Empleado *</Text>
                 {isEditing ? (
                   <input
                     value={driver?.employee?.fullName || ''}
                     disabled
-                    className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-500"
+                    className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg bg-gray-50 dark:bg-dark-tremor-background-subtle text-gray-500"
                   />
                 ) : (
-                  <select {...register('employeeId')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                  <select {...register('employeeId')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
                     <option value="">Seleccionar empleado...</option>
                     {availableEmployees?.map((e: any) => (
                       <option key={e.id} value={e.id}>{e.fullName} ({e.employeeCode})</option>
@@ -177,8 +177,8 @@ export function DriverModal({ isOpen, onClose, onSuccess, driver }: DriverModalP
                 )}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Vehículo Asignado</Text>
-                <select {...register('assignedVehicleId')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Vehículo Asignado</Text>
+                <select {...register('assignedVehicleId')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
                   <option value="">Sin asignar</option>
                   {vehicles?.map((v: any) => (
                     <option key={v.id} value={v.id}>{v.plateNumber} - {v.brand} {v.model}</option>
@@ -192,21 +192,21 @@ export function DriverModal({ isOpen, onClose, onSuccess, driver }: DriverModalP
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Licencia de Conducción</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Número de Licencia *</Text>
-                <input {...register('licenseNumber')} placeholder="Ej: 12345678" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Número de Licencia *</Text>
+                <input {...register('licenseNumber')} placeholder="Ej: 12345678" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                 {errors.licenseNumber && <Text className="text-red-500 text-xs mt-1">{errors.licenseNumber.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Categoría *</Text>
-                <select {...register('licenseType')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Categoría *</Text>
+                <select {...register('licenseType')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
                   <option value="">Seleccionar...</option>
                   {LICENSE_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
                 {errors.licenseType && <Text className="text-red-500 text-xs mt-1">{errors.licenseType.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Fecha de Vencimiento *</Text>
-                <input type="date" {...register('licenseExpiry')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Fecha de Vencimiento *</Text>
+                <input type="date" {...register('licenseExpiry')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                 {errors.licenseExpiry && <Text className="text-red-500 text-xs mt-1">{errors.licenseExpiry.message}</Text>}
               </div>
             </div>
@@ -215,14 +215,14 @@ export function DriverModal({ isOpen, onClose, onSuccess, driver }: DriverModalP
           <div>
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Rutas Asignadas</h3>
             <div>
-              <Text className="mb-1.5 text-sm font-semibold text-gray-700">Rutas (separadas por coma)</Text>
-              <input {...register('routesAssigned')} placeholder="Ej: Bogotá-Medellín, Cali-Bogotá" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+              <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Rutas (separadas por coma)</Text>
+              <input {...register('routesAssigned')} placeholder="Ej: Bogotá-Medellín, Cali-Bogotá" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
               <Text className="text-[10px] text-gray-400 mt-1">Ingresa las rutas separadas por comas</Text>
             </div>
           </div>
 
-          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+          <div className="sticky bottom-0 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 rounded-lg transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={isPending} className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors disabled:opacity-50">

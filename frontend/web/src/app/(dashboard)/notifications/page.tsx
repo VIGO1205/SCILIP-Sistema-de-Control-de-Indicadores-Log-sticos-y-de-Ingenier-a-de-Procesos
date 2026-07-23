@@ -81,12 +81,12 @@ export default function NotificationsPage() {
   };
 
   return (
-    <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
+    <main className="p-4 sm:p-5 bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="mb-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Notificaciones</h1>
-            <p className="text-gray-500 mt-0.5 text-xs">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">Notificaciones</h1>
+            <p className="text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5 text-xs">
               {total} notificaciones en total
             </p>
           </div>
@@ -102,10 +102,10 @@ export default function NotificationsPage() {
       </div>
 
       {notifications.length === 0 ? (
-        <Card className="flex flex-col items-center justify-center py-16 border border-gray-200">
-          <Inbox className="h-12 w-12 text-gray-300 mb-3" />
-          <p className="text-sm font-bold text-gray-900">No hay notificaciones</p>
-          <p className="text-xs text-gray-500 mt-1">Cuando haya actividad en el sistema, aparecerán aquí.</p>
+        <Card className="flex flex-col items-center justify-center py-16 border border-gray-200 dark:border-dark-tremor-border">
+          <Inbox className="h-12 w-12 text-gray-300 dark:text-dark-tremor-content-subtle mb-3" />
+          <p className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">No hay notificaciones</p>
+          <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle mt-1">Cuando haya actividad en el sistema, aparecerán aquí.</p>
         </Card>
       ) : (
         <div className="space-y-2">
@@ -127,17 +127,17 @@ export default function NotificationsPage() {
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2">
-                        <p className={clsx('text-sm', !n.isRead ? 'font-bold text-gray-900' : 'font-medium text-gray-700')}>
+                        <p className={clsx('text-sm', !n.isRead ? 'font-bold text-gray-900 dark:text-dark-tremor-content-strong' : 'font-medium text-gray-700 dark:text-dark-tremor-content')}>
                           {n.title}
                         </p>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500 font-medium">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-dark-tremor-background-muted text-gray-500 dark:text-dark-tremor-content-subtle font-medium">
                           {typeLabels[n.type] || n.type}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1 leading-relaxed">{n.message}</p>
+                      <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle mt-1 leading-relaxed">{n.message}</p>
                       <div className="flex items-center gap-2 mt-2">
-                        <Clock className="h-3 w-3 text-gray-400" />
-                        <span className="text-[11px] text-gray-400">{timeAgo(new Date(n.createdAt))}</span>
+                        <Clock className="h-3 w-3 text-gray-400 dark:text-dark-tremor-content-subtle" />
+                        <span className="text-[11px] text-gray-400 dark:text-dark-tremor-content-subtle">{timeAgo(new Date(n.createdAt))}</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
@@ -171,17 +171,17 @@ export default function NotificationsPage() {
           <button
             onClick={() => setPage(Math.max(1, page - 1))}
             disabled={page === 1}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-50"
+            className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 dark:text-dark-tremor-content bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border hover:bg-gray-50 dark:hover:bg-dark-tremor-background-subtle disabled:opacity-50"
           >
             Anterior
           </button>
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">
             Página {page} de {totalPages}
           </span>
           <button
             onClick={() => setPage(Math.min(totalPages, page + 1))}
             disabled={page === totalPages}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-50"
+            className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 dark:text-dark-tremor-content bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border hover:bg-gray-50 dark:hover:bg-dark-tremor-background-subtle disabled:opacity-50"
           >
             Siguiente
           </button>

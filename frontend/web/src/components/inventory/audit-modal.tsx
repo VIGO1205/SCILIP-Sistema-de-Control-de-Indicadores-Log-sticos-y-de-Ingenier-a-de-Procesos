@@ -94,21 +94,21 @@ export function AuditModal({ isOpen, onClose, onSuccess }: AuditModalProps) {
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-lg w-full max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-xl p-0">
+      <DialogPanel className="relative z-10 max-w-lg w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl p-0">
 
         {/* Header sticky */}
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 rounded-t-xl">
+        <div className="sticky top-0 z-10 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-6 py-4 rounded-t-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-emerald-500/10 rounded-lg">
                 <ClipboardCheck className="h-5 w-5 text-emerald-600" />
               </div>
               <div>
-                <Title className="text-lg font-bold text-gray-900">Auditoría de Inventario</Title>
+                <Title className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">Auditoría de Inventario</Title>
                 <Text className="text-xs text-gray-400">Registra conteo físico y compara con sistema</Text>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               <X className="h-5 w-5 text-gray-400" />
             </button>
           </div>
@@ -122,7 +122,7 @@ export function AuditModal({ isOpen, onClose, onSuccess }: AuditModalProps) {
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Ubicación</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Producto *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Producto *</Text>
                 <Select
                   value={watch('productId')}
                   onValueChange={(val) => setValue('productId', val)}
@@ -138,7 +138,7 @@ export function AuditModal({ isOpen, onClose, onSuccess }: AuditModalProps) {
                 )}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Bodega *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Bodega *</Text>
                 <Select
                   value={watch('warehouseId')}
                   onValueChange={(val) => setValue('warehouseId', val)}
@@ -161,15 +161,15 @@ export function AuditModal({ isOpen, onClose, onSuccess }: AuditModalProps) {
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Conteo Físico</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Cantidad en Sistema</Text>
-                <div className="h-10 flex items-center px-3 bg-gray-100 border border-gray-200 rounded-lg">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Cantidad en Sistema</Text>
+                <div className="h-10 flex items-center px-3 bg-gray-100 dark:bg-dark-tremor-background-muted border border-gray-200 dark:border-dark-tremor-border rounded-lg">
                   <Search className="h-4 w-4 text-gray-400 mr-2" />
-                  <span className="text-sm text-gray-600">{watch('systemQuantity') ?? 0}</span>
+                  <span className="text-sm text-gray-600 dark:text-dark-tremor-content">{watch('systemQuantity') ?? 0}</span>
                 </div>
                 <p className="text-[10px] text-gray-400 mt-1">Calculado desde movimientos de inventario</p>
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Cantidad Física *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Cantidad Física *</Text>
                 <NumberInput
                   value={watch('physicalQuantity')}
                   onValueChange={(val) => setValue('physicalQuantity', val)}
@@ -196,7 +196,7 @@ export function AuditModal({ isOpen, onClose, onSuccess }: AuditModalProps) {
                     ? 'text-emerald-600'
                     : 'text-amber-600'
                 }`} />
-                <span className="text-sm font-semibold text-gray-700">
+                <span className="text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">
                   Diferencia: <span className={
                     (watch('physicalQuantity') || 0) - (watch('systemQuantity') || 0) === 0
                       ? 'text-emerald-700'
@@ -217,16 +217,16 @@ export function AuditModal({ isOpen, onClose, onSuccess }: AuditModalProps) {
               {...register('notes')}
               placeholder="Ej: Diferencia por merma, error de registro, producto dañado..."
               rows={3}
-              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 resize-none"
+              className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 resize-none"
             />
           </div>
 
           {/* Footer sticky */}
-          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
+          <div className="sticky bottom-0 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 rounded-lg transition-colors"
             >
               Cancelar
             </button>

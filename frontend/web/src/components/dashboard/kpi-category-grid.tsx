@@ -206,7 +206,7 @@ export default function KpiCategoryGrid({
             <div className="h-12 bg-gray-200 rounded-lg mb-3" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[1, 2, 3].map((j) => (
-                <div key={j} className="h-40 bg-gray-100 rounded-xl" />
+                <div key={j} className="h-40 bg-gray-100 dark:bg-dark-tremor-background-muted rounded-xl" />
               ))}
             </div>
           </div>
@@ -230,24 +230,24 @@ export default function KpiCategoryGrid({
           name: catCode,
           icon: BarChart3,
           color: '#6B7280',
-          bgClass: 'bg-gray-100 text-gray-700',
+          bgClass: 'bg-gray-100 dark:bg-dark-tremor-background-muted text-gray-700 dark:text-dark-tremor-content',
         };
         const Icon = config.icon;
         const isExpanded = expandedCategories.has(catCode);
 
         return (
-          <div key={catCode} className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+          <div key={catCode} className="bg-white dark:bg-dark-tremor-background rounded-xl border border-gray-200 dark:border-dark-tremor-border shadow-sm overflow-hidden">
             <button
               onClick={() => toggleCategory(catCode)}
-              className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+              className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-dark-tremor-background-subtle transition-colors"
             >
               <div className="flex items-center gap-3">
                 <div className={cn('h-10 w-10 rounded-lg flex items-center justify-center', config.bgClass)}>
                   <Icon className="h-5 w-5" />
                 </div>
                 <div className="text-left">
-                  <h3 className="text-sm font-bold text-gray-900">{config.name}</h3>
-                  <p className="text-[10px] text-gray-400 mt-0.5">
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">{config.name}</h3>
+                  <p className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle mt-0.5">
                     {kpis.length} indicador{kpis.length !== 1 ? 'es' : ''}
                   </p>
                 </div>
@@ -255,9 +255,9 @@ export default function KpiCategoryGrid({
               <div className="flex items-center gap-2">
                 <KpiBadges kpis={kpis} />
                 {isExpanded ? (
-                  <ChevronDown className="h-4 w-4 text-gray-400" />
+                  <ChevronDown className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
                 ) : (
-                  <ChevronRight className="h-4 w-4 text-gray-400" />
+                  <ChevronRight className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
                 )}
               </div>
             </button>
@@ -317,7 +317,7 @@ function KpiQueryWrapper({
 function KpiBadges({ kpis }: { kpis: any[] }) {
   const count = kpis.length;
   return (
-    <span className="px-2 py-0.5 bg-gray-100 text-gray-600 text-[10px] font-bold rounded-full">
+    <span className="px-2 py-0.5 bg-gray-100 dark:bg-dark-tremor-background-muted text-gray-600 dark:text-dark-tremor-content text-[10px] font-bold rounded-full">
       {count}
     </span>
   );

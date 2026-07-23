@@ -21,22 +21,22 @@ export function ReportCard({ id, name, description, category, formats, onDownloa
     'Comercio Exterior': { bg: 'bg-cyan-50', text: 'text-cyan-700', border: 'border-cyan-200' },
     Compras: { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' },
   };
-  const cc = categoryColors[category] || { bg: 'bg-gray-50', text: 'text-gray-700', border: 'border-gray-200' };
+  const cc = categoryColors[category] || { bg: 'bg-gray-50 dark:bg-dark-tremor-background-subtle', text: 'text-gray-700 dark:text-dark-tremor-content', border: 'border-gray-200 dark:border-dark-tremor-border' };
 
   return (
-    <Card className="border border-gray-200 shadow-sm rounded-xl p-5 hover:shadow-md transition-shadow">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl p-5 hover:shadow-md transition-shadow">
       <div className="flex items-start gap-3">
         <div className={`h-10 w-10 rounded-xl ${cc.bg} flex items-center justify-center shrink-0`}>
-          <FileText className="h-5 w-5 text-gray-500" />
+          <FileText className="h-5 w-5 text-gray-500 dark:text-dark-tremor-content-subtle" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-sm font-bold text-gray-900">{name}</h3>
+            <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">{name}</h3>
             <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${cc.bg} ${cc.text} border ${cc.border}`}>
               {category}
             </span>
           </div>
-          <p className="text-xs text-gray-500 leading-relaxed">{description}</p>
+          <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle leading-relaxed">{description}</p>
         </div>
       </div>
 

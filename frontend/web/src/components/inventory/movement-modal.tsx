@@ -103,21 +103,21 @@ export function MovementModal({ isOpen, onClose, onSuccess }: MovementModalProps
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-lg w-full max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-xl p-0">
+      <DialogPanel className="relative z-10 max-w-lg w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl p-0">
 
         {/* Header sticky */}
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 rounded-t-xl">
+        <div className="sticky top-0 z-10 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-6 py-4 rounded-t-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg">
                 <ArrowRightLeft className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <Title className="text-lg font-bold text-gray-900">Nuevo Movimiento</Title>
+                <Title className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">Nuevo Movimiento</Title>
                 <Text className="text-xs text-gray-400">Registra entrada, salida o ajuste de inventario</Text>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               <X className="h-5 w-5 text-gray-400" />
             </button>
           </div>
@@ -131,7 +131,7 @@ export function MovementModal({ isOpen, onClose, onSuccess }: MovementModalProps
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Información General</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Producto *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Producto *</Text>
                 <Select
                   value={watch('productId')}
                   onValueChange={(val) => setValue('productId', val)}
@@ -147,7 +147,7 @@ export function MovementModal({ isOpen, onClose, onSuccess }: MovementModalProps
                 )}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Bodega *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Bodega *</Text>
                 <Select
                   value={watch('warehouseId')}
                   onValueChange={(val) => setValue('warehouseId', val)}
@@ -170,7 +170,7 @@ export function MovementModal({ isOpen, onClose, onSuccess }: MovementModalProps
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Detalle del Movimiento</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Tipo *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Tipo *</Text>
                 <Select
                   value={watch('type')}
                   onValueChange={(val: any) => setValue('type', val)}
@@ -190,7 +190,7 @@ export function MovementModal({ isOpen, onClose, onSuccess }: MovementModalProps
                 )}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Cantidad *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Cantidad *</Text>
                 <NumberInput
                   value={watch('quantity')}
                   onValueChange={(val) => setValue('quantity', val)}
@@ -209,31 +209,31 @@ export function MovementModal({ isOpen, onClose, onSuccess }: MovementModalProps
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Referencia y Notas</h3>
             <div className="space-y-3">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Referencia / Documento</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Referencia / Documento</Text>
                 <input
                   {...register('reference')}
                   placeholder="Ej: OC-123, Factura 45..."
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                 />
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Notas</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Notas</Text>
                 <textarea
                   {...register('notes')}
                   placeholder="Observaciones adicionales sobre el movimiento..."
                   rows={3}
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none"
                 />
               </div>
             </div>
           </div>
 
           {/* Footer sticky */}
-          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
+          <div className="sticky bottom-0 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 rounded-lg transition-colors"
             >
               Cancelar
             </button>

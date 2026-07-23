@@ -98,13 +98,13 @@ export default function InternationalPage() {
   ].filter((d) => d.value > 0);
 
   return (
-    <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
+    <main className="p-4 sm:p-5 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header estilo Dashboard */}
       <div className="mb-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Comercio Exterior</h1>
-            <p className="text-gray-500 mt-0.5 text-xs">Gestión de importaciones, exportaciones y costos DDP/EXW.</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">Comercio Exterior</h1>
+            <p className="text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5 text-xs">Gestión de importaciones, exportaciones y costos DDP/EXW.</p>
           </div>
           <div className="flex gap-2">
             <button
@@ -218,32 +218,32 @@ export default function InternationalPage() {
         <TabList className="bg-gradient-to-r from-cyan-50 via-blue-50 to-indigo-50 rounded-t-xl border border-cyan-100/50 border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={Ship}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-cyan-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-cyan-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-cyan-100 data-[selected]:border-b-[3px] data-[selected]:border-cyan-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-cyan-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-cyan-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-cyan-100 data-[selected]:border-b-[3px] data-[selected]:border-cyan-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Importaciones
           </Tab>
           <Tab
             icon={Plane}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-violet-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-violet-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-violet-100 data-[selected]:border-b-[3px] data-[selected]:border-violet-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-violet-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-violet-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-violet-100 data-[selected]:border-b-[3px] data-[selected]:border-violet-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Exportaciones
           </Tab>
           <Tab
             icon={BarChart3}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-blue-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-blue-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-blue-100 data-[selected]:border-b-[3px] data-[selected]:border-blue-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-blue-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-blue-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-blue-100 data-[selected]:border-b-[3px] data-[selected]:border-blue-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Análisis
           </Tab>
         </TabList>
 
-        <TabPanels className="bg-white border border-gray-200 rounded-b-xl shadow-sm">
+        <TabPanels className="bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-b-xl shadow-sm">
           {/* Importaciones */}
           <TabPanel>
             <div className="p-5 space-y-5">
-              <div className="rounded-xl border border-gray-200 shadow-sm p-4 bg-white">
+              <div className="rounded-xl border border-gray-200 dark:border-dark-tremor-border shadow-sm p-4 bg-white dark:bg-dark-tremor-background">
                 <div className="flex items-center gap-2 mb-3">
                   <TrendingUp className="h-4 w-4 text-primary" />
-                  <h3 className="text-sm font-bold text-gray-900">Resumen de Importaciones</h3>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Resumen de Importaciones</h3>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <StatusCard label="Total Importaciones" count={importOps.length} color="cyan" icon={<Ship className="h-4 w-4" />} />
@@ -264,10 +264,10 @@ export default function InternationalPage() {
           {/* Exportaciones */}
           <TabPanel>
             <div className="p-5 space-y-5">
-              <div className="rounded-xl border border-gray-200 shadow-sm p-4 bg-white">
+              <div className="rounded-xl border border-gray-200 dark:border-dark-tremor-border shadow-sm p-4 bg-white dark:bg-dark-tremor-background">
                 <div className="flex items-center gap-2 mb-3">
                   <TrendingUp className="h-4 w-4 text-primary" />
-                  <h3 className="text-sm font-bold text-gray-900">Resumen de Exportaciones</h3>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Resumen de Exportaciones</h3>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <StatusCard label="Total Exportaciones" count={exportOps.length} color="violet" icon={<Plane className="h-4 w-4" />} />
@@ -295,10 +295,10 @@ export default function InternationalPage() {
                 title="Importaciones vs Exportaciones Mensuales"
                 data={monthlyData || []}
               >
-                <Card className="border border-gray-200 shadow-sm rounded-xl">
-                  <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
-                    <BarChart3 className="h-4 w-4 text-gray-400" />
-                    <h3 className="text-sm font-bold text-gray-900">Importaciones vs Exportaciones Mensuales</h3>
+                <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+                  <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border">
+                    <BarChart3 className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Importaciones vs Exportaciones Mensuales</h3>
                   </div>
                   <div className="h-72">
                     <ResponsiveContainer width="100%" height="100%">
@@ -307,7 +307,7 @@ export default function InternationalPage() {
                         <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} />
                         <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={{ stroke: '#e5e7eb' }} />
                         <Tooltip
-                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
+                          contentStyle={{ borderRadius: '10px', border: 'var(--tooltip-border, 1px solid #e5e7eb)', fontSize: '12px', backgroundColor: 'var(--tooltip-bg, #ffffff)', color: 'var(--tooltip-color, #374151)' }}
                           formatter={(value: any) => [`$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2 })}`, '']}
                         />
                         <Legend wrapperStyle={{ fontSize: '12px' }} />
@@ -320,10 +320,10 @@ export default function InternationalPage() {
               </AiOverlay>
 
               {/* Gráfico de composición */}
-              <Card className="border border-gray-200 shadow-sm rounded-xl">
-                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
-                  <Globe className="h-4 w-4 text-gray-400" />
-                  <h3 className="text-sm font-bold text-gray-900">Composición de Operaciones</h3>
+              <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
+                  <Globe className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Composición de Operaciones</h3>
                 </div>
                 <div className="h-72 flex items-center justify-center px-5 pb-5">
                   {compositionData.length > 0 ? (
@@ -344,15 +344,15 @@ export default function InternationalPage() {
                           ))}
                         </Pie>
                         <Tooltip
-                          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
+                          contentStyle={{ borderRadius: '10px', border: 'var(--tooltip-border, 1px solid #e5e7eb)', fontSize: '12px', backgroundColor: 'var(--tooltip-bg, #ffffff)', color: 'var(--tooltip-color, #374151)' }}
                           formatter={(value: any, name: string) => [value, name]}
                         />
                         <Legend wrapperStyle={{ fontSize: '12px' }} />
                       </PieChart>
                     </ResponsiveContainer>
                   ) : (
-                    <div className="flex flex-col items-center justify-center text-gray-400">
-                      <Globe className="h-12 w-12 mb-3 text-gray-300" />
+                    <div className="flex flex-col items-center justify-center text-gray-400 dark:text-dark-tremor-content-subtle">
+                      <Globe className="h-12 w-12 mb-3 text-gray-300 dark:text-dark-tremor-content-subtle" />
                       <p className="text-sm">No hay operaciones registradas</p>
                     </div>
                   )}
@@ -361,30 +361,30 @@ export default function InternationalPage() {
 
               {/* Costo total acumulado */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Card className="border border-gray-200 shadow-sm rounded-xl p-5">
+                <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl p-5">
                   <div className="flex items-center gap-2 mb-3">
                     <Ship className="h-4 w-4 text-cyan-500" />
-                    <h3 className="text-sm font-bold text-gray-900">Costo Total Importaciones</h3>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Costo Total Importaciones</h3>
                   </div>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-gray-900">${totalImportCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                    <span className="text-xs text-gray-500">USD acumulado</span>
+                    <span className="text-2xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">${totalImportCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                    <span className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">USD acumulado</span>
                   </div>
-                  <div className="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="mt-3 h-2 bg-gray-200 dark:bg-dark-tremor-background-muted rounded-full overflow-hidden">
                     <div className="h-full rounded-full bg-cyan-500" style={{ width: `${Math.min(100, totalImportCost > 0 ? (totalImportCost / (totalImportCost + totalExportCost || 1)) * 100 : 0)}%` }} />
                   </div>
                 </Card>
 
-                <Card className="border border-gray-200 shadow-sm rounded-xl p-5">
+                <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl p-5">
                   <div className="flex items-center gap-2 mb-3">
                     <Plane className="h-4 w-4 text-violet-500" />
-                    <h3 className="text-sm font-bold text-gray-900">Costo Total Exportaciones</h3>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Costo Total Exportaciones</h3>
                   </div>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-gray-900">${totalExportCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                    <span className="text-xs text-gray-500">USD acumulado</span>
+                    <span className="text-2xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">${totalExportCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                    <span className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">USD acumulado</span>
                   </div>
-                  <div className="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="mt-3 h-2 bg-gray-200 dark:bg-dark-tremor-background-muted rounded-full overflow-hidden">
                     <div className="h-full rounded-full bg-violet-500" style={{ width: `${Math.min(100, totalExportCost > 0 ? (totalExportCost / (totalImportCost + totalExportCost || 1)) * 100 : 0)}%` }} />
                   </div>
                 </Card>
@@ -412,7 +412,7 @@ function StatusCard({ label, count, color, icon }: { label: string; count: numbe
     <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} border ${c.border}`}>
       <span className={c.text}>{icon}</span>
       <div>
-        <p className="text-[11px] text-gray-500">{label}</p>
+        <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{label}</p>
         <p className={`text-base font-bold ${c.text}`}>{count}</p>
       </div>
     </div>

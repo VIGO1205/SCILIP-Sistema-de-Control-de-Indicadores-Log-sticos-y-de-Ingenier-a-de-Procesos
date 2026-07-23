@@ -142,15 +142,15 @@ export function TransportCostModal({ isOpen, onClose, onSuccess, cost }: Transpo
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-xl p-0">
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 rounded-t-xl">
+      <DialogPanel className="relative z-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl p-0">
+        <div className="sticky top-0 z-10 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-6 py-4 rounded-t-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-lg ${isEditing ? 'bg-amber-500/10' : 'bg-primary/10'}`}>
                 {isEditing ? <Pencil className="h-5 w-5 text-amber-600" /> : <DollarSign className="h-5 w-5 text-primary" />}
               </div>
               <div>
-                <Title className="text-lg font-bold text-gray-900">
+                <Title className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">
                   {isEditing ? 'Editar Costo' : 'Nuevo Costo de Transporte'}
                 </Title>
                 <Text className="text-xs text-gray-400">
@@ -158,7 +158,7 @@ export function TransportCostModal({ isOpen, onClose, onSuccess, cost }: Transpo
                 </Text>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               <X className="h-5 w-5 text-gray-400" />
             </button>
           </div>
@@ -169,8 +169,8 @@ export function TransportCostModal({ isOpen, onClose, onSuccess, cost }: Transpo
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Información General</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Vehículo *</Text>
-                <select {...register('vehicleId')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Vehículo *</Text>
+                <select {...register('vehicleId')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
                   <option value="">Seleccionar vehículo...</option>
                   {vehicles?.map((v: any) => (
                     <option key={v.id} value={v.id}>{v.plateNumber} - {v.brand} {v.model}</option>
@@ -179,8 +179,8 @@ export function TransportCostModal({ isOpen, onClose, onSuccess, cost }: Transpo
                 {errors.vehicleId && <Text className="text-red-500 text-xs mt-1">{errors.vehicleId.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Conductor</Text>
-                <select {...register('driverId')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Conductor</Text>
+                <select {...register('driverId')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
                   <option value="">Seleccionar conductor...</option>
                   {drivers?.map((d: any) => (
                     <option key={d.id} value={d.id}>{d.employee?.fullName || '-'}</option>
@@ -190,16 +190,16 @@ export function TransportCostModal({ isOpen, onClose, onSuccess, cost }: Transpo
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Tipo de Gasto *</Text>
-                <select {...register('costType')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Tipo de Gasto *</Text>
+                <select {...register('costType')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary bg-white">
                   <option value="">Seleccionar...</option>
                   {COST_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
                 </select>
                 {errors.costType && <Text className="text-red-500 text-xs mt-1">{errors.costType.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Fecha *</Text>
-                <input type="date" {...register('costDate')} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Fecha *</Text>
+                <input type="date" {...register('costDate')} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                 {errors.costDate && <Text className="text-red-500 text-xs mt-1">{errors.costDate.message}</Text>}
               </div>
             </div>
@@ -209,44 +209,44 @@ export function TransportCostModal({ isOpen, onClose, onSuccess, cost }: Transpo
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Monto y Detalles</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Monto ($) *</Text>
-                <input type="number" {...register('amount', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Monto ($) *</Text>
+                <input type="number" {...register('amount', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                 {errors.amount && <Text className="text-red-500 text-xs mt-1">{errors.amount.message}</Text>}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Factura</Text>
-                <input {...register('invoiceNumber')} placeholder="Número de factura" className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Factura</Text>
+                <input {...register('invoiceNumber')} placeholder="Número de factura" className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Distancia (km)</Text>
-                <input type="number" step="0.1" {...register('distanceKm', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Distancia (km)</Text>
+                <input type="number" step="0.1" {...register('distanceKm', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
               </div>
             </div>
             {watch('costType') === 'FUEL' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                 <div>
-                  <Text className="mb-1.5 text-sm font-semibold text-gray-700">Litros Cargados</Text>
-                  <input type="number" step="0.1" {...register('quantityLiters', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                  <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Litros Cargados</Text>
+                  <input type="number" step="0.1" {...register('quantityLiters', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                 </div>
                 <div>
-                  <Text className="mb-1.5 text-sm font-semibold text-gray-700">Precio por Litro</Text>
-                  <input type="number" step="0.01" {...register('pricePerLiter', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+                  <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Precio por Litro</Text>
+                  <input type="number" step="0.01" {...register('pricePerLiter', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
                 </div>
               </div>
             )}
             <div className="mt-3">
-              <Text className="mb-1.5 text-sm font-semibold text-gray-700">Horas de Conducción</Text>
-              <input type="number" step="0.1" {...register('hoursDriven', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
+              <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Horas de Conducción</Text>
+              <input type="number" step="0.1" {...register('hoursDriven', { valueAsNumber: true })} placeholder="0" min={0} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
             </div>
           </div>
 
           <div>
-            <Text className="mb-1.5 text-sm font-semibold text-gray-700">Notas</Text>
-            <textarea {...register('notes')} placeholder="Observaciones adicionales..." rows={2} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none" />
+            <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Notas</Text>
+            <textarea {...register('notes')} placeholder="Observaciones adicionales..." rows={2} className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none" />
           </div>
 
-          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+          <div className="sticky bottom-0 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-6 py-4 -mx-6 -mb-5 rounded-b-xl flex justify-end gap-3">
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 rounded-lg transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={isPending} className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors disabled:opacity-50">

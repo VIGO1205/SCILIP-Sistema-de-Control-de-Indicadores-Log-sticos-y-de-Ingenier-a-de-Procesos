@@ -145,21 +145,21 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-3xl w-full max-h-[90vh] overflow-y-auto bg-white rounded-kpi shadow-kpi p-0">
+      <DialogPanel className="relative z-10 max-w-3xl w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-tremor-background rounded-kpi shadow-kpi p-0">
 
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 rounded-t-kpi">
+        <div className="sticky top-0 z-10 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-6 py-4 rounded-t-kpi">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg">
                 <ShoppingCart className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <Title className="text-lg font-bold text-gray-900">Nueva Orden de Compra</Title>
+                <Title className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">Nueva Orden de Compra</Title>
                 <Text className="text-xs text-gray-400">Completa los datos para registrar la orden</Text>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               <X className="h-5 w-5 text-gray-400" />
             </button>
           </div>
@@ -173,7 +173,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Datos Generales</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Proveedor *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Proveedor *</Text>
                 <Select
                   value={watch('supplierId')}
                   onValueChange={(val) => setValue('supplierId', val)}
@@ -189,7 +189,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                 )}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Numero de Orden *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Numero de Orden *</Text>
                 <TextInput
                   {...register('poNumber')}
                   placeholder="PO-20260720-001"
@@ -200,7 +200,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                 )}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Fecha de Orden *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Fecha de Orden *</Text>
                 <DatePicker
                   value={watch('orderDate')}
                   onValueChange={(val) => val && setValue('orderDate', val)}
@@ -211,7 +211,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                 )}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Fecha de Entrega Esperada *</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Fecha de Entrega Esperada *</Text>
                 <DatePicker
                   value={watch('expectedDeliveryDate')}
                   onValueChange={(val) => val && setValue('expectedDeliveryDate', val)}
@@ -222,7 +222,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                 )}
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Bodega</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Bodega</Text>
                 <Select
                   value={watch('warehouseId') || ''}
                   onValueChange={(val) => setValue('warehouseId', val)}
@@ -235,7 +235,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                 </Select>
               </div>
               <div>
-                <Text className="mb-1.5 text-sm font-semibold text-gray-700">Estado</Text>
+                <Text className="mb-1.5 text-sm font-semibold text-gray-700 dark:text-dark-tremor-content">Estado</Text>
                 <Select
                   value={watch('status')}
                   onValueChange={(val) => setValue('status', val as any)}
@@ -270,7 +270,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                 const lineSubtotal = lineQuantity * linePrice;
 
                 return (
-                  <div key={field.id} className="border border-gray-200 rounded-xl p-4 bg-gray-50/50">
+                  <div key={field.id} className="border border-gray-200 dark:border-dark-tremor-border rounded-xl p-4 bg-gray-50 dark:bg-dark-tremor-background-subtle/50">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-xs font-bold text-gray-400">Linea {index + 1}</span>
                       {fields.length > 1 && (
@@ -296,7 +296,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                     </div>
 
                     <div className="mb-3">
-                      <Text className="mb-1 text-xs font-medium text-gray-600">Producto *</Text>
+                      <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Producto *</Text>
                       <Select
                         value={watch(`lines.${index}.productId`)}
                         onValueChange={(val) => {
@@ -320,7 +320,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
 
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 items-end">
                       <div>
-                        <Text className="mb-1 text-xs font-medium text-gray-600">Cantidad *</Text>
+                        <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Cantidad *</Text>
                         <NumberInput
                           value={watch(`lines.${index}.quantity`)}
                           onValueChange={(val) => setValue(`lines.${index}.quantity`, val)}
@@ -332,9 +332,9 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                         )}
                       </div>
                       <div>
-                        <Text className="mb-1 text-xs font-medium text-gray-600">Precio Unitario *</Text>
-                        <div className="h-10 flex items-center px-3 bg-gray-100 border border-gray-200 rounded-lg">
-                          <span className="text-sm font-medium text-gray-700">
+                        <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Precio Unitario *</Text>
+                        <div className="h-10 flex items-center px-3 bg-gray-100 dark:bg-dark-tremor-background-muted border border-gray-200 dark:border-dark-tremor-border rounded-lg">
+                          <span className="text-sm font-medium text-gray-700 dark:text-dark-tremor-content">
                             $ {linePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                         </div>
@@ -343,9 +343,9 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                         )}
                       </div>
                       <div className="hidden md:block">
-                        <Text className="mb-1 text-xs font-medium text-gray-600">Subtotal</Text>
-                        <div className="h-10 flex items-center px-3 bg-white border border-gray-200 rounded-lg">
-                          <span className="text-sm font-bold text-gray-700">
+                        <Text className="mb-1 text-xs font-medium text-gray-600 dark:text-dark-tremor-content">Subtotal</Text>
+                        <div className="h-10 flex items-center px-3 bg-white border border-gray-200 dark:border-dark-tremor-border rounded-lg">
+                          <span className="text-sm font-bold text-gray-700 dark:text-dark-tremor-content">
                             $ {lineSubtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                         </div>
@@ -353,8 +353,8 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
                     </div>
 
                     <div className="mt-2 md:hidden">
-                      <Text className="text-xs text-gray-500">
-                        Subtotal: <span className="font-bold text-gray-700">
+                      <Text className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">
+                        Subtotal: <span className="font-bold text-gray-700 dark:text-dark-tremor-content">
                           $ {lineSubtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>
                       </Text>
@@ -370,7 +370,7 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
 
             {/* Total */}
             <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-xl flex items-center justify-between">
-              <span className="text-sm font-bold text-gray-700">Total de la Orden</span>
+              <span className="text-sm font-bold text-gray-700 dark:text-dark-tremor-content">Total de la Orden</span>
               <span className="text-lg font-bold text-primary">
                 $ {totalCalculado.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
@@ -384,21 +384,21 @@ export function PurchaseOrderModal({ isOpen, onClose, onSuccess }: PurchaseOrder
               {...register('notes')}
               placeholder="Observaciones adicionales sobre la orden..."
               rows={3}
-              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none"
+              className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none"
             />
           </div>
 
           {/* Footer */}
-          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 -mx-6 -mb-5 rounded-b-kpi flex justify-end gap-3">
+          <div className="sticky bottom-0 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-6 py-4 -mx-6 -mb-5 rounded-b-kpi flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 rounded-lg transition-colors"
             >
               Cancelar
             </button>
             {authLoading ? (
-              <button disabled className="px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">
+              <button disabled className="px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 dark:bg-dark-tremor-background-muted rounded-lg cursor-not-allowed">
                 Cargando...
               </button>
             ) : (

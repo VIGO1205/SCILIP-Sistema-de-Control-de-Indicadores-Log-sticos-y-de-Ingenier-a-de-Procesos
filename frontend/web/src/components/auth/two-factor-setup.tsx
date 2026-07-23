@@ -115,13 +115,13 @@ export default function TwoFactorSetup({ isEnabled, onToggle }: TwoFactorSetupPr
           <div className="h-12 w-12 rounded-xl bg-indigo-100 flex items-center justify-center mx-auto mb-3">
             <Mail className="h-6 w-6 text-indigo-600" />
           </div>
-          <p className="text-xs text-gray-600">Se envió un código de 6 dígitos a tu correo electrónico.</p>
+          <p className="text-xs text-gray-600 dark:text-dark-tremor-content">Se envió un código de 6 dígitos a tu correo electrónico.</p>
         </div>
         <OtpInput value={otpCode} onChange={setOtpCode} />
         <div className="flex gap-2">
           <button
             onClick={() => { setStep('idle'); setOtpCode(''); }}
-            className="flex-1 px-4 py-2 rounded-lg text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors"
+            className="flex-1 px-4 py-2 rounded-lg text-xs font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-subtle transition-colors"
           >
             Cancelar
           </button>
@@ -146,8 +146,8 @@ export default function TwoFactorSetup({ isEnabled, onToggle }: TwoFactorSetupPr
             <Shield className="h-4 w-4 text-red-500" />
           </div>
           <div>
-            <p className="text-xs font-bold text-gray-900">Desactivar 2FA</p>
-            <p className="text-[11px] text-gray-500">Por seguridad, confirmá tu contraseña actual.</p>
+            <p className="text-xs font-bold text-gray-900 dark:text-dark-tremor-content-strong">Desactivar 2FA</p>
+            <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">Por seguridad, confirmá tu contraseña actual.</p>
           </div>
         </div>
 
@@ -157,13 +157,13 @@ export default function TwoFactorSetup({ isEnabled, onToggle }: TwoFactorSetupPr
               type={showDisablePassword ? 'text' : 'password'}
               value={disablePassword}
               onChange={(e) => setDisablePassword(e.target.value)}
-              className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-400"
+              className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm bg-gray-50/50 dark:bg-dark-tremor-background-subtle/50 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-400"
               placeholder="Contraseña"
             />
             <button
               type="button"
               onClick={() => setShowDisablePassword(!showDisablePassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-dark-tremor-content-subtle hover:text-indigo-600 transition-colors"
             >
               {showDisablePassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
@@ -173,7 +173,7 @@ export default function TwoFactorSetup({ isEnabled, onToggle }: TwoFactorSetupPr
               type={showDisablePassword ? 'text' : 'password'}
               value={disableConfirmPassword}
               onChange={(e) => setDisableConfirmPassword(e.target.value)}
-              className="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-400"
+              className="block w-full px-3 py-2 border border-gray-200 dark:border-dark-tremor-border rounded-lg text-sm bg-gray-50/50 dark:bg-dark-tremor-background-subtle/50 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-400"
               placeholder="Confirmar contraseña"
             />
           </div>
@@ -182,7 +182,7 @@ export default function TwoFactorSetup({ isEnabled, onToggle }: TwoFactorSetupPr
         <div className="flex gap-2 max-w-sm mt-3">
           <button
             onClick={() => { setStep('idle'); setDisablePassword(''); setDisableConfirmPassword(''); }}
-            className="flex-1 px-4 py-2 rounded-lg text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors"
+            className="flex-1 px-4 py-2 rounded-lg text-xs font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-subtle transition-colors"
           >
             Cancelar
           </button>
@@ -201,23 +201,23 @@ export default function TwoFactorSetup({ isEnabled, onToggle }: TwoFactorSetupPr
 
   return (
     <div className="flex items-start gap-3 relative">
-      <div className="h-8 w-8 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-        <Shield className="h-4 w-4 text-gray-500" />
+      <div className="h-8 w-8 rounded-lg bg-gray-100 dark:bg-dark-tremor-background-muted flex items-center justify-center shrink-0">
+        <Shield className="h-4 w-4 text-gray-500 dark:text-dark-tremor-content-subtle" />
       </div>
       <div className="flex-1">
         <div className="flex items-center gap-2">
-          <p className="text-xs font-bold text-gray-900">Autenticación 2FA</p>
+          <p className="text-xs font-bold text-gray-900 dark:text-dark-tremor-content-strong">Autenticación 2FA</p>
           {isEnabled ? (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-50 text-green-700 border border-green-200">
               <Check className="h-3 w-3" /> Activado
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-500 border border-gray-200">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 dark:bg-dark-tremor-background-muted text-gray-500 dark:text-dark-tremor-content-subtle border border-gray-200 dark:border-dark-tremor-border">
               Desactivado
             </span>
           )}
         </div>
-        <p className="text-[11px] text-gray-500 mt-0.5">
+        <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5">
           {isEnabled
             ? 'Tu cuenta tiene una capa extra de seguridad con código por email.'
             : 'Añadí una capa extra de seguridad con autenticación de dos factores.'}

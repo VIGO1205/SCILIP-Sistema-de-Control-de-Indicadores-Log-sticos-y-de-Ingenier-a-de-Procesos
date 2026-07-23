@@ -49,7 +49,7 @@ export function AiOverlay(props: AiOverlayProps) {
 
       <button
         onClick={() => setIsOpen(true)}
-        className="absolute top-2 right-2 z-10 p-1.5 rounded-lg bg-white/80 border border-gray-200/60 shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-violet-50 hover:border-violet-300 hover:shadow-md cursor-pointer"
+        className="absolute top-2 right-2 z-10 p-1.5 rounded-lg bg-white/80 dark:bg-dark-tremor-background/80 border border-gray-200/60 dark:border-dark-tremor-border/60 shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-violet-50 hover:border-violet-300 hover:shadow-md cursor-pointer"
         title="Interpretacion IA"
       >
         <Sparkles className="h-3.5 w-3.5 text-violet-500" />

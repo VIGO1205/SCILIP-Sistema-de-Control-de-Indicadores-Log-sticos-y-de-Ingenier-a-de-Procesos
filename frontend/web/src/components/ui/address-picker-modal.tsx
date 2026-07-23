@@ -118,16 +118,16 @@ export function AddressPickerModal({ isOpen, onClose, onSelect, initialAddress }
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 w-full max-w-3xl max-h-[90vh] bg-white rounded-xl shadow-xl flex flex-col mx-4">
+      <DialogPanel className="relative z-10 w-full max-w-3xl max-h-[90vh] bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl flex flex-col mx-4">
         {/* Header */}
-        <div className="sticky top-0 z-20 bg-white border-b border-gray-100 px-5 py-3 flex items-center justify-between rounded-t-xl">
+        <div className="sticky top-0 z-20 bg-white dark:bg-dark-tremor-background border-b border-gray-100 dark:border-dark-tremor-border px-5 py-3 flex items-center justify-between rounded-t-xl">
           <div className="flex items-center gap-2">
             <MapPin className="h-5 w-5 text-primary" />
-            <h2 className="text-base font-bold text-gray-900">Seleccionar Ubicación</h2>
+            <h2 className="text-base font-bold text-gray-900 dark:text-dark-tremor-content-strong">Seleccionar Ubicación</h2>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-500 hover:text-gray-700"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors text-gray-500 dark:text-dark-tremor-content-subtle hover:text-gray-700 dark:hover:text-dark-tremor-content"
             title="Cerrar"
           >
             <X className="h-5 w-5" />
@@ -138,20 +138,20 @@ export function AddressPickerModal({ isOpen, onClose, onSelect, initialAddress }
           {/* Search */}
           <div className="flex gap-2">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle pointer-events-none" />
               <input
                 type="text"
                 placeholder="Buscar dirección, ciudad o país..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-3 py-2 pl-9 pr-9 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                className="w-full px-3 py-2 pl-9 pr-9 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                 onKeyDown={(e) => e.key === 'Enter' && searchAddress()}
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => { setSearchQuery(''); setResults([]); }}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-100 dark:hover:bg-dark-tremor-background-muted text-gray-400 dark:text-dark-tremor-content-subtle hover:text-gray-600 dark:hover:text-dark-tremor-content transition-colors"
                   title="Limpiar"
                 >
                   <X className="h-3.5 w-3.5" />
@@ -175,12 +175,12 @@ export function AddressPickerModal({ isOpen, onClose, onSelect, initialAddress }
 
           {/* Results */}
           {results.length > 0 && (
-            <div className="border border-gray-200 rounded-lg overflow-hidden max-h-40 overflow-y-auto">
+            <div className="border border-gray-200 dark:border-dark-tremor-border rounded-lg overflow-hidden max-h-40 overflow-y-auto">
               {results.map((r, i) => (
                 <button
                   key={i}
                   onClick={() => handleSelectResult(r)}
-                  className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 border-b border-gray-100 last:border-0 transition-colors"
+                  className="w-full text-left px-3 py-2 text-xs text-gray-700 dark:text-dark-tremor-content hover:bg-gray-50 dark:hover:bg-dark-tremor-background-subtle border-b border-gray-100 dark:border-dark-tremor-border last:border-0 transition-colors"
                 >
                   {r.display_name}
                 </button>
@@ -189,7 +189,7 @@ export function AddressPickerModal({ isOpen, onClose, onSelect, initialAddress }
           )}
 
           {/* Map */}
-          <div className="h-80 rounded-lg overflow-hidden border border-gray-200 relative">
+          <div className="h-80 rounded-lg overflow-hidden border border-gray-200 dark:border-dark-tremor-border relative">
             <MapContainer
               center={mapCenter}
               zoom={selected ? 16 : 12}
@@ -206,31 +206,31 @@ export function AddressPickerModal({ isOpen, onClose, onSelect, initialAddress }
             </MapContainer>
 
             {loading && (
-              <div className="absolute inset-0 bg-white/60 flex items-center justify-center z-[1000]">
+              <div className="absolute inset-0 bg-white/60 dark:bg-dark-tremor-background/60 flex items-center justify-center z-[1000]">
                 <Loader2 className="h-6 w-6 text-primary animate-spin" />
               </div>
             )}
           </div>
 
-          <p className="text-[11px] text-gray-400 text-center">
+          <p className="text-[11px] text-gray-400 dark:text-dark-tremor-content-subtle text-center">
             Haz clic en el mapa para obtener la dirección exacta, o usa la barra de búsqueda.
           </p>
 
           {/* Selected address */}
           {selected?.address && (
             <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg">
-              <p className="text-xs font-semibold text-gray-700 mb-1">Dirección seleccionada:</p>
-              <p className="text-sm text-gray-900">{selected.address}</p>
+              <p className="text-xs font-semibold text-gray-700 dark:text-dark-tremor-content mb-1">Dirección seleccionada:</p>
+              <p className="text-sm text-gray-900 dark:text-dark-tremor-content-strong">{selected.address}</p>
             </div>
           )}
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 z-20 bg-white border-t border-gray-100 px-5 py-3 flex justify-end gap-2 rounded-b-xl">
+        <div className="sticky bottom-0 z-20 bg-white dark:bg-dark-tremor-background border-t border-gray-100 dark:border-dark-tremor-border px-5 py-3 flex justify-end gap-2 rounded-b-xl">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-colors"
           >
             Cancelar
           </button>

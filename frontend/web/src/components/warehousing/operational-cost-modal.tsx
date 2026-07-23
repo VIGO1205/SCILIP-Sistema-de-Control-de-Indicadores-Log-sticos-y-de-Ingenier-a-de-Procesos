@@ -87,19 +87,22 @@ export function OperationalCostModal({ isOpen, onClose, onSuccess }: Operational
   return (
     <Dialog open={isOpen} onClose={onClose} static={true} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-md w-full max-h-[90vh] overflow-y-auto bg-white rounded-kpi shadow-kpi p-6">
+      <DialogPanel className="relative z-10 max-w-md w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-tremor-background rounded-kpi shadow-kpi p-6">
         <Flex justifyContent="between" alignItems="center">
-          <Title className="text-xl font-bold text-gray-900">Registrar Costo Operativo</Title>
-          <Button variant="light" icon={X} onClick={onClose} className="hover:bg-gray-100" />
+          <Title className="text-xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">Registrar Costo Operativo</Title>
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
+            <X className="h-5 w-5 text-gray-400" />
+          </button>
         </Flex>
         
         <form onSubmit={handleFormSubmit(onSubmit)} className="mt-6 space-y-4">
           <div>
-            <Text className="mb-1">Bodega / CEDI</Text>
+            <Text className="mb-1 text-gray-700 dark:text-dark-tremor-content">Bodega / CEDI</Text>
             <Select 
               value={watch('warehouseId')} 
               onValueChange={(val) => setValue('warehouseId', val)}
               placeholder="Seleccionar bodega..."
+              className="rounded-lg"
             >
               {warehouses?.map((w) => (
                 <SelectItem key={w.id} value={w.id}>
@@ -113,11 +116,12 @@ export function OperationalCostModal({ isOpen, onClose, onSuccess }: Operational
           </div>
 
           <div>
-            <Text className="mb-1">Tipo de Costo</Text>
+            <Text className="mb-1 text-gray-700 dark:text-dark-tremor-content">Tipo de Costo</Text>
             <Select 
               value={watch('costType')} 
               onValueChange={(val) => setValue('costType', val as any)}
               placeholder="Seleccionar tipo..."
+              className="rounded-lg"
             >
               {COST_TYPES.map((type) => (
                 <SelectItem key={type.value} value={type.value}>
@@ -132,22 +136,24 @@ export function OperationalCostModal({ isOpen, onClose, onSuccess }: Operational
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Text className="mb-1">Monto (COP)</Text>
+              <Text className="mb-1 text-gray-700 dark:text-dark-tremor-content">Monto (COP)</Text>
               <NumberInput 
                 value={watch('amount')} 
                 onValueChange={(val) => setValue('amount', val)}
                 min={1}
                 icon={DollarSign}
+                className="rounded-lg"
               />
               {errors.amount && (
                 <Text className="text-red-500 text-sm mt-1">{errors.amount.message}</Text>
               )}
             </div>
             <div>
-              <Text className="mb-1">Fecha</Text>
+              <Text className="mb-1 text-gray-700 dark:text-dark-tremor-content">Fecha</Text>
               <DatePicker
                 value={watch('costDate')}
                 onValueChange={(val) => val && setValue('costDate', val)}
+                className="rounded-lg"
               />
               {errors.costDate && (
                 <Text className="text-red-500 text-sm mt-1">{errors.costDate.message}</Text>
@@ -156,30 +162,44 @@ export function OperationalCostModal({ isOpen, onClose, onSuccess }: Operational
           </div>
 
           <div>
-            <Text className="mb-1">Descripción</Text>
+            <Text className="mb-1 text-gray-700 dark:text-dark-tremor-content">Descripción</Text>
             <TextInput 
               placeholder="Detalles adicionales del gasto..." 
               {...register('description')}
+              className="rounded-lg"
             />
           </div>
 
           <div className="mt-8 flex justify-end space-x-3">
-            <Button variant="secondary" onClick={onClose}>
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-colors"
+            >
               Cancelar
-            </Button>
+            </button>
             <Can action={Action.Create} subject="OperationalCost" fallback={
-              <Button disabled color="gray">
+              <button disabled className="px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 dark:bg-dark-tremor-background-muted rounded-lg cursor-not-allowed">
                 Sin permisos
-              </Button>
+              </button>
             }>
-              <Button 
-                loading={createCost.isPending} 
-                icon={DollarSign}
+              <button
                 type="submit"
-                color="blue"
+                disabled={createCost.isPending}
+                className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors disabled:opacity-50"
               >
-                Guardar Costo
-              </Button>
+                {createCost.isPending ? (
+                  <>
+                    <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Guardando...
+                  </>
+                ) : (
+                  <>
+                    <DollarSign className="h-4 w-4" />
+                    Guardar Costo
+                  </>
+                )}
+              </button>
             </Can>
           </div>
         </form>

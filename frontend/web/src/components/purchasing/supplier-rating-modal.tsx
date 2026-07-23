@@ -62,20 +62,20 @@ export function SupplierRatingModal({ isOpen, onClose, supplierId, supplierName 
   return (
     <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <DialogPanel className="relative z-10 max-w-lg w-full bg-white rounded-xl shadow-xl p-0 overflow-hidden">
+      <DialogPanel className="relative z-10 max-w-lg w-full bg-white dark:bg-dark-tremor-background rounded-xl shadow-xl p-0 overflow-hidden">
         {/* Header */}
-        <div className="bg-white px-6 py-4 border-b border-gray-200">
+        <div className="bg-white dark:bg-dark-tremor-background px-6 py-4 border-b border-gray-200 dark:border-dark-tremor-border dark:border-dark-tremor-border">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg">
                 <Star className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900">Evaluar Proveedor</h3>
-                <p className="text-xs text-gray-500">{supplierName}</p>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-dark-tremor-content-strong">Evaluar Proveedor</h3>
+                <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">{supplierName}</p>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:bg-dark-tremor-background-muted dark:hover:bg-dark-tremor-background-muted rounded-lg transition-colors">
               <X className="h-5 w-5 text-gray-400" />
             </button>
           </div>
@@ -90,10 +90,10 @@ export function SupplierRatingModal({ isOpen, onClose, supplierId, supplierName 
             <>
               {/* Rating Actual */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
-                  <p className="text-xs text-gray-500 mb-1">Rating Automático</p>
+                <div className="p-4 bg-gray-50 dark:bg-dark-tremor-background-subtle rounded-xl border border-gray-100 dark:border-dark-tremor-border">
+                  <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle mb-1">Rating Automático</p>
                   <div className="flex items-center gap-2">
-                    <span className="text-2xl font-bold text-gray-900">{rating?.autoRating.toFixed(1)}</span>
+                    <span className="text-2xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">{rating?.autoRating.toFixed(1)}</span>
                     <span className="text-sm text-gray-400">/ 5</span>
                   </div>
                   <p className="text-[10px] text-gray-400 mt-1">
@@ -103,9 +103,9 @@ export function SupplierRatingModal({ isOpen, onClose, supplierId, supplierName 
                 <div className={`p-4 rounded-xl border ${
                   rating?.manualRating 
                     ? 'bg-amber-50 border-amber-200' 
-                    : 'bg-gray-50 border-gray-100'
+                    : 'bg-gray-50 dark:bg-dark-tremor-background-subtle border-gray-100 dark:border-dark-tremor-border'
                 }`}>
-                  <p className="text-xs text-gray-500 mb-1">
+                  <p className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle mb-1">
                     {rating?.manualRating ? 'Rating Manual (Override)' : 'Sin Override'}
                   </p>
                   <div className="flex items-center gap-2">
@@ -126,7 +126,7 @@ export function SupplierRatingModal({ isOpen, onClose, supplierId, supplierName 
               {/* Breakdown */}
               {rating && rating.breakdown && (
                 <div className="space-y-2">
-                  <p className="text-xs font-semibold text-gray-700 uppercase tracking-wider">Desglose Automático</p>
+                  <p className="text-xs font-semibold text-gray-700 dark:text-dark-tremor-content uppercase tracking-wider">Desglose Automático</p>
                   <div className="grid grid-cols-2 gap-2">
                     <MetricRow 
                       label="Entregas a Tiempo" 
@@ -157,8 +157,8 @@ export function SupplierRatingModal({ isOpen, onClose, supplierId, supplierName 
               )}
 
               {/* Manual Override */}
-              <div className="border-t border-gray-100 pt-4">
-                <p className="text-xs font-semibold text-gray-700 uppercase tracking-wider mb-3">
+              <div className="border-t border-gray-100 dark:border-dark-tremor-border pt-4">
+                <p className="text-xs font-semibold text-gray-700 dark:text-dark-tremor-content uppercase tracking-wider mb-3">
                   Tu Evaluación Manual
                 </p>
                 <div className="flex items-center justify-center gap-2 mb-4">
@@ -181,7 +181,7 @@ export function SupplierRatingModal({ isOpen, onClose, supplierId, supplierName 
                     </button>
                   ))}
                 </div>
-                <p className="text-center text-sm font-medium text-gray-700 mb-4">
+                <p className="text-center text-sm font-medium text-gray-700 dark:text-dark-tremor-content mb-4">
                   {manualRating > 0 ? `${manualRating} estrella${manualRating > 1 ? 's' : ''}` : 'Selecciona una calificación'}
                 </p>
 
@@ -190,7 +190,7 @@ export function SupplierRatingModal({ isOpen, onClose, supplierId, supplierName 
                   onChange={(e) => setComment(e.target.value)}
                   placeholder="Observaciones sobre el proveedor (opcional)..."
                   rows={3}
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-dark-tremor-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none"
                 />
               </div>
 
@@ -199,7 +199,7 @@ export function SupplierRatingModal({ isOpen, onClose, supplierId, supplierName 
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-dark-tremor-content bg-gray-100 dark:bg-dark-tremor-background-muted hover:bg-gray-200 rounded-lg transition-colors"
                 >
                   Cancelar
                 </button>
@@ -225,11 +225,11 @@ function MetricRow({ label, value, icon, weight }: { label: string; value: numbe
   const barColor = value >= 80 ? 'bg-emerald-500' : value >= 60 ? 'bg-amber-500' : 'bg-red-500';
 
   return (
-    <div className="p-3 bg-gray-50 rounded-lg">
+    <div className="p-3 bg-gray-50 dark:bg-dark-tremor-background-subtle rounded-lg">
       <div className="flex items-center justify-between mb-1.5">
         <div className="flex items-center gap-1.5">
           <span className={color}>{icon}</span>
-          <span className="text-xs text-gray-600">{label}</span>
+          <span className="text-xs text-gray-600 dark:text-dark-tremor-content">{label}</span>
         </div>
         <span className={`text-xs font-bold ${color}`}>{value.toFixed(1)}%</span>
       </div>

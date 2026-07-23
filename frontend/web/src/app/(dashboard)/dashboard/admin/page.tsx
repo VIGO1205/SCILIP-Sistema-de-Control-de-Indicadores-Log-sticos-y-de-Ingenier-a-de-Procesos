@@ -140,13 +140,13 @@ export default function ProductionPage() {
   const oee = (Number(machinePerformance.data?.performancePercentage || 0) * Number(qualityRate) * 0.9 / 100).toFixed(1);
 
   return (
-    <main className="p-4 sm:p-5 bg-gray-50 min-h-screen">
+    <main className="p-4 sm:p-5 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header estilo Dashboard */}
       <div className="mb-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Producción e Ingeniería</h1>
-            <p className="text-gray-500 mt-0.5 text-xs">Monitoreo de eficiencia de planta, máquinas y registros de producción.</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-dark-tremor-content-strong">Producción e Ingeniería</h1>
+            <p className="text-gray-500 dark:text-dark-tremor-content-subtle mt-0.5 text-xs">Monitoreo de eficiencia de planta, máquinas y registros de producción.</p>
           </div>
           <div className="flex gap-2">
             <button
@@ -255,12 +255,12 @@ export default function ProductionPage() {
       {/* Selector de máquina para KPIs */}
       {machines && machines.length > 0 && (
         <div className="mt-4 flex items-center gap-2">
-          <Settings className="h-4 w-4 text-gray-400" />
-          <span className="text-xs text-gray-500">Filtrar KPIs por máquina:</span>
+          <Settings className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
+          <span className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">Filtrar KPIs por máquina:</span>
           <select
             value={selectedMachineId}
             onChange={(e) => setSelectedMachineId(e.target.value)}
-            className="text-xs px-2 py-1 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-primary/30"
+            className="text-xs px-2 py-1 border border-gray-200 dark:border-dark-tremor-border rounded-lg bg-white dark:bg-dark-tremor-background focus:outline-none focus:ring-1 focus:ring-primary/30"
           >
             <option value="">Todas las máquinas</option>
             {machines.map((m: any) => (
@@ -275,38 +275,38 @@ export default function ProductionPage() {
         <TabList className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-t-xl border border-indigo-100/50 border-b-0 shadow-sm p-1.5 gap-1.5">
           <Tab
             icon={Activity}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-indigo-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-indigo-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-indigo-100 data-[selected]:border-b-[3px] data-[selected]:border-indigo-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Líneas de Producción
           </Tab>
           <Tab
             icon={ClipboardList}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-emerald-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-emerald-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-emerald-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-emerald-100 data-[selected]:border-b-[3px] data-[selected]:border-emerald-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Registros
           </Tab>
           <Tab
             icon={Factory}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-amber-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-amber-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-amber-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-amber-100 data-[selected]:border-b-[3px] data-[selected]:border-amber-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Máquinas
           </Tab>
           <Tab
             icon={Wrench}
-            className="px-4 py-2.5 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-white/60 rounded-lg transition-all duration-300 data-[selected]:bg-white data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-dark-tremor-content-subtle hover:text-purple-600 hover:bg-white/60 dark:hover:bg-dark-tremor-background-subtle rounded-lg transition-all duration-300 data-[selected]:bg-white dark:data-[selected]:bg-dark-tremor-background data-[selected]:text-purple-600 data-[selected]:font-bold data-[selected]:shadow-md data-[selected]:shadow-purple-100 data-[selected]:border-b-[3px] data-[selected]:border-purple-500 data-[selected]:rounded-t-lg data-[selected]:rounded-b-none data-[selected]:translate-y-[-1px]"
           >
             Mantenimiento
           </Tab>
         </TabList>
-        <TabPanels className="bg-white border border-gray-200 rounded-b-xl shadow-sm">
+        <TabPanels className="bg-white dark:bg-dark-tremor-background border border-gray-200 dark:border-dark-tremor-border rounded-b-xl shadow-sm">
           {/* Líneas de Producción */}
           <TabPanel>
             <div className="p-5 space-y-5">
               {/* Resumen de Máquinas */}
-              <div className="rounded-xl border border-gray-200 shadow-sm p-4 bg-white">
+                <div className="rounded-xl border border-gray-200 dark:border-dark-tremor-border shadow-sm p-4 bg-white dark:bg-dark-tremor-background">
                 <div className="flex items-center gap-2 mb-3">
                   <TrendingUp className="h-4 w-4 text-primary" />
-                  <h3 className="text-sm font-bold text-gray-900">Resumen de Estado de Máquinas</h3>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Resumen de Estado de Máquinas</h3>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <StatusCard label="Total Máquinas" count={totalMachines} color="blue" icon={<Factory className="h-4 w-4" />} />
@@ -330,33 +330,33 @@ export default function ProductionPage() {
                   const load = machine.status === 'operational' ? Math.min(100, eff) : 0;
 
                   return (
-                    <div key={machine.id} className="p-4 border rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+                    <div key={machine.id} className="p-4 border rounded-xl bg-white dark:bg-dark-tremor-background shadow-sm hover:shadow-md transition-shadow">
                       <div className="flex items-center justify-between">
                         <div>
-                          <Text className="font-bold text-gray-900">{machine.name}</Text>
-                          <Text className="text-xs text-gray-400 font-mono">{machine.code}</Text>
+                          <Text className="font-bold text-gray-900 dark:text-dark-tremor-content-strong">{machine.name}</Text>
+                          <Text className="text-xs text-gray-400 dark:text-dark-tremor-content-subtle font-mono">{machine.code}</Text>
                         </div>
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-${s.color}-50 text-${s.color}-700 border border-${s.color}-200`}>
                           {s.label}
                         </span>
                       </div>
-                      <Text className="text-xs text-gray-400 mt-1">
+                      <Text className="text-xs text-gray-400 dark:text-dark-tremor-content-subtle mt-1">
                         {machine.type || 'Sin tipo'} · {machine.brand || '-'} {machine.model || ''}
                       </Text>
                       <div className="mt-4 space-y-2">
                         <div>
                           <div className="flex justify-between text-xs mb-1">
-                            <span className="text-gray-500">Carga de trabajo</span>
-                            <span className="font-semibold text-gray-700">{load}%</span>
+                            <span className="text-gray-500 dark:text-dark-tremor-content-subtle">Carga de trabajo</span>
+                            <span className="font-semibold text-gray-700 dark:text-dark-tremor-content">{load}%</span>
                           </div>
-                          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-2 bg-gray-100 dark:bg-dark-tremor-background-muted rounded-full overflow-hidden">
                             <div
                               className={`h-full rounded-full ${s.barColor === 'blue' ? 'bg-blue-500' : s.barColor === 'amber' ? 'bg-amber-500' : 'bg-gray-300'}`}
                               style={{ width: `${load}%` }}
                             />
                           </div>
                         </div>
-                        <div className="flex justify-between text-xs text-gray-500">
+                        <div className="flex justify-between text-xs text-gray-500 dark:text-dark-tremor-content-subtle">
                           <span>Capacidad: {Number(machine.maxCapacity || 0).toLocaleString('en-US')} {machine.capacityUnit || ''}</span>
                           <span>Eficiencia: {eff}%</span>
                         </div>
@@ -365,20 +365,20 @@ export default function ProductionPage() {
                   );
                 })}
                 {(!machines || machines.length === 0) && (
-                  <div className="col-span-full flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 rounded-lg border border-dashed border-gray-200">
-                    <Factory className="h-12 w-12 text-gray-300 mb-4" />
-                    <p className="text-gray-500 font-medium">No hay máquinas registradas</p>
-                    <p className="text-gray-400 text-xs mt-1">Registra máquinas para monitorear su rendimiento</p>
+                  <div className="col-span-full flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white dark:from-dark-tremor-background to-gray-50/50 dark:to-dark-tremor-background-subtle rounded-lg border border-dashed border-gray-200 dark:border-dark-tremor-border">
+                    <Factory className="h-12 w-12 text-gray-300 dark:text-dark-tremor-content-subtle mb-4" />
+                    <p className="text-gray-500 dark:text-dark-tremor-content-subtle font-medium">No hay máquinas registradas</p>
+                    <p className="text-gray-400 dark:text-dark-tremor-content-subtle text-xs mt-1">Registra máquinas para monitorear su rendimiento</p>
                   </div>
                 )}
               </div>
 
               {/* Gráfico placeholder */}
-              <Card className="border border-gray-200 shadow-sm rounded-xl">
-                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
-                  <BarChart3 className="h-4 w-4 text-gray-400" />
-                  <h3 className="text-sm font-bold text-gray-900">Rendimiento de Máquinas</h3>
-                  <span className="ml-auto text-[10px] font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
+              <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border">
+                  <BarChart3 className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Rendimiento de Máquinas</h3>
+                  <span className="ml-auto text-[10px] font-medium text-gray-400 dark:text-dark-tremor-content-subtle bg-gray-100 dark:bg-dark-tremor-background-muted px-2 py-0.5 rounded">
                     NOR_DIS_IND_06
                   </span>
                 </div>
@@ -409,7 +409,7 @@ export default function ProductionPage() {
                         label={{ value: 'Capacidad', angle: 90, position: 'insideRight', style: { fontSize: 11, fill: '#6b7280' } }}
                       />
                       <Tooltip
-                        contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontSize: '12px', backgroundColor: '#ffffff', color: '#374151' }}
+                        contentStyle={{ borderRadius: '10px', border: 'var(--tooltip-border, 1px solid #e5e7eb)', fontSize: '12px', backgroundColor: 'var(--tooltip-bg, #ffffff)', color: 'var(--tooltip-color, #374151)' }}
                         formatter={(value: any, name: string) => [
                           name === 'eficiencia' ? `${Number(value).toFixed(1)}%` : Number(value).toLocaleString('en-US'),
                           name === 'eficiencia' ? 'Eficiencia' : 'Capacidad Máx',
@@ -463,19 +463,19 @@ export default function ProductionPage() {
 
               <MaintenanceOrdersTable orders={maintenanceOrders || []} onEdit={handleEditMaintenance} />
 
-              <Card className="border border-gray-200 shadow-sm rounded-xl">
-                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
-                  <Wrench className="h-4 w-4 text-gray-400" />
-                  <h3 className="text-sm font-bold text-gray-900">Calendario de Mantenimiento</h3>
+              <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
+                  <Wrench className="h-4 w-4 text-gray-400 dark:text-dark-tremor-content-subtle" />
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Calendario de Mantenimiento</h3>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-gray-50/80 border-b border-gray-100">
-                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Máquina</th>
-                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Último Mantenimiento</th>
-                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Próximo Mantenimiento</th>
-                        <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Estado</th>
+                      <tr className="bg-gray-50/80 dark:bg-dark-tremor-background-muted border-b border-gray-100 dark:border-dark-tremor-border">
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Máquina</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Último Mantenimiento</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Próximo Mantenimiento</th>
+                        <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Estado</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
@@ -484,15 +484,15 @@ export default function ProductionPage() {
                         const next = machine.nextMaintenance ? new Date(machine.nextMaintenance).toLocaleDateString('es-CO') : '-';
                         const isOverdue = machine.nextMaintenance && new Date(machine.nextMaintenance) < new Date();
                         return (
-                          <tr key={machine.id} className="hover:bg-gray-50/50 transition-colors">
+                          <tr key={machine.id} className="hover:bg-gray-50/50 dark:hover:bg-dark-tremor-background-subtle transition-colors">
                             <td className="px-4 py-3">
                               <div className="flex items-center gap-2">
                                 <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
                                   <Settings className="h-4 w-4 text-primary" />
                                 </div>
                                 <div>
-                                  <span className="font-medium text-gray-900 block">{machine.name}</span>
-                                  <span className="text-[10px] text-gray-400 font-mono">{machine.code}</span>
+                                  <span className="font-medium text-gray-900 dark:text-dark-tremor-content-strong block">{machine.name}</span>
+                                  <span className="text-[10px] text-gray-400 dark:text-dark-tremor-content-subtle font-mono">{machine.code}</span>
                                 </div>
                               </div>
                             </td>
@@ -517,7 +517,7 @@ export default function ProductionPage() {
                       })}
                       {(!machines || machines.length === 0) && (
                         <tr>
-                          <td colSpan={4} className="px-4 py-12 text-center text-gray-400 text-sm">
+                            <td colSpan={4} className="px-4 py-12 text-center text-gray-400 dark:text-dark-tremor-content-subtle text-sm">
                             No hay máquinas registradas
                           </td>
                         </tr>
@@ -528,10 +528,10 @@ export default function ProductionPage() {
               </Card>
 
               {/* Alertas */}
-              <Card className="border border-gray-200 shadow-sm rounded-xl">
-                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
+              <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
                   <AlertCircle className="h-4 w-4 text-red-500" />
-                  <h3 className="text-sm font-bold text-gray-900">Alertas de Operación</h3>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Alertas de Operación</h3>
                 </div>
                 <div className="px-5 pb-5 space-y-2">
                   {breakdownMachines > 0 ? (
@@ -593,7 +593,7 @@ function StatusCard({ label, count, color, icon }: { label: string; count: numbe
     <div className={`flex items-center gap-2.5 p-3 rounded-lg ${c.bg} border ${c.border}`}>
       <span className={c.text}>{icon}</span>
       <div>
-        <p className="text-[11px] text-gray-500">{label}</p>
+        <p className="text-[11px] text-gray-500 dark:text-dark-tremor-content-subtle">{label}</p>
         <p className={`text-base font-bold ${c.text}`}>{count}</p>
       </div>
     </div>

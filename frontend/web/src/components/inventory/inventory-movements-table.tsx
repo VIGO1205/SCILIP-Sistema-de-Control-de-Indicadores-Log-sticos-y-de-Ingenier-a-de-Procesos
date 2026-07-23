@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { Card } from '@tremor/react';
@@ -43,14 +43,14 @@ export function InventoryMovementsTable({ movements }: InventoryMovementsTablePr
 
   if (!movements || movements.length === 0) {
     return (
-      <Card className="border border-gray-200 shadow-sm rounded-xl">
-        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border">
           <History className="h-4 w-4 text-gray-400" />
-          <h3 className="text-sm font-bold text-gray-900">Historial de Movimientos</h3>
+          <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Historial de Movimientos</h3>
         </div>
-        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 rounded-lg border border-dashed border-gray-200">
+        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 dark:from-dark-tremor-background dark:to-dark-tremor-background-subtle rounded-lg border border-dashed border-gray-200 dark:border-dark-tremor-border">
           <History className="h-12 w-12 text-gray-300 mb-4" />
-          <p className="text-gray-500 font-medium">No hay movimientos registrados</p>
+          <p className="text-gray-500 dark:text-dark-tremor-content-subtle font-medium">No hay movimientos registrados</p>
           <p className="text-gray-400 text-xs mt-1">Registra tu primer movimiento de inventario</p>
         </div>
       </Card>
@@ -62,11 +62,11 @@ export function InventoryMovementsTable({ movements }: InventoryMovementsTablePr
   const paginatedMovements = movements.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <Card className="border border-gray-200 shadow-sm rounded-xl overflow-hidden">
-      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl overflow-hidden">
+      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
         <History className="h-4 w-4 text-gray-400" />
-        <h3 className="text-sm font-bold text-gray-900">Historial de Movimientos</h3>
-        <span className="ml-auto text-[10px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+        <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Historial de Movimientos</h3>
+        <span className="ml-auto text-[10px] font-medium text-gray-500 dark:text-dark-tremor-content-subtle bg-gray-100 px-2 py-0.5 rounded-full">
           {movements.length} movimientos
         </span>
       </div>
@@ -74,39 +74,39 @@ export function InventoryMovementsTable({ movements }: InventoryMovementsTablePr
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50/80 border-b border-gray-100">
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Tipo</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Producto</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Bodega</th>
-              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Cantidad</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Referencia</th>
+            <tr className="bg-gray-50/80 dark:bg-dark-tremor-background-subtle border-b border-gray-100 dark:border-dark-tremor-border">
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Tipo</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Producto</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Bodega</th>
+              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Cantidad</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Fecha</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Referencia</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {paginatedMovements.map((movement) => {
               const typeInfo = getTypeInfo(movement.type);
               return (
-                <tr key={movement.id} className="hover:bg-gray-50/50 transition-colors">
+                <tr key={movement.id} className="hover:bg-gray-50/50 dark:hover:bg-dark-tremor-background-subtle transition-colors">
                   <td className="px-4 py-3">
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                       typeInfo.color === 'emerald' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' :
                       typeInfo.color === 'red' ? 'bg-red-50 text-red-700 border border-red-200' :
                       typeInfo.color === 'amber' ? 'bg-amber-50 text-amber-700 border border-amber-200' :
                       typeInfo.color === 'blue' ? 'bg-blue-50 text-blue-700 border border-blue-200' :
-                      'bg-gray-50 text-gray-700 border border-gray-200'
+                      'bg-gray-50 text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border'
                     }`}>
                       {typeInfo.icon}
                       {typeInfo.label}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-gray-900 font-medium">{movement.product?.name || '-'}</td>
-                  <td className="px-4 py-3 text-gray-600">{movement.warehouse?.name || '-'}</td>
-                  <td className="px-4 py-3 text-right text-gray-900 font-semibold">
+                  <td className="px-4 py-3 text-gray-900 dark:text-dark-tremor-content-strong font-medium">{movement.product?.name || '-'}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-dark-tremor-content">{movement.warehouse?.name || '-'}</td>
+                  <td className="px-4 py-3 text-right text-gray-900 dark:text-dark-tremor-content-strong font-semibold">
                     {movement.quantity?.toLocaleString('en-US') ?? 0}
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{formatDate(movement.movementDate)}</td>
-                  <td className="px-4 py-3 text-gray-500 text-xs">{movement.reference || '-'}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-dark-tremor-content">{formatDate(movement.movementDate)}</td>
+                  <td className="px-4 py-3 text-gray-500 dark:text-dark-tremor-content-subtle text-xs">{movement.reference || '-'}</td>
                 </tr>
               );
             })}
@@ -116,21 +116,21 @@ export function InventoryMovementsTable({ movements }: InventoryMovementsTablePr
 
       {/* Paginación */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 bg-gray-50/50">
-          <span className="text-xs text-gray-500">
+        <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 dark:border-dark-tremor-border bg-gray-50/50 dark:bg-dark-tremor-background-muted">
+          <span className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">
             Mostrando {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, movements.length)} de {movements.length}
           </span>
           <div className="flex items-center gap-1">
             <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="p-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 transition-colors">
-              <ChevronLeft className="h-4 w-4 text-gray-600" />
+              <ChevronLeft className="h-4 w-4 text-gray-600 dark:text-dark-tremor-content" />
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button key={page} onClick={() => setCurrentPage(page)} className={`min-w-[2rem] h-8 px-2 rounded-lg text-xs font-semibold transition-colors ${page === currentPage ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-200'}`}>
+              <button key={page} onClick={() => setCurrentPage(page)} className={`min-w-[2rem] h-8 px-2 rounded-lg text-xs font-semibold transition-colors ${page === currentPage ? 'bg-primary text-white' : 'text-gray-600 dark:text-dark-tremor-content hover:bg-gray-200'}`}>
                 {page}
               </button>
             ))}
             <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="p-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 transition-colors">
-              <ChevronRight className="h-4 w-4 text-gray-600" />
+              <ChevronRight className="h-4 w-4 text-gray-600 dark:text-dark-tremor-content" />
             </button>
           </div>
         </div>

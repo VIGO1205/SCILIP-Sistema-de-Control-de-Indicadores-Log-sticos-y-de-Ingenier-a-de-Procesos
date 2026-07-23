@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { Card } from '@tremor/react';
@@ -64,14 +64,14 @@ export function ProductsTable({ products, onEdit }: ProductsTableProps) {
 
   if (!products || products.length === 0) {
     return (
-      <Card className="border border-gray-200 shadow-sm rounded-xl">
-        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
+      <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl">
+        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border">
           <Package className="h-4 w-4 text-gray-400" />
-          <h3 className="text-sm font-bold text-gray-900">Catálogo de Productos</h3>
+          <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Catálogo de Productos</h3>
         </div>
-        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 rounded-lg border border-dashed border-gray-200">
+        <div className="flex flex-col items-center justify-center p-12 bg-gradient-to-br from-white to-gray-50/50 dark:from-dark-tremor-background dark:to-dark-tremor-background-subtle rounded-lg border border-dashed border-gray-200 dark:border-dark-tremor-border">
           <Package className="h-12 w-12 text-gray-300 mb-4" />
-          <p className="text-gray-500 font-medium">No hay productos registrados</p>
+          <p className="text-gray-500 dark:text-dark-tremor-content-subtle font-medium">No hay productos registrados</p>
           <p className="text-gray-400 text-xs mt-1">Los productos se muestran desde el módulo de compras</p>
         </div>
       </Card>
@@ -83,11 +83,11 @@ export function ProductsTable({ products, onEdit }: ProductsTableProps) {
   const paginatedProducts = products.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <Card className="border border-gray-200 shadow-sm rounded-xl overflow-hidden">
-      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 px-5 pt-5">
+    <Card className="border border-gray-200 dark:border-dark-tremor-border shadow-sm rounded-xl overflow-hidden">
+      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100 dark:border-dark-tremor-border px-5 pt-5">
         <Package className="h-4 w-4 text-gray-400" />
-        <h3 className="text-sm font-bold text-gray-900">Catálogo de Productos</h3>
-        <span className="ml-auto text-[10px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+        <h3 className="text-sm font-bold text-gray-900 dark:text-dark-tremor-content-strong">Catálogo de Productos</h3>
+        <span className="ml-auto text-[10px] font-medium text-gray-500 dark:text-dark-tremor-content-subtle bg-gray-100 px-2 py-0.5 rounded-full">
           {products.length} productos
         </span>
       </div>
@@ -95,34 +95,34 @@ export function ProductsTable({ products, onEdit }: ProductsTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50/80 border-b border-gray-100">
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Producto</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">SKU</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Categoría</th>
-              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Costo Unit.</th>
-              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Precio Venta</th>
-              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Stock</th>
-              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Estado</th>
-              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Acciones</th>
+            <tr className="bg-gray-50/80 dark:bg-dark-tremor-background-subtle border-b border-gray-100 dark:border-dark-tremor-border">
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Producto</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">SKU</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Categoría</th>
+              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Costo Unit.</th>
+              <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Precio Venta</th>
+              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Stock</th>
+              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Estado</th>
+              <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 dark:text-dark-tremor-content-subtle uppercase tracking-wider">Acciones</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {paginatedProducts.map((product) => (
-              <tr key={product.id} className="hover:bg-gray-50/50 transition-colors">
+              <tr key={product.id} className="hover:bg-gray-50/50 dark:hover:bg-dark-tremor-background-subtle transition-colors">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
                       <Tag className="h-4 w-4 text-primary" />
                     </div>
-                    <span className="font-medium text-gray-900">{product.name}</span>
+                    <span className="font-medium text-gray-900 dark:text-dark-tremor-content-strong">{product.name}</span>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-gray-600 font-mono text-xs">{product.sku || '-'}</td>
-                <td className="px-4 py-3 text-gray-600">{product.category || '-'}</td>
-                <td className="px-4 py-3 text-right text-gray-900 font-semibold">{formatCurrency(product.unitCost)}</td>
-                <td className="px-4 py-3 text-right text-gray-900 font-semibold">{formatCurrency(product.sellingPrice)}</td>
+                <td className="px-4 py-3 text-gray-600 dark:text-dark-tremor-content font-mono text-xs">{product.sku || '-'}</td>
+                <td className="px-4 py-3 text-gray-600 dark:text-dark-tremor-content">{product.category || '-'}</td>
+                <td className="px-4 py-3 text-right text-gray-900 dark:text-dark-tremor-content-strong font-semibold">{formatCurrency(product.unitCost)}</td>
+                <td className="px-4 py-3 text-right text-gray-900 dark:text-dark-tremor-content-strong font-semibold">{formatCurrency(product.sellingPrice)}</td>
                 <td className="px-4 py-3 text-center">
-                  <div className="text-xs text-gray-600">
+                  <div className="text-xs text-gray-600 dark:text-dark-tremor-content">
                     <span className="font-semibold">{product.minStock ?? 0}</span>
                     <span className="text-gray-400"> / </span>
                     <span className="font-semibold">{product.maxStock ?? 0}</span>
@@ -132,7 +132,7 @@ export function ProductsTable({ products, onEdit }: ProductsTableProps) {
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                     product.isActive
                       ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                      : 'bg-gray-50 text-gray-700 border border-gray-200'
+                      : 'bg-gray-50 text-gray-700 dark:text-dark-tremor-content border border-gray-200 dark:border-dark-tremor-border'
                   }`}>
                     {product.isActive ? 'Activo' : 'Inactivo'}
                   </span>
@@ -163,21 +163,21 @@ export function ProductsTable({ products, onEdit }: ProductsTableProps) {
 
       {/* Paginación */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 bg-gray-50/50">
-          <span className="text-xs text-gray-500">
+        <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 dark:border-dark-tremor-border bg-gray-50/50 dark:bg-dark-tremor-background-muted">
+          <span className="text-xs text-gray-500 dark:text-dark-tremor-content-subtle">
             Mostrando {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, products.length)} de {products.length}
           </span>
           <div className="flex items-center gap-1">
             <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="p-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 transition-colors">
-              <ChevronLeft className="h-4 w-4 text-gray-600" />
+              <ChevronLeft className="h-4 w-4 text-gray-600 dark:text-dark-tremor-content" />
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button key={page} onClick={() => setCurrentPage(page)} className={`min-w-[2rem] h-8 px-2 rounded-lg text-xs font-semibold transition-colors ${page === currentPage ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-200'}`}>
+              <button key={page} onClick={() => setCurrentPage(page)} className={`min-w-[2rem] h-8 px-2 rounded-lg text-xs font-semibold transition-colors ${page === currentPage ? 'bg-primary text-white' : 'text-gray-600 dark:text-dark-tremor-content hover:bg-gray-200'}`}>
                 {page}
               </button>
             ))}
             <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="p-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 transition-colors">
-              <ChevronRight className="h-4 w-4 text-gray-600" />
+              <ChevronRight className="h-4 w-4 text-gray-600 dark:text-dark-tremor-content" />
             </button>
           </div>
         </div>

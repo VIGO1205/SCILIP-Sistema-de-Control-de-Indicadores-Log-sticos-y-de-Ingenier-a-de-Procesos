@@ -40,6 +40,7 @@ export default function Sidebar({
   open,
   onToggleOpen,
   onClose,
+  isDesktop,
 }: {
   onNavigate: (href: string) => void;
   currentPath: string;
@@ -48,6 +49,7 @@ export default function Sidebar({
   open: boolean;
   onToggleOpen: () => void;
   onClose: () => void;
+  isDesktop: boolean;
 }) {
   const { user } = useAuth();
 
@@ -73,13 +75,13 @@ export default function Sidebar({
       <div
         className={clsx(
           'flex items-center flex-shrink-0 mb-6 transition-all duration-300',
-          collapsed ? 'justify-center px-2' : 'px-5'
+          collapsed && isDesktop ? 'justify-center px-2' : 'px-5'
         )}
       >
         <div className="bg-white/10 p-2 rounded-xl backdrop-blur-md flex-shrink-0">
           <LayoutDashboard className="h-6 w-6 text-white" />
         </div>
-        {!collapsed && (
+        {!(collapsed && isDesktop) && (
           <span className="text-lg font-bold tracking-tight ml-3 whitespace-nowrap">
             BI Logístico
           </span>
@@ -87,28 +89,30 @@ export default function Sidebar({
       </div>
 
       {/* Collapse Toggle - desktop only */}
-      <div className={clsx('mb-3', collapsed ? 'px-2' : 'px-3')}>
-        <button
-          onClick={onToggleCollapse}
-          className={clsx(
-            'w-full flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-all text-xs font-medium',
-            collapsed && 'justify-center px-0'
-          )}
-          title={collapsed ? 'Expandir' : 'Colapsar'}
-        >
-          {collapsed ? (
-            <PanelLeftOpen className="h-4 w-4" />
-          ) : (
-            <>
-              <PanelLeftClose className="h-4 w-4" />
-              <span>Colapsar</span>
-            </>
-          )}
-        </button>
-      </div>
+      {isDesktop && (
+        <div className={clsx('mb-3', collapsed ? 'px-2' : 'px-3')}>
+          <button
+            onClick={onToggleCollapse}
+            className={clsx(
+              'w-full flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-all text-xs font-medium',
+              collapsed && 'justify-center px-0'
+            )}
+            title={collapsed ? 'Expandir' : 'Colapsar'}
+          >
+            {collapsed ? (
+              <PanelLeftOpen className="h-4 w-4" />
+            ) : (
+              <>
+                <PanelLeftClose className="h-4 w-4" />
+                <span>Colapsar</span>
+              </>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Navigation */}
-      <nav className={clsx('flex-1 space-y-0.5', collapsed ? 'px-2' : 'px-3')}>
+      <nav className={clsx('flex-1 space-y-0.5', collapsed && isDesktop ? 'px-2' : 'px-3')}>
         {navigation.map((item) => {
           const isActive = currentPath === item.href;
           return (
@@ -120,9 +124,9 @@ export default function Sidebar({
                   ? 'bg-gradient-to-r from-primary to-indigo-600 text-white shadow-lg shadow-primary/20'
                   : 'text-white/60 hover:text-white hover:bg-white/5',
                 'group flex items-center w-full text-left px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200',
-                collapsed && 'justify-center px-0'
+                collapsed && isDesktop && 'justify-center px-0'
               )}
-              title={collapsed ? item.name : undefined}
+              title={collapsed && isDesktop ? item.name : undefined}
             >
               <item.icon
                 className={clsx(
@@ -130,7 +134,7 @@ export default function Sidebar({
                   'flex-shrink-0 h-[18px] w-[18px] transition-colors'
                 )}
               />
-              {!collapsed && (
+              {!(collapsed && isDesktop) && (
                 <>
                   <span className="ml-3 truncate">{item.name}</span>
                   {isActive && (
@@ -144,23 +148,23 @@ export default function Sidebar({
       </nav>
 
       {/* User Profile */}
-      <div className={clsx('mt-auto pb-3', collapsed ? 'px-2' : 'px-3')}>
+      <div className={clsx('mt-auto pb-3', collapsed && isDesktop ? 'px-2' : 'px-3')}>
         <div
           className={clsx(
             'bg-white/5 rounded-xl backdrop-blur-sm border border-white/10 transition-all duration-300',
-            collapsed ? 'p-2' : 'p-3'
+            collapsed && isDesktop ? 'p-2' : 'p-3'
           )}
         >
           <div
             className={clsx(
               'flex items-center',
-              collapsed ? 'justify-center' : 'space-x-3'
+              collapsed && isDesktop ? 'justify-center' : 'space-x-3'
             )}
           >
             <div className="h-8 w-8 rounded-full bg-primary border-2 border-white/30 flex items-center justify-center text-[10px] font-bold flex-shrink-0">
               {initials}
             </div>
-            {!collapsed && (
+            {!(collapsed && isDesktop) && (
               <div className="overflow-hidden flex-1 min-w-0">
                 <p className="text-xs font-semibold truncate leading-tight">
                   {user?.fullName || 'Usuario'}

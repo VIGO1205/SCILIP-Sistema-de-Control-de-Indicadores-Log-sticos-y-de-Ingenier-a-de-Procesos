@@ -55,6 +55,7 @@ export default function DashboardLayout({
         open={sidebarOpen}
         onToggleOpen={() => setSidebarOpen(!sidebarOpen)}
         onClose={() => setSidebarOpen(false)}
+        isDesktop={isDesktop}
       />
       <div
         className="flex-1 flex flex-col overflow-hidden transition-all duration-300 ease-in-out"

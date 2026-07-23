@@ -82,7 +82,7 @@ export default function SummaryDonut({
         </p>
       </div>
 
-      <div className="flex items-center gap-6">
+      <div className="flex flex-col items-center gap-4">
         <div className="relative h-36 w-36 flex-shrink-0">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -131,7 +131,7 @@ export default function SummaryDonut({
           </div>
         </div>
 
-        <div className="flex-1 space-y-2.5">
+        <div className="w-full grid grid-cols-2 gap-3">
           {(
             [
               { key: 'good', count: good },
@@ -143,9 +143,9 @@ export default function SummaryDonut({
             const Icon = ICONS[key];
             const percent = total > 0 ? Math.round((count / total) * 100) : 0;
             return (
-              <div key={key} className="flex items-center gap-2.5">
+              <div key={key} className="flex items-center gap-2">
                 <div
-                  className="h-6 w-6 rounded flex items-center justify-center"
+                  className="h-6 w-6 rounded flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: `${COLORS[key]}15` }}
                 >
                   <Icon
@@ -155,14 +155,14 @@ export default function SummaryDonut({
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-semibold text-gray-700 dark:text-dark-tremor-content">
+                    <span className="text-[10px] font-semibold text-gray-700 dark:text-dark-tremor-content">
                       {LABELS[key]}
                     </span>
-                    <span className="text-[11px] font-bold text-gray-900 dark:text-dark-tremor-content-strong">
+                    <span className="text-[10px] font-bold text-gray-900 dark:text-dark-tremor-content-strong">
                       {count}
                     </span>
                   </div>
-                  <div className="h-1 w-full bg-gray-100 dark:bg-dark-tremor-background-muted rounded-full overflow-hidden mt-1">
+                  <div className="h-1 w-full bg-gray-100 dark:bg-dark-tremor-background-muted rounded-full overflow-hidden mt-0.5">
                     <div
                       className="h-full rounded-full transition-all duration-500"
                       style={{

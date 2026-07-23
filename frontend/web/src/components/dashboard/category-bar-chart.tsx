@@ -213,6 +213,47 @@ export default function CategoryBarChart({
           </BarChart>
         </ResponsiveContainer>
       </div>
+
+      {/* Animated Truck Section */}
+      <div className="mt-3 relative h-20 overflow-hidden">
+        {/* Road */}
+        <div className="absolute bottom-0 w-full h-4 bg-gray-800 rounded-t-full">
+          <div className="absolute top-1/2 left-0 w-full h-1 bg-yellow-400"
+               style={{ backgroundImage: 'repeating-linear-gradient(90deg, #facc15 0px, #facc15 20px, transparent 20px, transparent 40px)' }} />
+        </div>
+        
+        {/* Warehouse on the right */}
+        <div className="absolute bottom-4 right-8 flex flex-col items-center">
+          <div className="w-24 h-16 bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-t-lg flex items-center justify-center">
+            <div className="w-12 h-12 bg-amber-800 dark:bg-amber-900 rounded-t-lg" />
+          </div>
+          <div className="w-24 h-2 bg-gray-400 dark:bg-gray-600 rounded" />
+          <Package className="h-4 w-4 text-blue-500 mt-1" />
+        </div>
+        
+        {/* Animated Truck */}
+        <div className="absolute bottom-4 left-0 animate-truck-drive">
+          <div className="flex flex-col items-center">
+            <Truck className="h-12 w-16 text-orange-500" />
+            <div className="flex gap-3 -mt-1">
+              <div className="w-4 h-4 bg-gray-800 rounded-full border-2 border-gray-600" />
+              <div className="w-4 h-4 bg-gray-800 rounded-full border-2 border-gray-600" />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <style>{`
+        @keyframes truck-drive {
+          0% { transform: translateX(-100px); }
+          70% { transform: translateX(calc(100vw - 200px)); }
+          85% { transform: translateX(calc(100vw - 180px)); }
+          100% { transform: translateX(-100px); }
+        }
+        .animate-truck-drive {
+          animation: truck-drive 8s ease-in-out infinite;
+        }
+      `}</style>
     </Card>
   );
 }

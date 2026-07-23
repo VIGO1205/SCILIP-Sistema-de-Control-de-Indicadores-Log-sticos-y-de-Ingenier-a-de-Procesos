@@ -47,81 +47,46 @@ _[Captura de pantalla sugerida: Estructura de directorios del Monorepo en el exp
 
 #### 2.1 Módulos de autenticación
 
-El módulo de autenticación (backend/api/src/modules/auth) es el encargado de gestionar el acceso seguro a la plataforma SCILIP. Implementa mecanismos de autenticación mediante JWT, cifrado de contraseñas con bcrypt y autorización basada en roles y permisos granulares. Sus componentes principales son:
+El módulo de autenticación (backend/api/src/modules/auth) es el encargado de gestionar el acceso seguro a la plataforma SCILIP, implementando mecanismos como JWT y cifrado de contraseñas con bcrypt. Los componentes de lógica principales son:
 
-- **Controlador de Autenticación (auth.controller.ts):** Expone los endpoints relacionados con el acceso al sistema. Recibe las credenciales del usuario, valida los datos de entrada mediante DTOs y delega el proceso de autenticación al servicio correspondiente.
-  _[Captura de pantalla sugerida: Código del auth.controller.ts mostrando el endpoint @Post('login') y la inyección de dependencias.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/auth/auth.controller.ts)
-
-- **Servicio de Autenticación (auth.service.ts):** Contiene la lógica de validación de usuarios. Consulta la información almacenada en la base de datos, compara la contraseña ingresada con el hash registrado y genera el token JWT que será utilizado durante la sesión.
+- **Servicio de Autenticación (auth.service.ts):** Contiene la lógica central de validación de usuarios. Consulta la información en la base de datos, compara la contraseña ingresada con el hash registrado y genera el token JWT.
   _[Captura de pantalla sugerida: Lógica del auth.service.ts validando credenciales y comparando el hash de la contraseña usando bcrypt.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/auth/auth.service.ts)
 
-- **Estrategia JWT (jwt.strategy.ts):** Se encarga de validar los tokens enviados en cada solicitud protegida. Extrae la información del usuario desde el token y verifica que la sesión sea válida antes de conceder acceso a los recursos del sistema.
-  _[Captura de pantalla sugerida: Código de jwt.strategy.ts con el método validate verificando el payload del JWT.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/auth/jwt.strategy.ts)
-
-- **Guard de Autenticación (jwt-auth.guard.ts):** Protege los endpoints REST de la aplicación. Antes de ejecutar cualquier operación, verifica que el usuario posea un token JWT válido y autorizado.
-  _[Captura de pantalla sugerida: Definición de la clase JwtAuthGuard heredando de AuthGuard('jwt').]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/auth/jwt-auth.guard.ts)
-
-- **Control de Acceso por Roles y Permisos (casl-ability.factory.ts):** Implementa las reglas de autorización utilizando CASL. Define las acciones permitidas para cada rol sobre los distintos módulos y recursos de la plataforma.
+- **Control de Acceso por Roles y Permisos (casl-ability.factory.ts):** Implementa las reglas de autorización utilizando CASL. Define centralmente las acciones permitidas para cada rol sobre los distintos módulos del sistema.
   _[Captura de pantalla sugerida: Código definiendo las habilidades (abilities) can y cannot según el rol del usuario.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/auth/casl-ability.factory.ts)
-
-- **Middleware de Seguridad para tRPC (trpc-auth.middleware.ts):** Añade una capa adicional de protección a los procedimientos tRPC. Verifica la existencia de un usuario autenticado antes de permitir la ejecución de operaciones entre el frontend y el backend.
-  _[Captura de pantalla sugerida: Código del middleware de tRPC lanzando un error UNAUTHORIZED si no existe sesión activa.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/common/middlewares/trpc-auth.middleware.ts)
-
-- **Inicialización de Usuarios y Seguridad (seed.ts):** Genera los usuarios administrativos iniciales y almacena las contraseñas utilizando bcrypt con 10 rondas de cifrado, evitando el almacenamiento de credenciales en texto plano.
-  _[Captura de pantalla sugerida: Fragmento de seed.ts generando el hash de la contraseña de los usuarios por defecto.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/database/prisma/seed.ts)
 
 #### 2.2 Módulos de gestión de datos
 
-El módulo principal encargado de la gestión y entrada de datos al sistema es el módulo de Ingestión (backend/api/src/modules/ingest), el cual actúa como un motor automatizado (Pipeline) de procesamiento (ETL) diseñado para recibir, validar y almacenar grandes volúmenes de datos operativos. Sus componentes de código son:
+El módulo de Ingestión (backend/api/src/modules/ingest) actúa como el motor automatizado (Pipeline ETL) para procesar, validar y almacenar grandes volúmenes de datos operativos. La lógica se concentra en:
 
-- **Controladores (IngestController):** Expone endpoints REST (ej. POST /ingest/purchase-orders/csv) que utilizan un FileInterceptor para aceptar archivos CSV o Excel (multipart/form-data) subidos por los analistas.
-- **Procesadores (CsvParserService):** Un servicio genérico inyectable que toma el buffer del archivo en memoria y lo transforma en objetos JSON estructurados, estandarizando automáticamente las cabeceras (eliminando espacios y usando minúsculas).
-- **Esquemas de Validación (DTOs con Zod):** Cada entidad (como Órdenes de Compra o Inventario) cuenta con un esquema estricto (ej. purchase-order.schema.ts). Antes de cualquier inserción, Zod valida que los tipos sean correctos, que los IDs de relaciones sean UUIDs válidos, y que las fechas tengan formato coherente. Las filas inválidas son apartadas para generar un reporte de errores.
-- **Servicio de Negocio (IngestService):** Coordina todo el flujo. Recibe el archivo, ejecuta el procesador, aplica la validación, y finalmente utiliza el PrismaService en modo de transacción ($transaction) para insertar los datos válidos mediante comandos upsert (actualizar si existe, crear si es nuevo). Al finalizar, genera un registro automático en la tabla AuditLog para garantizar trazabilidad de la gestión de datos.
+- **Servicio de Negocio (ingest.service.ts):** Coordina todo el flujo de ingesta. Recibe el archivo, ejecuta el procesador, aplica la validación y utiliza el PrismaService en modo de transacción ($transaction) para insertar datos válidos mediante comandos upsert (actualizar/crear).
+  _[Captura de pantalla sugerida: Fragmento relevante de IngestService coordinando el flujo y utilizando transacciones de Prisma.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/ingest/ingest.service.ts)
 
-_[Captura de pantalla sugerida: Vista general de los archivos del módulo de ingestión (IngestController, IngestService, schemas) o un fragmento relevante de IngestService utilizando transacciones de Prisma.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/ingest/ingest.service.ts)
+- **Procesador de Archivos (csv-parser.service.ts):** Servicio responsable de transformar el buffer del archivo en objetos JSON estructurados y estandarizar dinámicamente las cabeceras.
+  _[Captura de pantalla sugerida: Lógica de transformación de CSV a JSON dentro del CsvParserService.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/ingest/csv-parser.service.ts)
 
 #### 2.3 Módulos de reportes
 
-El módulo de reportes de SCILIP es el encargado de generar, programar y distribuir automáticamente los informes ejecutivos en formato PDF con los indicadores logísticos de la organización. Está compuesto por los siguientes componentes:
+El módulo de reportes es el encargado de calcular indicadores logísticos y generar automáticamente los informes ejecutivos en formato PDF. La lógica de negocio recae en:
 
-1.  **reports.module.ts:** Es el archivo central que registra y conecta todos los componentes del módulo. Importa el módulo de cola de trabajos BullMQ bajo el nombre reports, integra los módulos de KPIs y Transporte, y exporta los servicios principales.
-    _[Captura de pantalla sugerida: Archivo reports.module.ts con los imports de BullModule, controladores y providers.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/reports/reports.module.ts)
+- **Servicio de Reportes (reports.service.ts):** Contiene toda la lógica matemática y de negocio para construir los reportes (Transporte vs Ventas, Completo de KPIs y Comparativo), calculando estados críticos y resúmenes de cumplimiento.
+  _[Captura de pantalla sugerida: Método principal de generación (ej. generateFullKpiReport) iterando categorías y calculando alertas.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/reports/reports.service.ts)
 
-2.  **reports.controller.ts:** Es el controlador REST que expone los endpoints protegidos con autenticación JWT para la descarga de reportes en PDF.
-    _[Captura de pantalla sugerida: Endpoints GET de descarga de reportes manejando el buffer y cabeceras de respuesta HTTP.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/reports/reports.controller.ts)
+- **Renderizador de PDF (pdf-renderer.service.ts):** Encargado de tomar los datos procesados, generar los gráficos de barras y líneas como imágenes base64, y compilar la plantilla HTML final usando Handlebars y Puppeteer.
+  _[Captura de pantalla sugerida: Lógica de Puppeteer y Handlebars renderizando la plantilla HTML a PDF.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/reports/pdf-renderer.service.ts)
 
-3.  **reports.service.ts:** Es el servicio principal que contiene toda la lógica de negocio para construir los 3 tipos de reportes (Transporte vs Ventas, Completo de KPIs, y Comparativo).
-    _[Captura de pantalla sugerida: Método principal de generación de reporte (ej. generateFullKpiReport) calculando estados críticos o enviando datos al renderer.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/reports/reports.service.ts)
-
-4.  **pdf-generator.service.ts y pdf-renderer.service.ts:** Estos servicios se encargan de generar el PDF utilizando Puppeteer y plantillas Handlebars, y renderizan los reportes completos integrando imágenes base64 y gráficos.
-    _[Captura de pantalla sugerida: Lógica de Puppeteer lanzando el navegador headless, cargando la plantilla HTML y exportando a PDF.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/reports/pdf-renderer.service.ts)
-
-5.  **jobs/report-processor-service.ts y jobs/report-scheduler.service.ts:** Servicios de BullMQ que ejecutan la generación asíncrona en segundo plano y permiten programar reportes mediante expresiones cron.
-    _[Captura de pantalla sugerida: Código del ReportProcessor procesando trabajos de la cola, y del ReportSchedulerService insertando cron jobs.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/reports/jobs/report-processor.service.ts)
+- **Procesador Asíncrono (report-processor.service.ts):** Servicio (worker) de BullMQ que ejecuta de forma segura la generación de reportes en segundo plano para no bloquear el hilo principal de la aplicación.
+  _[Captura de pantalla sugerida: Switch principal del procesador manejando los distintos tipos de reportes de la cola.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/reports/jobs/report-processor.service.ts)
 
 #### 2.4 Conexión con la base de datos (Daniel)
 
-La persistencia de datos del sistema SCILIP se gestiona de forma centralizada y tipo-segura mediante la integración de Prisma ORM sobre un motor relacional PostgreSQL.
+La persistencia de datos del sistema SCILIP se gestiona de forma centralizada y tipo-segura mediante Prisma ORM.
 
-1.  **Configuración del Origen de Datos (schema.prisma):** La especificación técnica del cliente generador y los parámetros de conexión de red delegan la cadena de conexión a variables de entorno para mayor seguridad de la infraestructura.
-    _[Captura de pantalla sugerida: Fragmento de schema.prisma mostrando el datasource db (PostgreSQL) y el uso de env("DATABASE_URL").]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/database/prisma/schema.prisma)
+- **Esquema de Base de Datos (schema.prisma):** Archivo central donde se declaran todos los modelos relacionales (empresas, inventarios, costos, KPIs) y se delega la cadena de conexión a variables de entorno para mayor seguridad.
+  _[Captura de pantalla sugerida: Fragmento de schema.prisma mostrando modelos clave o la conexión al datasource de PostgreSQL.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/database/prisma/schema.prisma)
 
-2.  **Implementación de la Lógica del Servicio (prisma.service.ts):** En el core del backend de NestJS, se ha encapsulado el cliente nativo de Prisma en un servicio inyectable. Este componente intercepta el ciclo de vida de la aplicación automatizando la apertura y el cierre ordenado de los sockets.
-    _[Captura de pantalla sugerida: Clase PrismaService implementando OnModuleInit y OnModuleDestroy para manejar la conexión/desconexión a la base de datos.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/prisma/prisma.service.ts)
-
-3.  **Módulo de Provisión Global (prisma.module.ts):** El servicio de conexión se registra bajo un contenedor global mediante el decorador @Global(), permitiendo compartir la misma instancia de conexión a la base de datos.
-    _[Captura de pantalla sugerida: Definición de PrismaModule exportando PrismaService de manera global en toda la aplicación NestJS.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/prisma/prisma.module.ts)
-
-#### 2.5 Validaciones y seguridad
-
-La seguridad es implementada transversalmente en varios controladores y servicios clave:
-
-- **auth.controller.ts:** Gestiona las solicitudes de login, implementando DTOs validados mediante class-validator para asegurar que los datos cumplan con las restricciones antes de ser procesados.
-  _[Captura de pantalla sugerida: Definición del DTO de login con decoradores de validación de class-validator (ej. @IsEmail, @IsString) o el uso del Body() en el controlador.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/auth/auth.controller.ts)
-
-- **jwt-auth.guard.ts y casl-ability.factory.ts:** Interceptan solicitudes y manejan autorizaciones multicapa exigiendo un JWT válido y validando permisos de acceso (lectura/escritura) de acuerdo con los roles en base a CASL.
-  _[Captura de pantalla sugerida: Fragmento del guard verificando el token o el archivo casl-ability validando reglas detalladas sobre recursos del sistema.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/modules/auth/jwt-auth.guard.ts)
+- **Servicio Global (prisma.service.ts):** Servicio inyectable que automatiza el ciclo de vida de la conexión (apertura y cierre ordenado de sockets) interceptando los eventos principales de la aplicación NestJS.
+  _[Captura de pantalla sugerida: Clase PrismaService implementando OnModuleInit y OnModuleDestroy.]_ [Ver en GitHub](https://github.com/VIGO1205/SCILIP-Sistema-de-Control-de-Indicadores-Log-sticos-y-de-Ingenier-a-de-Procesos/blob/main/backend/api/src/prisma/prisma.service.ts)
 
 ---
 
